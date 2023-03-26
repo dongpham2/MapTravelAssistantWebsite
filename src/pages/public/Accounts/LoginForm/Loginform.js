@@ -24,7 +24,7 @@ export default function Loginform() {
             .required("Mục này không được để trống"),
         })}
       >
-        <Form>
+        <Form autocomplete="off">
           {/* Email */}
           <div className={cx("form-group")}>
             <div className={cx("input-block")}>

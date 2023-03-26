@@ -30,19 +30,6 @@ export default function Container() {
           <div className={cx("form-option")}>
             {form ? (
               <div className={cx("have-account")}>
-                <Loginform />
-                <span>Don’t have an account? </span>
-                <span
-                  className={cx("change-form-btn")}
-                  onClick={() => {
-                    handleChangeForm();
-                  }}
-                >
-                  Sign up
-                </span>
-              </div>
-            ) : (
-              <div className={cx("have-account")}>
                 <RegisterForm />
                 <span className={cx("have-question")}>
                   Do you have an account?
@@ -54,6 +41,19 @@ export default function Container() {
                   }}
                 >
                   Log in
+                </span>
+              </div>
+            ) : (
+              <div className={cx("have-account")}>
+                <Loginform />
+                <span>Don’t have an account? </span>
+                <span
+                  className={cx("change-form-btn")}
+                  onClick={() => {
+                    handleChangeForm();
+                  }}
+                >
+                  Sign up
                 </span>
               </div>
             )}
