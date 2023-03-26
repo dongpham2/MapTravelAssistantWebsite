@@ -1,0 +1,8 @@
+const images = {
+  logoM: require("../../assets/images/small-logo.png"),
+  logoL: require("../../assets/images/big-logo.png"),
+  google: require("../../assets/images/google.png"),
+  facebook: require("../../assets/images/facebook.png"),
+};
+
+export default images;

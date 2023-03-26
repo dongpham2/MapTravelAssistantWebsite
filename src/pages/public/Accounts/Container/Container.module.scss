@@ -1,0 +1,68 @@
+.wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    // position: absolute;
+    text-align: center;
+    z-index: 2;
+}
+.center {
+    width: 585px;
+    max-width: calc(100vw - 32px);
+    min-height: 600px;
+    padding: 8px 16px;
+    position: relative;
+    .header {
+        .logo {
+            max-width: 450px;
+        }
+        
+    }
+    .content {
+        .form-option {
+            .have-account {
+                margin-top: 15px;
+                .change-form-btn{
+                    cursor: pointer;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 19px;
+                        color: #8860D0;
+                }
+                .have-question{
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
+    .another-login {
+        margin-top: 20px;
+    }
+    .another-party {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .form-option {
+            width: 250px;
+            min-width: 160px;
+            display: flex;
+            align-items: center;
+            height: 44px;
+            border-radius: var(--radius-0);
+            border: 1px solid var(--gray-light-color);
+            padding: 5px  15px;
+            margin-top: 20px;
+            cursor: pointer;
+            background-color: var(--white-color);
+            .option-icon {
+                font-size: 2rem;
+                display: flex;
+                margin: auto;
+            }
+            .option-title {
+                flex: 1;
+                font-weight: 500;
+            }
+        }
+    }
+}
