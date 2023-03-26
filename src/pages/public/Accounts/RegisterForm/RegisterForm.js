@@ -18,14 +18,14 @@ export default function RegisterForm() {
         }}
         validationSchema={Yup.object({
           email: Yup.string()
-            .email("Email không hợp lệ")
-            .required("Mục này không được để trống"),
+            .email("Invalid email")
+            .required("This field must have value"),
           password: Yup.string()
-            .min(6, "Mật khẩu phải có ít nhất là 6 ký tự!")
-            .required("Mục này không được để trống!"),
+            .min(6, "At least 6 characters!")
+            .required("This field must have value!"),
           passwordConfirm: Yup.string()
-            .oneOf([Yup.ref("password"), null], "Mật khẩu không trùng khớp!")
-            .required("Mục này không được để trống!"),
+            .oneOf([Yup.ref("password"), null], "Password did not match!")
+            .required("This field must have value!"),
         })}
       >
         <Form>

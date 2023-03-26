@@ -3,6 +3,7 @@ const images = {
   logoL: require("../../assets/images/big-logo.png"),
   google: require("../../assets/images/google.png"),
   facebook: require("../../assets/images/facebook.png"),
+  background_login: require("../../assets/images/background-login.png"),
 };
 
 export default images;
