@@ -4,6 +4,7 @@ const images = {
   google: require("../../assets/images/google.png"),
   facebook: require("../../assets/images/facebook.png"),
   background_login: require("../../assets/images/background-login.png"),
+  avt: require("../../assets/images/avt.jpg"),
 };
 
 export default images;
