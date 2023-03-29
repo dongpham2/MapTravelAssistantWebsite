@@ -1,10 +1,36 @@
 import axios from "axios";
 
-const HttpClient = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com/todos/1",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+// const HttpClient = axios.create({
+//   baseURL: "https://jsonplaceholder.typicode.com/todos/1",
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+// });
+const URL =
+  "https://travel-advisor.p.rapidapi.com/restaurants/list-in-boundary";
 
-export default HttpClient;
+const options = {
+  params: {
+    bl_latitude: "11.847676",
+    tr_latitude: "12.838442",
+    bl_longitude: "109.095887",
+    tr_longitude: "109.149359",
+  },
+  headers: {
+    "X-RapidAPI-Key": "9a0f5973a1msh56159cbbffff44ap1a55bejsn9de23a4f170e",
+    "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
+  },
+};
+
+const getPlacesData = async () => {
+  try {
+    const {
+      data: { data },
+    } = await axios.get(URL, options);
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export default getPlacesData;

@@ -1,0 +1,28 @@
+.wrapper {
+    margin-top: 20px;
+    .header {
+        width: 617px;
+        height: 39px;
+        font-weight: 400;
+        font-size: 32px;
+        line-height: 39px;
+    }
+    .dropdown-form {
+        display: flex;
+        .form-control {
+            .select-form {
+                    margin: 10px 20px 0 0;
+                    background: #FFFFFF;
+                    border-bottom: 1px solid #000;
+                }
+        }
+    }
+    .list {
+        width: 600px;
+            background-color: #ccc;
+            padding: 25px;
+            overflow-y: scroll;
+            max-height: 600px;
+            margin-top: 20px;
+    }
+}

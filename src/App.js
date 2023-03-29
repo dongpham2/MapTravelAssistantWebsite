@@ -5,6 +5,8 @@ import { renderRoutes } from "./utils/route.utils";
 import { ToastContainer } from "react-toastify";
 import config from "./config";
 import ProtectedRoute from "./router/ProtectedRoute";
+import Home from "./pages/public/Home/Home";
+import DefaultLayout from "./layout/DefaultLayout";
 function App() {
   return (
     // const isAuth = useSelector(isAuthSelector);
@@ -28,6 +30,15 @@ function App() {
           {/* PUBLIC ROUTES */}
           {renderRoutes(publicRoutes)}
           <Route>{renderRoutes(publicRoutes)}</Route>
+          {/* NOTE FOUND */}
+          <Route
+            path="*"
+            element={
+              <DefaultLayout>
+                <Home />
+              </DefaultLayout>
+            }
+          />
         </Routes>
       </div>
     </Router>
