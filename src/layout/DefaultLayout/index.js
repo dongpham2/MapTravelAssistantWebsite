@@ -1,8 +1,8 @@
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "./DefaultLayout.module.scss";
-import Footer from "../components/Footer";
 import Header from "../components/Header";
+import Home from "../../pages/public/Home/Home";
 
 const cx = classNames.bind(styles);
 
@@ -11,7 +11,6 @@ function DefaultLayout({ children }) {
     <div className={cx("wrapper")}>
       <Header />
       <div className={cx("container")}>{children}</div>
-      <Footer />
     </div>
   );
 }

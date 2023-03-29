@@ -5,6 +5,7 @@ import Button from "../../../component/Button";
 import { Link } from "react-router-dom";
 import images from "../../../assets/images";
 import Input from "../../../component/Input";
+import config from "../../../config";
 
 const cx = classNames.bind(styles);
 export default function Header() {
@@ -29,9 +30,14 @@ export default function Header() {
             className={cx("icon")}
           ></ion-icon>
         </div>
-        <div className={cx("avatar")}>
+        {/* <div className={cx("avatar")}>
           <img className={cx("avatar-img")} src={images.avt} alt="avt" />
-        </div>
+        </div> */}
+        <Link to={config.routes.home}>
+          <Button login rounded>
+            Login
+          </Button>
+        </Link>
       </div>
     </header>
   );
