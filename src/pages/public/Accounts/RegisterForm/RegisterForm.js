@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import classNames from "classnames/bind";
@@ -8,13 +8,24 @@ import Button from "../../../../component/Button";
 const cx = classNames.bind(styles);
 
 export default function RegisterForm() {
+  const formikRef = useRef(null);
+  // const messageRef = useRef(null);
+  const handleSubmit = () => {
+    if (formikRef.current.isSubmitting) {
+      console.log("Chek login", formikRef.current.values);
+    }
+  };
   return (
     <div className={cx("wrapper")}>
       <Formik
+        innerRef={formikRef}
         initialValues={{
           email: "",
           password: "",
           passwordConfirm: "",
+        }}
+        onSubmit={() => {
+          handleSubmit();
         }}
         validationSchema={Yup.object({
           email: Yup.string()
@@ -71,7 +82,14 @@ export default function RegisterForm() {
               <ErrorMessage name="passwordConfirm" />
             </div>
           </div>
-          <Button primary className={cx("button-form")}>
+          <Button
+            primary
+            className={cx("button-form")}
+            onSubmit={() => {
+              handleSubmit();
+            }}
+            type="submit"
+          >
             Sign Up
           </Button>
         </Form>

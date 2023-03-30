@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import classNames from "classnames/bind";
@@ -14,12 +14,22 @@ export default function Loginform() {
   // const handleNavigateForgotForm = () => {
   //   navigate("/forgotPassword");
   // };
+  const formikRef = useRef(null);
+  const messageRef = useRef(null);
+  const handleSubmit = () => {
+    const { email, password } = formikRef.current.values;
+    console.log("Check login value", email, password);
+  };
   return (
     <div className={cx("wrapper")}>
       <Formik
+        innerRef={formikRef}
         initialValues={{
           email: "",
           password: "",
+        }}
+        onSubmit={() => {
+          handleSubmit();
         }}
         validationSchema={Yup.object({
           email: Yup.string()
@@ -59,8 +69,23 @@ export default function Loginform() {
               <ErrorMessage name="password" />
             </div>
           </div>
+          {/* Hiển thị trạng thái đăng nhập, đăng ký */}
+          {/* <div
+            ref={messageRef}
+            style={{ color: "red", fontSize: "1.4rem" }}
+            className={cx("error-message")}
+          >
+            {messageError}
+          </div> */}
 
-          <Button primary className={cx("button-form")}>
+          <Button
+            primary
+            className={cx("button-form")}
+            onClick={() => {
+              handleSubmit();
+            }}
+            type="submit"
+          >
             Login
           </Button>
         </Form>
