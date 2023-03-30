@@ -5,6 +5,9 @@ import classNames from "classnames/bind";
 import styles from "../FormAccounts.module.scss";
 import Button from "../../../../component/Button";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
+import { auth } from "../../../../service/Firebase/config";
+import { useNavigate } from "react-router";
+import { signInWithEmailAndPassword } from "firebase/auth";
 // import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
@@ -14,12 +17,6 @@ export default function Loginform() {
   // const handleNavigateForgotForm = () => {
   //   navigate("/forgotPassword");
   // };
-  const formikRef = useRef(null);
-  const messageRef = useRef(null);
-  const handleSubmit = () => {
-    const { email, password } = formikRef.current.values;
-    console.log("Check login value", email, password);
-  };
   return (
     <div className={cx("wrapper")}>
       <Formik
@@ -40,11 +37,12 @@ export default function Loginform() {
             .required("This field must have value"),
         })}
       >
-        <Form autocomplete="off">
+        <Form autocomplete="off" onSubmit={handleSubmit}>
           {/* Email */}
           <div className={cx("form-group")}>
             <div className={cx("input-block")}>
-              <Field
+              <input
+                onChange={handleInputs}
                 className={cx("input-text")}
                 name="email"
                 type="email"
@@ -58,11 +56,12 @@ export default function Loginform() {
           {/* password */}
           <div className={cx("form-group")}>
             <div className={cx("input-block")}>
-              <Field
+              <input
                 className={cx("input-text")}
                 name="password"
                 type="password"
                 placeholder="Password"
+                onChange={handleInputs}
               />
             </div>
             <div className={cx("error-message")}>
