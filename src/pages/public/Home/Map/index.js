@@ -10,7 +10,10 @@ export default function Map() {
   return (
     <div className={cx("wrapper")}>
       <googleMapReact
-        bootstrapURLKeys={{ key: "" }}
+        // bootstrapURLKeys={{
+        //   key: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA372PcuJQKYrKADjhHTLLDVcfsoCzF-4M&callback=initMap",
+        // }}
+
         defaultCenter={coordinates}
         center={coordinates}
         defaultZoom={14}
@@ -19,6 +22,16 @@ export default function Map() {
         onChange={""}
         onChildClick={""}
       ></googleMapReact>
+
+      <iframe
+        width="600"
+        height="450"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps/embed/v1/place?key=API_KEY
+    &q=Space+Needle,Seattle+WA"
+      ></iframe>
     </div>
   );
 }

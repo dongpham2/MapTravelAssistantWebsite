@@ -5,6 +5,7 @@ const images = {
   facebook: require("../../assets/images/facebook.png"),
   background_login: require("../../assets/images/background-login.png"),
   avt: require("../../assets/images/avt.jpg"),
+  banner_default: require("../../assets/images/banner-default.jpg"),
 };
 
 export default images;

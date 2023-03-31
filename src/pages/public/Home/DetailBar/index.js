@@ -11,11 +11,28 @@ export default function DetailBar() {
   const [rating, setRating] = useState("");
 
   const places = [
-    { name: "Cool Place" },
-    { name: "Best Beer" },
-    { name: "Best Steak" },
-    { name: "Best Steak" },
-    { name: "Best Steak" },
+    {
+      name: "Cool Place",
+      follower: "2001",
+      address: "122 Le Duan, Hai Chai, Da Nang",
+      firstPrice: "100",
+      lastPrice: "10000",
+      open: "8:00",
+      close: "20:00",
+      phone: "0853390932",
+      desc: "Welcome to our restaurant, where we aim to delight your senses and satisfy your cravings with our delicious and diverse menu. As you enter, you will be greeted by a warm and inviting atmosphere, with soft lighting, cozy seating arrangements, and tasteful decor that exudes a comfortable and sophisticated vibe. Our friendly staff will be ready to welcome you and guide you through our menu, which features a range of culinary delights from different parts of the world. Whether you are in the mood for a hearty breakfast...",
+    },
+    {
+      name: "Hawoa Food",
+      follower: "20000",
+      address: "08-10 Hoàng Hoa Thám, Hai Chai, Da Nang",
+      firstPrice: "50",
+      lastPrice: "200",
+      open: "12:00",
+      close: "22:00",
+      phone: "0356836753",
+      desc: "Welcome to our restaurant, where we aim to delight your senses and satisfy your cravings with our delicious and diverse menu. As you enter, you will be greeted by a warm and inviting atmosphere, with soft lighting, cozy seating arrangements, and tasteful decor that exudes a comfortable and sophisticated vibe. Our friendly staff will be ready to welcome you and guide you through our menu, which features a range of culinary delights from different parts of the world. Whether you are in the mood for a hearty breakfast...",
+    },
   ];
   return (
     <header className={cx("wrapper")}>
