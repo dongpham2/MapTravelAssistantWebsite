@@ -3,11 +3,12 @@
       background-color: var(--white-color);
       margin-bottom: 20px;
       border-radius: 10px;
-      box-shadow: var(--box-shadown-0);
+      padding-bottom: 2px;
       .banner {
          max-width: 600px;
          max-height: 300px;
          margin-bottom: 20px;
+         cursor: pointer;
          img {
             width: 100%;
          }
@@ -22,6 +23,11 @@
          .title{
             font-weight: 600;
          }
+      }
+      .btn {
+         display: flex;
+         justify-content: space-around;
+         margin: 10px 0 10px 67%;
       }
    }
 }

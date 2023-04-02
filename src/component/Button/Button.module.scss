@@ -60,6 +60,21 @@
     }
 }
 
+.secondary {
+    background-image: linear-gradient(rgba(136, 96, 208, 1), rgba(90, 185, 234, 1));
+    color: #fff !important;
+    font-weight: 400;
+    font-size: 16px !important;
+    line-height: 19px;
+    width: 175px;
+    height: 50px;
+    border-radius: 35px !important;
+    &:hover {
+            border-color: var(--primary-color);
+            opacity: 0.9;
+        }
+}
+
 .login {
     width: 90px;
     height: 40px;
@@ -73,9 +88,7 @@
     line-height: 19px;
 }
 
-.secondary {
-    color: var(--text-color);
-}
+
 
 
 

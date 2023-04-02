@@ -13,7 +13,9 @@ export default function Map() {
         // bootstrapURLKeys={{
         //   key: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA372PcuJQKYrKADjhHTLLDVcfsoCzF-4M&callback=initMap",
         // }}
-
+        bootstrapURLKeys={{
+          key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+        }}
         defaultCenter={coordinates}
         center={coordinates}
         defaultZoom={14}

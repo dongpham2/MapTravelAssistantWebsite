@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <header className={cx("wrapper")}>
       <div className={cx("left")}>
-        <Link>
+        <Link to={config.routes.home}>
           <img className={cx("logo")} src={images.logoM} alt="Logo" />
         </Link>
       </div>
