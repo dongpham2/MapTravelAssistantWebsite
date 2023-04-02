@@ -1,39 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./Map.module.scss";
 import googleMapReact from "google-map-react";
-
+import ReactMapGL from "react-map-gl";
 const cx = classNames.bind(styles);
 
 export default function Map() {
-  const coordinates = { lat: 0, lng: 0 };
+  // const coordinates = { lat: 0, lng: 0 };
+  // const [viewport, setViewport] = useState({
+  //   width: "100%",
+  //   height: "100%",
+  //   latitude: 21.0244246,
+  //   longitude: 105.7938072,
+  //   zoom: 16,
+  // });
+  const token =
+    "pk.eyJ1IjoiZG9uZ3BoYW0yIiwiYSI6ImNsZno2Mmw2cDBtOGIzZnFyNGR2cm1qNGcifQ.0n85EbQStBF9pt7JvWn5Dg";
   return (
     <div className={cx("wrapper")}>
-      <googleMapReact
-        // bootstrapURLKeys={{
-        //   key: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA372PcuJQKYrKADjhHTLLDVcfsoCzF-4M&callback=initMap",
-        // }}
-        bootstrapURLKeys={{
-          key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+      <ReactMapGL
+        initialViewState={{
+          longitude: -100,
+          latitude: 40,
+          zoom: 3.5,
         }}
-        defaultCenter={coordinates}
-        center={coordinates}
-        defaultZoom={14}
-        margin={(50, 50, 50, 50)}
-        options={""}
-        onChange={""}
-        onChildClick={""}
-      ></googleMapReact>
-
-      <iframe
-        width="600"
-        height="450"
-        loading="lazy"
-        allowfullscreen
-        referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps/embed/v1/place?key=API_KEY
-    &q=Space+Needle,Seattle+WA"
-      ></iframe>
+        style={{ width: 800, height: 780 }}
+        mapStyle="mapbox://styles/mapbox/streets-v9"
+        mapboxAccessToken={token}
+      ></ReactMapGL>
     </div>
   );
 }
