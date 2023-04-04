@@ -15,6 +15,7 @@ html {
 }
 
 body {
+    
     font-family: var(--font-family);
     font-size: 1.6rem;
     line-height: 1.6;
@@ -25,7 +26,7 @@ body {
 
 :root {
     // Default layout
-    --default-layout-header-height: 70px;
+    --default-layout-header-height: 60px;
     --default-layout-width: 1280px;
     --default-layout-horizontal-spacer: 24px;
     --default-layout-sidebar-width: 220px;
@@ -56,9 +57,9 @@ body {
     // Font-size
     --fs-0: 24px;
     --fs-1: 40px;
-
+    font-style: normal;
     // Font
-    --font-family: 'Roboto', sans-serif;
+    --font-family: 'Inter', sans-serif;
 
     // radius
     --radius-0: 20px;

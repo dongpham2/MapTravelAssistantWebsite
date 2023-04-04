@@ -5,15 +5,7 @@ import googleMapReact from "google-map-react";
 import ReactMapGL from "react-map-gl";
 const cx = classNames.bind(styles);
 
-export default function Map() {
-  // const coordinates = { lat: 0, lng: 0 };
-  // const [viewport, setViewport] = useState({
-  //   width: "100%",
-  //   height: "100%",
-  //   latitude: 21.0244246,
-  //   longitude: 105.7938072,
-  //   zoom: 16,
-  // });
+export default function Map({ setCoordinates, coordinates, setBounds }) {
   const token =
     "pk.eyJ1IjoiZG9uZ3BoYW0yIiwiYSI6ImNsZno2Mmw2cDBtOGIzZnFyNGR2cm1qNGcifQ.0n85EbQStBF9pt7JvWn5Dg";
   return (
@@ -25,8 +17,12 @@ export default function Map() {
           zoom: 3.5,
         }}
         style={{ width: 800, height: 780 }}
-        mapStyle="mapbox://styles/mapbox/streets-v9"
+        mapStyle="mapbox://styles/dongpham2/clg1z1p92005c01mm2dh1zq04"
         mapboxAccessToken={token}
+        onChange={(e) => {
+          console.log("check props", e);
+          setCoordinates({ lat: e.center.lat, lng: e.center.lng });
+        }}
       ></ReactMapGL>
     </div>
   );

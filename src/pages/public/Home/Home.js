@@ -4,16 +4,14 @@ import classNames from "classnames/bind";
 import styles from "./Home.module.scss";
 import DetailBar from "./DetailBar";
 import getPlacesData from "../../../api/googleClientApi";
-// import getPlacesData from "./api";
+
 const cx = classNames.bind(styles);
 export default function Home() {
   const [places, setPlaces] = useState([]);
+  const [coordinates, setCoordinates] = useState({});
+  const [bounds, setBounds] = useState(null);
   useEffect(() => {
     getPlacesData();
-    // .then((data) =>{
-    //   console.log(data);
-    //   setPlaces(data)
-    // })
   }, []);
   return (
     <header className={cx("wrapper")}>
@@ -21,7 +19,11 @@ export default function Home() {
         <DetailBar />
       </div>
       <div className={cx("right")}>
-        <Map />
+        <Map
+          setCoordinates={setCoordinates}
+          coordinates={coordinates}
+          setBounds={setBounds}
+        />
       </div>
     </header>
   );

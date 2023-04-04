@@ -3,6 +3,7 @@ const routes = {
   accounts: "/accounts",
   forgotPassword: "/forgotPassword",
   fanpage: "/fanpage", // Chỗ này truyền /:id nhưng chưa có authen nên để tạm là fanpage
+  profile: "/profile",
 };
 
 export default routes;

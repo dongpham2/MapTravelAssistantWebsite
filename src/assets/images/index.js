@@ -6,6 +6,7 @@ const images = {
   background_login: require("../../assets/images/background-login.png"),
   avt: require("../../assets/images/avt.jpg"),
   banner_default: require("../../assets/images/banner-default.jpg"),
+  profile_banner: require("../../assets/images/profile-banner.png"),
 };
 
 export default images;
