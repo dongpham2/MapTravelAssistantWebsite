@@ -35,10 +35,10 @@ body {
     --navbar-color :linear-gradient(126.94deg, #84CEEB 32.35%, #5AB9EA 71.46%);
     --primary-color: #84CEEB;
     --secondary-color: #5AB9EA;
-    --primary-button: #8860D0;
+    --primary-button: linear-gradient(90deg, #8860D0 0%, #5AB9EA 100%);;
     --white-color: #fff;
     --black-color: #000000;
-    --button-color-linear: rgba(136, 96, 208, 1);
+    // --button-color-linear: rgba(136, 96, 208, 1);
     --background-color-linear: rgba(106, 192, 226, 1);
     --dark-color-0: #425061;
     --gray-color: #D9D9D9;

@@ -52,8 +52,8 @@
 
 .primary {
     color: var(--white-color) !important;
-    background-color: var(--button-color-linear);
-
+    background-image: var(--primary-button);
+    font-weight: 400 !important;
     &:hover {
         border-color: var(--primary-color);
         opacity: 0.9;

@@ -1,6 +1,6 @@
 .wrapper {
     --size: 168px;
-    margin-bottom: 120px;
+    margin-bottom: 140px;
     position: relative;
     display: flex !important;
     .background{
@@ -36,6 +36,16 @@
                 line-height: 44px;
                 font-size: 17px;
             }
+            .start {
+                .start-icon {
+                    cursor: pointer;
+                    transition: color 200ms;
+                }
+            }
         }
     }
+}
+
+input[type="radio"] {
+    display: none
 }

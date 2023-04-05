@@ -1,0 +1,38 @@
+.wrapper {
+    max-width: 1035px;
+    margin: 0 auto;
+    // margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #ccc;
+        padding-top: 20px;
+    .navbar-list {
+        display: flex;
+        width: 100%;
+        .navbar-title {
+            margin-right: 20px;
+            
+        }
+    }
+    .navbar-item-link {
+        font-size: 16px;
+        color: var(--black-color) !important;
+        padding: 6px 0px 6px 24px;
+        font-weight: 400;
+        line-height: 19px;
+        &.active {
+            background-color: var(--primary-button) !important;
+        }
+    }
+    .navbar-option {
+        display: flex;
+        .dot-option {
+            font-weight: 800;
+            border-radius: 10px;
+            font-size: 20px;
+            margin-right: 20px;
+            padding: 0px 11px;
+            background-color: #ccc;
+        }
+    }
+}
