@@ -4,10 +4,10 @@ const routes = {
   forgotPassword: "/forgotPassword",
   profile: "/profile",
   fanpage: "/fanpage/posts", // Chỗ này truyền /:id nhưng chưa có authen nên để tạm là fanpage
-  posts: "/posts",
-  photos: "/photos",
-  videos: "/videos",
-  more: "/more",
+  posts: "/fanpage/posts",
+  photos: "/fanpage/photos",
+  videos: "/fanpage/videos",
+  more: "/fanpage/more",
 };
 
 export default routes;

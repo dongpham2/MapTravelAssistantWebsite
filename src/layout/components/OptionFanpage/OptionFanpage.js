@@ -2,8 +2,8 @@ import React from "react";
 import classNames from "classnames/bind";
 import styles from "./OptionFanpage.module.scss";
 import { NavLink } from "react-router-dom";
-import Button from "../../../../../component/Button";
-import config from "../../../../../config";
+import config from "../../../config";
+import Button from "../../../component/Button";
 
 const cx = classNames.bind(styles);
 
