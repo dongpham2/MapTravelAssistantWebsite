@@ -49,7 +49,7 @@ export default function PlaceDetails({ place }) {
             {place.desc}
           </div>
         </div>
-        <Link to={config.routes.fanpage}>
+        <Link to={config.routes.posts}>
           <Button
             className={cx("btn")}
             secondary

@@ -44,7 +44,6 @@
     border-radius: 999px;
     box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
     border-color: rgba(22, 24, 35, 0.12);
-
     &:hover {
         opacity: 0.9;
     }
@@ -88,9 +87,27 @@
     line-height: 19px;
 }
 
+.bio {
+    color: var(--black-color) !important;
+    background-color: var(--gray-color);
+    font-weight: 600 !important;
+    width: 100%;
+    &:hover {
+        border-color: var(--primary-color);
+        opacity: 0.9;
+    }
 
+}
 
+.cancel {
+    // border: 1p solid #ccc;
+    background-color: #D8DADF;
+    color: var(--black-color);
+}
 
+.saveInput {
+    background-color: var(--secondary-color);
+}
 
 .right {
     float: right;
@@ -103,6 +120,6 @@
 }
 
 .large {
-    padding: 14px 16px;
-    min-width: 140px;
+    min-width: 68px;
+    padding: 3px 7px;
 }

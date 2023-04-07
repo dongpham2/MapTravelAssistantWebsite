@@ -8,7 +8,6 @@ const cx = classNames.bind(styles);
 export default function FanPage() {
   return (
     <div className={cx("wrapper")}>
-      <InforFanpage />
       <Content />
     </div>
   );

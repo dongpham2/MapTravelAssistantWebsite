@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 const NavOptions = [
   {
     title: "Posts",
-    to: config.routes.posts,
+    to: config.routes.fanpage,
     // role: ["owner"],
   },
   {
