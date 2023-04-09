@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
+import {collection, query, where, getDocs, doc, getDoc} from "firebase/firestore"
+import {db} from "../firebase"
 import ChatBox from "../ChatBox";
 import styles from "./ChatList.module.scss";
 
@@ -10,20 +12,47 @@ const cx = classNames.bind(styles);
 export default function ChatList() {
     const[showChatList, setShowChatList] = useState(true);
     const[showchatBox, setShowChatBox] = useState(false);
+    
+    const [username, setUsername] = useState("")
+    const [user, setUser] = useState(null)
+    const [err, setErr] = useState(false)
 
     const handleClose =()=>{
         setShowChatList(false)
     }
+
     const handleOpenUser = () =>{
         setShowChatBox(!showchatBox)
     }
+
+    const handleSearch = async () =>{
+        const q = query(
+            collection(db, "users"), 
+            where("displayName", "==", username)
+        );
+        try{
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) =>{
+            console.log(doc.id, " => ", doc.data());
+            setUser(doc.data())
+        });
+        }catch(err){
+            setErr(true)
+        }
+
+    };
+
+    const handleKey = (e) =>{
+        e.code === "Enter" && handleSearch();
+    }
+
     return (
       <div className={styles.wrapper}>
         {showChatList && (
         <div className={styles.chatlist}>
             {/* Seacrh & Close */}
             <div className={styles.head}>
-                    <input type="text" placeholder="Find a user..." />
+                    <input type="text" placeholder="Find a user..." onKeyDown={handleKey} onChange={e=>setUsername(e.target.value)} />
                 <div className={styles.close} onClick={handleClose} >
                     <ion-icon 
                         name="close-outline"
@@ -33,24 +62,15 @@ export default function ChatList() {
             </div>
             {/* User Info */}
             <div className={styles.userInfo}>
+                {err && <span>User not found</span>}
+                {user &&
                 <div className={styles.userChatInfo} onClick={handleOpenUser} >
-                    <img src="
-                    https://scontent.fdad3-6.fna.fbcdn.net/v/t39.30808-6/339454926_187296963628915_2303563453557099962_n.jpg?stp=dst-jpg_p526x296&_nc_cat=109&ccb=1-7&_nc_sid=5cd70e&_nc_ohc=KRaNQ0i-83wAX8Z3A4G&_nc_ht=scontent.fdad3-6.fna&oh=00_AfCtI4vtNtWpRCkMENiSCCP3_jPTzMCFhnGi6TDV273B-w&oe=6433297E
-                    " alt="" />
-                    <span>Uchiha Haha</span>
+                    <img src={user.photoURL}
+                    alt="" />
+                    <span>{user.displayName}</span>
                 </div>
-                <div className={styles.userChatInfo} onClick={handleOpenUser} >
-                    <img src="
-                    https://scontent.fdad3-6.fna.fbcdn.net/v/t39.30808-6/339454926_187296963628915_2303563453557099962_n.jpg?stp=dst-jpg_p526x296&_nc_cat=109&ccb=1-7&_nc_sid=5cd70e&_nc_ohc=KRaNQ0i-83wAX8Z3A4G&_nc_ht=scontent.fdad3-6.fna&oh=00_AfCtI4vtNtWpRCkMENiSCCP3_jPTzMCFhnGi6TDV273B-w&oe=6433297E
-                    " alt="" />
-                    <span>Uchiha Haha</span>
-                </div>
-                <div className={styles.userChatInfo} onClick={handleOpenUser} >
-                    <img src="
-                    https://scontent.fdad3-6.fna.fbcdn.net/v/t39.30808-6/339454926_187296963628915_2303563453557099962_n.jpg?stp=dst-jpg_p526x296&_nc_cat=109&ccb=1-7&_nc_sid=5cd70e&_nc_ohc=KRaNQ0i-83wAX8Z3A4G&_nc_ht=scontent.fdad3-6.fna&oh=00_AfCtI4vtNtWpRCkMENiSCCP3_jPTzMCFhnGi6TDV273B-w&oe=6433297E
-                    " alt="" />
-                    <span>Uchiha Haha</span>
-                </div>
+                }
+                
             </div>
         </div>)}
             {showchatBox && <ChatBox/>}
