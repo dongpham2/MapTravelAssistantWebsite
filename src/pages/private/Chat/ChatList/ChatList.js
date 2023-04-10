@@ -14,45 +14,58 @@ export default function ChatList() {
     const[showchatBox, setShowChatBox] = useState(false);
     
     const [username, setUsername] = useState("")
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState([])
     const [err, setErr] = useState(false)
+    
+    useEffect(() =>{
+        getAllDocuments()
+    }, [])
 
     const handleClose =()=>{
         setShowChatList(false)
     }
-
     const handleOpenUser = () =>{
         setShowChatBox(!showchatBox)
     }
 
-    const handleSearch = async () =>{
-        const q = query(
-            collection(db, "users"), 
-            where("displayName", "==", username)
-        );
-        try{
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) =>{
-            console.log(doc.id, " => ", doc.data());
-            setUser(doc.data())
+    const getAllDocuments = async () =>{
+        const querySnapshot = await getDocs(collection(db, "users"));
+        const docs = [];
+        querySnapshot.forEach((doc) => {
+          docs.push({ email: doc.email, ...doc.data() });
         });
-        }catch(err){
-            setErr(true)
-        }
-
-    };
-
-    const handleKey = (e) =>{
-        e.code === "Enter" && handleSearch();
+        setUser(docs) ;//console.log(user)
     }
 
+    const handleSearch = async (event) =>{
+        const inputUser = event.target.value.toLowerCase()
+        setErr(false)
+        if(inputUser === ""){
+            getAllDocuments();
+        }
+        else{
+            let docs = [];
+            user.forEach((doc) =>{
+                if(doc.displayName.toLowerCase().includes(inputUser) === true)
+                { 
+                    docs.push({email: doc.email, ...doc})}
+            })
+            if(docs != ""){
+                setUser(docs)
+            }else{setErr(true)}
+        }
+    };
+
+    // const handleKey = (e) =>{
+    //     e.code === "Enter" && handleSearch();
+    // }
     return (
       <div className={styles.wrapper}>
         {showChatList && (
         <div className={styles.chatlist}>
             {/* Seacrh & Close */}
             <div className={styles.head}>
-                    <input type="text" placeholder="Find a user..." onKeyDown={handleKey} onChange={e=>setUsername(e.target.value)} />
+                    <input type="text" placeholder="Find a user..."  onChange={(handleSearch)} />
                 <div className={styles.close} onClick={handleClose} >
                     <ion-icon 
                         name="close-outline"
@@ -63,19 +76,16 @@ export default function ChatList() {
             {/* User Info */}
             <div className={styles.userInfo}>
                 {err && <span>User not found</span>}
-                {user &&
-                <div className={styles.userChatInfo} onClick={handleOpenUser} >
-                    <img src={user.photoURL}
-                    alt="" />
-                    <span>{user.displayName}</span>
-                </div>
-                }
-                
+                {!user ? null :user.map(doc =>(
+                    <div key={doc.email} className={styles.userChatInfo} onClick={handleOpenUser} >
+                        <img src={doc.photoURL}
+                        alt="" />
+                        <span>{doc.displayName}</span>
+                    </div>
+                ))}
             </div>
         </div>)}
             {showchatBox && <ChatBox/>}
-
-        
       </div>
     );
   }
