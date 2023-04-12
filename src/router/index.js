@@ -1,6 +1,6 @@
 import config from "../config";
 import FanPage from "../pages/private/FanPage/FanPage";
-import Profile from "../pages/private/Profile";
+import Profile from "../pages/private/Profile/Profile";
 import Accounts from "../pages/public/Accounts/Accounts";
 // import ForgotPassword from "../pages/public/Accounts/ForgotPassword/ForgotPassword";
 import Home from "../pages/public/Home/Home";

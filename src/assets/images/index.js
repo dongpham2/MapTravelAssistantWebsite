@@ -8,6 +8,7 @@ const images = {
   banner_default: require("../../assets/images/banner-default.jpg"),
   profile_banner: require("../../assets/images/profile-banner.png"),
   follower: require("../../assets/images/follower.png"),
+  avt_default: require("../../assets/images/avatar-default.png"),
 };
 
 export default images;

@@ -1,53 +1,35 @@
 import React, { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./ProfileFanpage.module.scss";
-import Input from "../../../../../../component/Input";
 import Button from "../../../../../../component/Button";
 import { FaStar } from "react-icons/fa";
 import images from "../../../../../../assets/images";
+import Introduction from "./Introduction/Introduction";
+import InputField from "./FormEdit/InputField";
+
 const cx = classNames.bind(styles);
 
 export default function ProfileFanpage() {
   // state controller
-  const [isBio, setIsBio] = useState(false);
+
   const [isEditProfile, setIsEditProfile] = useState(false);
   // state onChange
-  const [money, setMoney] = useState("1000 vnd - 10000 vnd");
-  const [website, setWebsite] = useState();
-  const [gmail, setGmail] = useState();
-  const [phone, setPhone] = useState();
-  // change bio
-  const handleBioChange = () => {
-    setIsBio(!isBio);
-    console.log(isBio);
-  };
+  const [formEditProfile, setFormEditProfile] = useState({
+    money: "1000 vnd - 10000 vnd",
+    website: "@abcrestaurant.vn",
+    gmail: "abcrestaurent@gmail.com",
+    phone: "085 339 0931",
+    follower: "2001 followers",
+  });
+
   // change profile
   const handleEditProfile = () => {
     setIsEditProfile(!isEditProfile);
   };
+
   return (
     <div className={cx("wrapper")}>
-      <div className={cx("header")}>
-        <h3 className={cx("introduce")}>Introduce</h3>
-
-        {!isBio ? (
-          <Button bio onClick={handleBioChange}>
-            Add Bio
-          </Button>
-        ) : (
-          <div className={cx("bio-infor")}>
-            <Input primary />
-            <div className={cx("btn")}>
-              <Button small cancel onClick={handleBioChange}>
-                Cancel
-              </Button>
-              <Button small saveInput>
-                Save
-              </Button>
-            </div>
-          </div>
-        )}
-      </div>
+      <Introduction />
       {/* content */}
       <div className={cx("content")}>
         <div className={cx("start")}>
@@ -55,42 +37,85 @@ export default function ProfileFanpage() {
             return <FaStar size={30} color="#ffc107" />;
           })}
         </div>
-        <div className={cx("input-group")}>
-          <div className={cx("icon")}>
-            <ion-icon name="cash-outline"></ion-icon>
-          </div>
-          <span>10000 VND - 100000 VND</span>
-        </div>
-        <div className={cx("input-group")}>
-          <div className={cx("icon")}>
-            <ion-icon name="globe-outline"></ion-icon>
-          </div>
-          <span>abcrestaurant.vn</span>
-        </div>
-
-        <div className={cx("input-group")}>
-          <div className={cx("icon")}>
-            <ion-icon name="at-outline"></ion-icon>
-          </div>
-          abcrestaurent@gmail.com
-        </div>
-        <div className={cx("input-group")}>
-          <div className={cx("icon")}>
-            <ion-icon name="call-outline"></ion-icon>
-          </div>
-          <span>085 339 0931</span>
-        </div>
-        <div className={cx("input-group")}>
-          <div className={cx("icon")}>
-            <img src={images.follower} alt="follower" />
-          </div>
-          <span>2001 followers</span>
-        </div>
+        {!isEditProfile ? (
+          <>
+            <div className={cx("input-group")}>
+              <span className={cx("icon")}>
+                <ion-icon name="cash-outline"></ion-icon>
+              </span>
+              <div className={cx("detail")}>{formEditProfile.money} </div>
+            </div>
+            <div className={cx("input-group")}>
+              <span className={cx("icon")}>
+                <ion-icon name="globe-outline"></ion-icon>
+              </span>
+              <div className={cx("detail")}>{formEditProfile.website} </div>
+            </div>
+            <div className={cx("input-group")}>
+              <span className={cx("icon")}>
+                <ion-icon name="at-outline"></ion-icon>
+              </span>
+              <div className={cx("detail")}>{formEditProfile.gmail} </div>
+            </div>
+            <div className={cx("input-group")}>
+              <span className={cx("icon")}>
+                <ion-icon name="call-outline"></ion-icon>
+              </span>
+              <div className={cx("detail")}>{formEditProfile.phone} </div>
+            </div>
+            <div className={cx("input-group")}>
+              <span className={cx("icon")}>
+                <img src={images.follower} alt="follower" />
+              </span>
+              <div className={cx("detail")}>{formEditProfile.follower} </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <InputField
+              icon={<ion-icon name="cash-outline"></ion-icon>}
+              type="text"
+              value={formEditProfile.money}
+            />
+            <InputField
+              icon={<ion-icon name="globe-outline"></ion-icon>}
+              type="text"
+              value={formEditProfile.website}
+            />
+            <InputField
+              icon={<ion-icon name="at-outline"></ion-icon>}
+              type="text"
+              value={formEditProfile.gmail}
+            />
+            <InputField
+              icon={<ion-icon name="call-outline"></ion-icon>}
+              type="text"
+              value={formEditProfile.phone}
+            />
+            <InputField
+              icon={<img src={images.follower} alt="follower" />}
+              type="text"
+              value={formEditProfile.follower}
+            />
+          </>
+        )}
       </div>
-      <Input />
-      <Button bio onClick={handleEditProfile}>
-        Edit Profile
-      </Button>
+      {!isEditProfile ? (
+        <>
+          <Button bio onClick={handleEditProfile}>
+            Edit Profile
+          </Button>
+        </>
+      ) : (
+        <div className={cx("btn")}>
+          <Button small cancel onClick={handleEditProfile}>
+            Cancel
+          </Button>
+          <Button small saveInput>
+            Save
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
