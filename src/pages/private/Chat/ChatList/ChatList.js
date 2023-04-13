@@ -4,6 +4,7 @@ import {collection, query, where, getDocs, getDoc, doc, setDoc, updateDoc, serve
 import {db} from "../firebase"
 import ChatBox from "../ChatBox";
 import styles from "./ChatList.module.scss";
+import { ChatContext } from "../context/ChatContext";
 // import {AuthContext} from "../context/Authcontext"
 
 // import DetailBar from "./DetailBar";
@@ -19,6 +20,7 @@ export default function ChatList() {
     const [users, setUsers] = useState([])
     const [err, setErr] = useState(false)
     const [selectedUser, setSelectedUser] = useState(null);
+    const {dispatch} = useContext(ChatContext)
 
     const currentUser = {
         uid : "IrzDfxSJZQO1cn4zDd1zZCh6DZ42", 
@@ -97,7 +99,7 @@ export default function ChatList() {
         }catch(err){}
         // setUser(null);
         // setUsername("")
-        setShowChatBox(!showchatBox)
+        dispatch({type:"CHANGE_USER", payload: user})
     };
 
     const getAllDocuments = async () =>{
@@ -127,7 +129,6 @@ export default function ChatList() {
             }else{setErr(true)}
         }
     };
-
     // const handleKey = (e) =>{
     //     e.code === "Enter" && handleSearch();
     // }
@@ -144,9 +145,7 @@ export default function ChatList() {
                         // value={username}
                         />
                 <div className={styles.close} onClick={handleClose} >
-                    <ion-icon 
-                        name="close-outline"
-                        ></ion-icon>
+                    Close
                 </div>
                 
             </div>
@@ -163,7 +162,7 @@ export default function ChatList() {
                 ))}
             </div>
         </div>)}
-            {showchatBox && <ChatBox/>}
+            <ChatBox/>
       </div>
     );
   }

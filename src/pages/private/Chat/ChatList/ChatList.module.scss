@@ -1,45 +1,42 @@
 .wrapper{
-    background-color: green;
+    // background-color: green;
     
     display: flex;
-    margin-left: 10px;
+    // margin-left: 10px;
     position: fixed;
     bottom: 0px;
     margin-bottom: 0px;
-    right: 10px;
+    right: 5px;
 
 
     .chatlist{
         width: 350px;
-        height: 800px;
+        height: 460px;
         display: flex;
         flex-direction: column;
-        background-color: #F0F2F5;
-        box-shadow: -2px 0px 2px rgba(0, 0, 0, 0.25);
-       
+        background-color: #fff;
+        box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.25);
+       border-radius: 0px 10px 0px 0px;
 
         .head{
             height: 45px;
             display: flex;
+            padding: 10px;
             align-items: center;
             justify-content: space-between;
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
             input{
-                width: 315px;
+                width: 300px;
                 padding-left: 10px;
-                background-color: #F0F2F5;
+                background-color: white;
             }
             .close{
+                cursor: pointer;
                 display: flex;
                 justify-content: center;
-                ion-icon{
-                    margin-right:0px;
-                    font-size:30px;
-                    border-radius: 50%;
-                    cursor: pointer;
-                        &:hover{
-                            background-color: #d9d9d9;
-                        }   
+                padding: 0px 5px 0px 5px;
+                &:hover{
+                    color: red;
                 }
             }
             
@@ -55,10 +52,11 @@
                 cursor: pointer;
                 display: flex;
                 align-items: center;
-                width: 350px;
+                width: 100%;
                 height: 45px;
                 &:hover{
                     background-color: #d9d9d9;
+                    border-radius: 5px;
                 }
                 img{
                     width: 30px;
