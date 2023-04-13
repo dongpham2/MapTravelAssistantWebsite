@@ -9,11 +9,12 @@ import VideosPage from "../pages/private/FanPage/components/PageInFanpage/compon
 import Posts from "../pages/private/FanPage/components/PageInFanpage/components/Posts/Posts";
 import More from "../pages/private/FanPage/components/PageInFanpage/components/More/More";
 import FanpageLayout from "../layout/FanpageLayout";
+import SettingLayout from "src/layout/SettingLayout";
 
 export const publicRoutes = [
   { path: config.routes.home, component: Home },
   { path: config.routes.accounts, component: Accounts, layout: null },
-  { path: config.routes.profile, component: Profile },
+  { path: config.routes.profile, component: Profile, layout: SettingLayout },
   { path: config.routes.fanpage, component: FanPage, layout: FanpageLayout },
   { path: config.routes.posts, component: Posts, layout: FanpageLayout },
   { path: config.routes.photos, component: Photos, layout: FanpageLayout },

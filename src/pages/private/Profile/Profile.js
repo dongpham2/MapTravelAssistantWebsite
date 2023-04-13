@@ -4,6 +4,8 @@ import classNames from "classnames/bind";
 import { Col, Row } from "react-bootstrap";
 import InputField from "../FanPage/Content/components/ProfileFanpage/FormEdit/InputField";
 import FormUpload from "./FormUpload/FormUpload";
+import Button from "src/component/Button";
+import SettingOptions from "src/layout/components/SettingOptions/SettingOptions";
 const cx = classNames.bind(styles);
 export default function Profile() {
   const [profileDetail, setProfileDetail] = useState({
@@ -14,10 +16,6 @@ export default function Profile() {
   });
   return (
     <div className={cx("wrapper")}>
-      <div className={cx("left")}>
-        <div>My Fanpage</div>
-        <div>Change password</div>
-      </div>
       <div className={cx("right")}>
         <h2 className={cx("heading")}>Profile</h2>
         <div className={cx("form-group-left")}>

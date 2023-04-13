@@ -20,6 +20,7 @@ export default function RegisterForm() {
       <Formik
         innerRef={formikRef}
         initialValues={{
+          name: "",
           email: "",
           password: "",
           passwordConfirm: "",
@@ -28,9 +29,13 @@ export default function RegisterForm() {
           handleSubmit();
         }}
         validationSchema={Yup.object({
+          name: Yup.string()
+            .min(2, "Too Short!")
+            .max(50, "Too Long!")
+            .required("This field must have value!"),
           email: Yup.string()
             .email("Invalid email")
-            .required("This field must have value"),
+            .required("This field must have value!"),
           password: Yup.string()
             .min(6, "At least 6 characters!")
             .required("This field must have value!"),
@@ -40,6 +45,20 @@ export default function RegisterForm() {
         })}
       >
         <Form>
+          {/* Name */}
+          <div className={cx("form-group")}>
+            <div className={cx("input-block")}>
+              <Field
+                className={cx("input-text")}
+                name="name"
+                type="name"
+                placeholder="Fullname"
+              />
+            </div>
+            <div className={cx("error-message")}>
+              <ErrorMessage name="name" />
+            </div>
+          </div>
           {/* Email */}
           <div className={cx("form-group")}>
             <div className={cx("input-block")}>

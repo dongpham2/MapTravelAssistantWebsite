@@ -42,11 +42,13 @@ export default function InputField({ isLabel, label, icon, type, value }) {
           <Col className={cx("form-group-right")} md={{ offset: 1 }}>
             {visibleUpdate ? (
               <div className={cx("btn")}>
-                <Button rounded type="submit" primary>
+                <Button rounded type="submit" saveInput small>
                   Save
                 </Button>
                 <Button
                   rounded
+                  cancel
+                  small
                   onClick={() => {
                     setVisibleUpdate(false);
                     setInputValue(value);
@@ -60,7 +62,7 @@ export default function InputField({ isLabel, label, icon, type, value }) {
             ) : (
               <Button
                 type="button"
-                secondary
+                edit
                 rounded
                 small
                 onClick={() => {

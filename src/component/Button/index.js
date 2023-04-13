@@ -20,11 +20,11 @@ function Button({
   bio = false,
   small = false,
   large = false,
+  edit = false,
   children,
   className,
   leftIcon,
   rightIcon,
-  right,
   secondary,
   white,
   onClick,
@@ -58,6 +58,7 @@ function Button({
     primary,
     login,
     secondary,
+    edit,
     saveInput,
     text,
     disabled,
@@ -66,7 +67,6 @@ function Button({
     bio,
     small,
     large,
-    right,
   });
 
   return (
@@ -83,6 +83,7 @@ Button.propTypes = {
   href: PropTypes.string,
   primary: PropTypes.bool,
   bio: PropTypes.bool,
+  edit: PropTypes.bool,
   login: PropTypes.bool,
   outline: PropTypes.bool,
   cancel: PropTypes.bool,

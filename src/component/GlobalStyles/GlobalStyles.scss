@@ -26,7 +26,7 @@ body {
 
 :root {
     // Default layout
-    --default-layout-header-height: 60px;
+    --default-layout-header-height: 100px;
     --default-layout-width: 1280px;
     --default-layout-horizontal-spacer: 24px;
     --default-layout-sidebar-width: 220px;
@@ -53,6 +53,7 @@ body {
     --desc-color: #0000008a;
     --save-color: #90a399;
     --transparent-color: hsla(0, 0%, 100%, 0.8);
+    
 
     // Font-size
     --fs-0: 24px;

@@ -69,12 +69,12 @@ export default function FormUpload({ label, data }) {
               <div className={cx("btn")}>
                 {/* {visibleControls ? ( */}
                 <div className={cx("controls")}>
-                  <Button rounded type="submit">
+                  <Button rounded type="submit" saveInput small>
                     Save
                   </Button>
                   <Button
                     type="button"
-                    secondary
+                    cancel
                     rounded
                     small
                     onClick={() => {
