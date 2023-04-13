@@ -7,9 +7,6 @@ import styles from "./ChatList.module.scss";
 import { ChatContext } from "../context/ChatContext";
 // import {AuthContext} from "../context/Authcontext"
 
-// import DetailBar from "./DetailBar";
-// import getPlacesData from "../../../api/googleClientApi";
-// import getPlacesData from "./api";
 const cx = classNames.bind(styles);
 export default function ChatList() {
 
@@ -39,13 +36,11 @@ export default function ChatList() {
     const handleOpenUser = async(user) =>{
         setSelectedUser(user);
         //check group chat exist if not create
-        // console.log(user.uid)
         const combinedId = currentUser.uid > user.uid 
         ? currentUser.uid + user.uid 
         : user.uid + currentUser.uid
         try{
             const res = await getDoc(doc(db, "chats", combinedId));
-            // console.log(res)
             if(!res.exists() ){
                 await setDoc(doc(db, "chats", combinedId), {messages:[]})
                 console.log("aa")
@@ -161,8 +156,8 @@ export default function ChatList() {
                     </div>
                 ))}
             </div>
-        </div>)}
             <ChatBox/>
+        </div>)}
       </div>
     );
   }
