@@ -1,3 +1,12 @@
 .wrapper {
-    padding: 10px;
+    display: flex;
+    padding: 12px 16px 10px;
+    .avatar {
+        margin-right: 5px;
+        .img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+    }
 }

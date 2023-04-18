@@ -9,8 +9,12 @@ export default function Content() {
   return (
     <div className={cx("wrapper")}>
       <div className={cx("container")}>
-        <ProfileFanpage />
-        <PostFanpage />
+        <div className={cx("profile")}>
+          <ProfileFanpage />
+        </div>
+        <div className={cx("post")}>
+          <PostFanpage />
+        </div>
       </div>
     </div>
   );

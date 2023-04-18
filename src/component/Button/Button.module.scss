@@ -115,9 +115,27 @@
     color: #8860D0 !important;
 }
 
+.articlePrimary {
+    color: var(--white-color) !important;
+    background-image: var(--primary-button);
+    height: 40px;
+    width: 100%;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 500;
+}
 
-    
-
+.articleSecondary {
+    background-color: #E4E6E9;
+        height: 40px;
+        width: 100%;
+        color: #65676B;
+        border-radius: 20px;
+        font-size: 15px;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        font-weight: 500;
+}
 // Button sizes
 .small {
     min-width: 88px;

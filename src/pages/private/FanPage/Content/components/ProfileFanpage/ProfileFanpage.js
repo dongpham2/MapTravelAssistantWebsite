@@ -17,7 +17,7 @@ export default function ProfileFanpage() {
   const [formEditProfile, setFormEditProfile] = useState({
     money: "1000 vnd - 10000 vnd",
     website: "@abcrestaurant.vn",
-    gmail: "abcrestaurent@gmail.com",
+    time: "7:00 am - 9:00 pm",
     phone: "085 339 0931",
     follower: "2001 followers",
   });
@@ -55,7 +55,7 @@ export default function ProfileFanpage() {
               <span className={cx("icon")}>
                 <ion-icon name="at-outline"></ion-icon>
               </span>
-              <div className={cx("detail")}>{formEditProfile.gmail} </div>
+              <div className={cx("detail")}>{formEditProfile.time} </div>
             </div>
             <div className={cx("input-group")}>
               <span className={cx("icon")}>
@@ -83,9 +83,9 @@ export default function ProfileFanpage() {
               value={formEditProfile.website}
             />
             <InputField
-              icon={<ion-icon name="at-outline"></ion-icon>}
+              icon={<ion-icon name="time-outline"></ion-icon>}
               type="text"
-              value={formEditProfile.gmail}
+              value={formEditProfile.time}
             />
             <InputField
               icon={<ion-icon name="call-outline"></ion-icon>}
