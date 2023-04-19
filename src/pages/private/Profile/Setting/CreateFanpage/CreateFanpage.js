@@ -110,11 +110,11 @@ export default function CreateFanpage() {
             </div>
           </div>
           <div className={cx("time-group")}>
-            <div className={cx("open")}>
+            <div className={cx("time")}>
               Open <DataTime />
             </div>
 
-            <div className={cx("close")}>
+            <div className={cx("time")}>
               Close
               <DataTime />
             </div>
