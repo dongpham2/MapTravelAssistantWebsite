@@ -1,15 +1,16 @@
 .wrapper {
     margin-top: 20px;
-    
     .header {
         width: 617px;
         height: 39px;
         font-weight: 400;
         font-size: 32px;
         line-height: 39px;
+        margin-bottom: 5px;
     }
     .dropdown-form {
         display: flex;
+        margin-top: 15px;
         .form-control {
             .select-form {
                     margin: 10px 20px 0 0;

@@ -10,11 +10,29 @@ import Posts from "../pages/private/FanPage/components/PageInFanpage/components/
 import More from "../pages/private/FanPage/components/PageInFanpage/components/More/More";
 import FanpageLayout from "../layout/FanpageLayout";
 import SettingLayout from "src/layout/SettingLayout";
+import CreateFanpage from "src/pages/private/Profile/Setting/CreateFanpage/CreateFanpage";
+import Notification from "src/pages/private/Profile/Setting/Notification/Notification";
+import ChangePassword from "src/pages/private/Profile/Setting/ChangePassword/ChangePassword";
 
 export const publicRoutes = [
   { path: config.routes.home, component: Home },
   { path: config.routes.accounts, component: Accounts, layout: null },
+  {
+    path: config.routes.notification,
+    component: Notification,
+    layout: SettingLayout,
+  },
+  {
+    path: config.routes.changePassword,
+    component: ChangePassword,
+    layout: SettingLayout,
+  },
   { path: config.routes.profile, component: Profile, layout: SettingLayout },
+  {
+    path: config.routes.createFanpage,
+    component: CreateFanpage,
+    layout: SettingLayout,
+  },
   { path: config.routes.fanpage, component: FanPage, layout: FanpageLayout },
   { path: config.routes.posts, component: Posts, layout: FanpageLayout },
   { path: config.routes.photos, component: Photos, layout: FanpageLayout },

@@ -14,9 +14,19 @@ export default function FormUpload({ label, data }) {
     data: "",
   });
 
-  const handleChangeFile = (e) => {
-    e.preventDefault();
+  const handleChangeFile = async (e) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    };
+    setFile(img);
     setVisibleControls(true);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // const formData = new FormData();
+    // formData.append("file", file.data, "file");
   };
   return (
     <div className={cx("wrapper")}>
@@ -24,7 +34,7 @@ export default function FormUpload({ label, data }) {
         <label className={cx("form-group-label")} htmlFor="">
           {label}
         </label>
-        <form encType="multipart/form-data">
+        <form encType="multipart/form-data" onSubmit={handleSubmit}>
           <div className={cx("input-file-img")}>
             <div className={cx("input-file-block")}>
               <div className={cx("preview-img-block")}>
@@ -62,28 +72,30 @@ export default function FormUpload({ label, data }) {
               </label>
             </div>
             <div className={cx("btn")}>
-              {/* {visibleControls ? ( */}
-              <div className={cx("controls")}>
-                <Button rounded type="submit" saveInput small>
-                  Save
-                </Button>
-                <Button
-                  type="button"
-                  cancel
-                  rounded
-                  small
-                  onClick={() => {
-                    setFile({
-                      preview: "",
-                      data: "",
-                    });
-                    setVisibleControls(false);
-                  }}
-                >
-                  Cancel
-                </Button>
-              </div>
-              {/* ) : ( "" )} */}
+              {visibleControls ? (
+                <div className={cx("controls")}>
+                  <Button rounded type="submit" saveInput small>
+                    Save
+                  </Button>
+                  <Button
+                    type="button"
+                    cancel
+                    rounded
+                    small
+                    onClick={() => {
+                      setFile({
+                        preview: "",
+                        data: "",
+                      });
+                      setVisibleControls(false);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </form>

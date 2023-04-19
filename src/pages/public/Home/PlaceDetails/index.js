@@ -16,7 +16,7 @@ export default function PlaceDetails({ place }) {
             <img src={images.banner_default} alt="" />
           </Link>
         </div>
-        <div className={cx("title")}>{place.name}</div>
+        <div className={cx("name")}>{place.name}</div>
         <div className={cx("desc-card")}>
           <div className={cx("title")}>sao</div>
           <div className={cx("ratting-follower")}>

@@ -1,4 +1,8 @@
-const initState = {};
+import { _ACTION_LOGIN, __ACTION_SIGNUP } from "../actions/authen";
+
+const initState = {
+  auth: {},
+};
 
 const rootReducer = (state = initState, action) => {
   switch (action.type) {
@@ -6,7 +10,16 @@ const rootReducer = (state = initState, action) => {
       return {
         ...state,
       };
-
+    case _ACTION_LOGIN:
+      return {
+        ...state,
+        auth: action.payload,
+      };
+    case __ACTION_SIGNUP:
+      return {
+        ...state,
+        auth: action.payload,
+      };
     default:
   }
 };

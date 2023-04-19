@@ -4,15 +4,18 @@ import * as Yup from "yup";
 import classNames from "classnames/bind";
 import styles from "../FormAccounts.module.scss";
 import Button from "../../../../component/Button";
+import { useDispatch } from "react-redux";
+import { actionSignup } from "src/redux/actions/authen";
 
 const cx = classNames.bind(styles);
 
 export default function RegisterForm() {
+  const dispatch = useDispatch();
   const formikRef = useRef(null);
   // const messageRef = useRef(null);
   const handleSubmit = () => {
     if (formikRef.current.isSubmitting) {
-      console.log("Chek login", formikRef.current.values);
+      dispatch(actionSignup(formikRef.current.isSubmitting));
     }
   };
   return (

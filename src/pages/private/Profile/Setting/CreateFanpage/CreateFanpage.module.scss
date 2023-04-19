@@ -1,0 +1,38 @@
+.wrapper {
+    --size: 40px;
+    height: 100vh;
+    padding: 0px 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    .heading {
+        width: 100%;
+        margin-top: var(--size);
+        font-size: 30px;
+        margin-bottom: 5px;
+    }
+    .form-group {
+        width: 100%;
+        .input-block {
+            .input-desc {
+                margin-bottom: 5px;
+            }
+            .input-text {
+                width: 100%;
+                border-radius: 20px;
+                border: 1px solid #ccc;
+                height: 40px;
+                padding: 10px;
+            }
+            .error-message {
+                color: var(--red-color);
+                font-size: 1.2rem;
+                padding-left: 10px;
+                text-align: left;
+                margin-bottom: 20px;
+            }
+        }
+    }
+    .time-group {
+        display: flex;
+    }
+}

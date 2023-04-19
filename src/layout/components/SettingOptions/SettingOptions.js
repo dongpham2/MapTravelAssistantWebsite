@@ -8,20 +8,26 @@ const cx = classNames.bind(styles);
 
 const sideOptions = [
   {
-    title: "Fanpage",
+    title: "Profile",
     to: config.routes.profile,
     // role: ["owner"],
     icon: <ion-icon name="person-outline"></ion-icon>,
   },
   {
+    title: "Your Fanpage",
+    to: config.routes.createFanpage,
+    // role: ["owner"],
+    icon: <ion-icon name="logo-mastodon"></ion-icon>,
+  },
+  {
     title: "Change Passsword",
-    // to: config.routes.photos,
+    to: config.routes.changePassword,
     // role: ["owner"],
     icon: <ion-icon name="shield-half-outline"></ion-icon>,
   },
   {
     title: "Notifications",
-    // to: config.routes.videos,
+    to: config.routes.notification,
     // role: ["owner"],
     icon: <ion-icon name="notifications-outline"></ion-icon>,
   },
