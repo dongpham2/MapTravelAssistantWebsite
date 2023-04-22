@@ -4,38 +4,7 @@ import styles from "./DetailBar.module.scss";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import PlaceDetails from "../PlaceDetails";
-import DropDown from "src/component/Input/DropDown/DropDown";
 const cx = classNames.bind(styles);
-
-const dataPlaces = [
-  {
-    value: 1,
-    name: "Restaurant",
-  },
-  {
-    value: 2,
-    name: "Coffee House",
-  },
-  {
-    value: 3,
-    name: "Street Food",
-  },
-];
-
-const dataRatting = [
-  {
-    value: 101,
-    name: "Above 3.0",
-  },
-  {
-    value: 102,
-    name: "Above 4.0",
-  },
-  {
-    value: 103,
-    name: "Above 4.5",
-  },
-];
 
 export default function DetailBar() {
   const [type, setType] = useState("restaurants");
@@ -67,14 +36,39 @@ export default function DetailBar() {
   ];
   return (
     <header className={cx("wrapper")}>
-      <h3 className={cx("heading")}>Food & Drink around you </h3>
-      <div className={cx("type")}>Type</div>
-      <div className={cx("option-place")}>
-        <div className={cx("places")}>
-          <DropDown title="Places" data={dataPlaces} />
+      <h4 className={cx("header")}> Restaurants & Cofffee House around you </h4>
+      <div className={cx("dropdown-form")}>
+        <div className={cx("form-control")}>
+          <div className={cx("form-title")}>
+            <label>Type</label>
+          </div>
+          <select
+            value={type}
+            onChange={(e) => {
+              setType(e.target.value);
+            }}
+            className={cx("select-form")}
+          >
+            <option>Restaurants</option>
+            <option>Coffe house</option>
+          </select>{" "}
         </div>
-        <div className={cx("ratting")}>
-          <DropDown title="Ratting" data={dataRatting} />
+        <div className={cx("form-control")}>
+          <div className={cx("form-title")}>
+            <label>Rating</label>
+          </div>
+          <select
+            value={rating}
+            onChange={(e) => {
+              setType(e.target.value);
+            }}
+            className={cx("select-form")}
+          >
+            <option value={0}>All</option>
+            <option value={3}>Above 3.0</option>
+            <option value={4}>Above 4.0</option>
+            <option value={4.5}>Above 4.5</option>
+          </select>
         </div>
       </div>
       <Row className={cx("list")}>

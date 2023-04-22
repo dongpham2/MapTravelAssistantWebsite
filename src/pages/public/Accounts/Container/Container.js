@@ -67,13 +67,13 @@ export default function Container() {
         <div className={cx("another-party")}>
           <div className={cx("form-option")}>
             <div className={cx("option-icon")}>
-              <img src={images.google} className={cx("icon")} />
+              <img src={images.google} />
             </div>
             <span className={cx("option-title")}>Continue with Google</span>
           </div>
           <div className={cx("form-option")}>
             <div className={cx("option-icon")}>
-              <img src={images.facebook} className={cx("icon")} />
+              <img src={images.facebook} />
             </div>
             <span className={cx("option-title")}>Continue with Facebook</span>
           </div>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
 import classNames from "classnames/bind";
-import Draggable from 'react-draggable';
  
 import styles from "./ChatBox.module.scss";
 import { ChatContext } from "./context/ChatContext";

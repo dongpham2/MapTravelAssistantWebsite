@@ -1,26 +1,29 @@
 .wrapper {
-    .heading {
+    margin-top: 20px;
+    
+    .header {
+        width: 617px;
+        height: 39px;
+        font-weight: 400;
         font-size: 32px;
-        font-weight: 500;
-        margin-bottom: 10px;
-        
+        line-height: 39px;
     }
-    .type {
-        margin-bottom: 5px;
-    }
-    .option-place {
+    .dropdown-form {
         display: flex;
-        justify-content: space-between;
-        width: 300px;
+        .form-control {
+            .select-form {
+                    margin: 10px 20px 0 0;
+                    background: #FFFFFF;
+                    border-bottom: 1px solid #000;
+                }
+        }
     }
     .list {
-        width: 500px;
+        width: 600px;
         background-color: #eeee;
         padding: 5px 0px;
         overflow-y: scroll;
         max-height: 600px;
         margin-top: 20px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
     }
 }

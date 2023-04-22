@@ -33,10 +33,7 @@ function Input({
   return (
     <div className={classes}>
       {leftIcon && (
-        <span
-          style={{ paddingLeft: "20px", cursor: "pointer" }}
-          className={cx("icon")}
-        >
+        <span style={{ paddingLeft: "20px" }} className={cx("icon")}>
           {leftIcon}
         </span>
       )}
@@ -44,10 +41,7 @@ function Input({
         {children}
       </input>
       {rightIcon && (
-        <span
-          style={{ paddingRight: "20px", cursor: "pointer" }}
-          className={cx("icon")}
-        >
+        <span style={{ paddingRight: "20px" }} className={cx("icon")}>
           {rightIcon}
         </span>
       )}

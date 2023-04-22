@@ -1,20 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
 import Button from "../../../component/Button";
 import { Link } from "react-router-dom";
 import images from "../../../assets/images";
-import Input from "../../../component/Input/Input";
+import Input from "../../../component/Input";
 import config from "../../../config";
-import UserOptions from "./UserOptions";
 
 const cx = classNames.bind(styles);
 export default function Header() {
-  const [isVisibleUserOptions, setIsVisibleUserOptions] = useState(false);
-
-  // const toggleUserOptions = () => {
-  //   setIsVisibleUserOptions(!isVisibleUserOptions);
-  // };
   return (
     <header className={cx("wrapper")}>
       <div className={cx("left")}>
@@ -36,16 +30,10 @@ export default function Header() {
             className={cx("icon")}
           ></ion-icon>
         </div>
-        {/* <div
-          className={cx("avatar")}
-          onClick={() => {
-            toggleUserOptions();
-          }}
-        >
+        {/* <div className={cx("avatar")}>
           <img className={cx("avatar-img")} src={images.avt} alt="avt" />
-        </div>
-        {isVisibleUserOptions ? <UserOptions /> : ""} */}
-        <Link to={config.routes.accounts}>
+        </div> */}
+        <Link to={config.routes.home}>
           <Button login rounded>
             Login
           </Button>

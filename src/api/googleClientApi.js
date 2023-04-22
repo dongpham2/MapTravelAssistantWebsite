@@ -1,5 +1,11 @@
 import axios from "axios";
 
+// const HttpClient = axios.create({
+//   baseURL: "https://jsonplaceholder.typicode.com/todos/1",
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+// });
 const URL =
   "https://travel-advisor.p.rapidapi.com/restaurants/list-in-boundary";
 
@@ -15,14 +21,15 @@ const options = {
     "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
   },
 };
+
 const getPlacesData = async () => {
   try {
     const {
       data: { data },
     } = await axios.get(URL, options);
     return data;
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
   }
 };
 
