@@ -1,16 +1,43 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./CreateFanpage.module.scss";
 import classNames from "classnames/bind";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Button from "src/component/Button";
 import DataTime from "src/component/DateTime/DataTime";
+import Input from "src/component/Input/Input";
+import DropDown from "src/component/Input/DropDown/DropDown";
+import TextEditor from "src/component/EditorText/EditorText";
 
 const cx = classNames.bind(styles);
+const pricesValue = [
+  {
+    value: "1",
+    name: "VND",
+  },
+  {
+    value: "2",
+    name: "USA",
+  },
+  {
+    value: "3",
+    name: "EUR",
+  },
+  {
+    value: "4",
+    name: "Yen",
+  },
+  {
+    value: "5",
+    name: "Won",
+  },
+];
+
 export default function CreateFanpage() {
   const formikRef = useRef(null);
   const messageRef = useRef(null);
-
+  const [time, setTime] = useState("12:00");
+  const [content, setContent] = useState("");
   const handleCreatePage = () => {
     // const { name, description, phone, website } = formikRef.current.values;
     // console.log(name, description, phone, website);
@@ -52,8 +79,8 @@ export default function CreateFanpage() {
           <div className={cx("form-group")}>
             <div className={cx("input-block")}>
               <div className={cx("input-desc")}>
-                Your Page is where people go to learn more about you. Make sure
-                yours has all the information they may need.
+                (*) Your Page is where people go to learn more about you. Make
+                sure yours has all the information they may need.
               </div>
               <Field
                 className={cx("input-text")}
@@ -69,10 +96,13 @@ export default function CreateFanpage() {
           <div className={cx("form-group")}>
             <div className={cx("input-block")}>
               <div className={cx("input-desc")}>
-                Use the name of your business, brand or organization, or a name
-                that helps explain your Page.
+                (*) Use the name of your business, brand or organization, or a
+                name that helps explain your Page.
               </div>
-              <Field
+              <div className={cx("text-desc")}>
+                <TextEditor setContentBlog={setContent} sHidderTools={true} />
+              </div>
+              {/* <Field
                 className={cx("input-text")}
                 name="description"
                 type="description"
@@ -80,7 +110,7 @@ export default function CreateFanpage() {
               />
               <div className={cx("error-message")}>
                 <ErrorMessage name="description" />
-              </div>
+              </div> */}
             </div>
           </div>
           <div className={cx("form-group")}>
@@ -109,22 +139,53 @@ export default function CreateFanpage() {
               </div>
             </div>
           </div>
-          <div className={cx("time-group")}>
-            <div className={cx("open")}>
-              Open <DataTime />
-            </div>
-
-            <div className={cx("close")}>
-              Close
-              <DataTime />
+          <div className={cx("services")}>
+            <div className={cx("services-desc")}>Time Open</div>
+            <div className={cx("services-time")}>
+              <div className={cx("time")}>
+                Open
+                <input
+                  type="time"
+                  value={time}
+                  className={cx("input-time")}
+                  onChange={(e) => setTime(e.target.value)}
+                />
+              </div>
+              <span className={cx("time")}>-</span>
+              <div className={cx("time")}>
+                Close
+                <input type="time" value={time} className={cx("input-time")} />
+              </div>
             </div>
           </div>
+          <div className={cx("services")}>
+            <div className={cx("services-desc")}>Services Price</div>
+            <div className={cx("services-price")}>
+              <div className={cx("price-group")}>
+                <Input
+                  placeholder="price"
+                  primary
+                  className={cx("input-field")}
+                />
+                <DropDown title="Prices" data={pricesValue} />
+              </div>
+              <span className={cx("price-group")}>-</span>
 
+              <div className={cx("price-group")}>
+                <Input placeholder="to" primary className={cx("input-field")} />
+                <DropDown title="Prices" data={pricesValue} />
+              </div>
+            </div>
+          </div>
+          <div className={cx("location")}>
+            <div> Map</div>
+          </div>
           <Button
             primary
             onClick={() => {
               handleCreatePage();
             }}
+            className={cx("btn")}
           >
             Create
           </Button>

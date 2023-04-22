@@ -11,8 +11,8 @@ const cx = classNames.bind(styles);
 
 export default function ProfileFanpage() {
   // state controller
-
-  const [isEditProfile, setIsEditProfile] = useState(false);
+  const [rating, setRating] = useState(null);
+  const [hover, setHover] = useState(null);
   // state onChange
   const [formEditProfile, setFormEditProfile] = useState({
     money: "1000 vnd - 10000 vnd",
@@ -22,100 +22,67 @@ export default function ProfileFanpage() {
     follower: "2001 followers",
   });
 
-  // change profile
-  const handleEditProfile = () => {
-    setIsEditProfile(!isEditProfile);
-  };
-
   return (
     <div className={cx("wrapper")}>
       <Introduction />
       {/* content */}
       <div className={cx("content")}>
         <div className={cx("start")}>
-          {[...Array(5)].map((stars, index) => {
-            return <FaStar size={30} color="#ffc107" />;
+          {[...Array(5)].map((star, i) => {
+            const ratingValue = i + 1;
+            return (
+              <label>
+                <input
+                  type="radio"
+                  name="rating"
+                  value={ratingValue}
+                  onClick={() => setRating(ratingValue)}
+                />
+                <FaStar
+                  className={cx("start-icon")}
+                  size={30}
+                  color={
+                    ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"
+                  }
+                  onMouseEnter={() => setHover(ratingValue)}
+                  onMouseLeave={() => setHover(null)}
+                />
+              </label>
+            );
           })}
         </div>
-        {!isEditProfile ? (
-          <>
-            <div className={cx("input-group")}>
-              <span className={cx("icon")}>
-                <ion-icon name="cash-outline"></ion-icon>
-              </span>
-              <div className={cx("detail")}>{formEditProfile.money} </div>
-            </div>
-            <div className={cx("input-group")}>
-              <span className={cx("icon")}>
-                <ion-icon name="globe-outline"></ion-icon>
-              </span>
-              <div className={cx("detail")}>{formEditProfile.website} </div>
-            </div>
-            <div className={cx("input-group")}>
-              <span className={cx("icon")}>
-                <ion-icon name="at-outline"></ion-icon>
-              </span>
-              <div className={cx("detail")}>{formEditProfile.time} </div>
-            </div>
-            <div className={cx("input-group")}>
-              <span className={cx("icon")}>
-                <ion-icon name="call-outline"></ion-icon>
-              </span>
-              <div className={cx("detail")}>{formEditProfile.phone} </div>
-            </div>
-            <div className={cx("input-group")}>
-              <span className={cx("icon")}>
-                <img src={images.follower} alt="follower" />
-              </span>
-              <div className={cx("detail")}>{formEditProfile.follower} </div>
-            </div>
-          </>
-        ) : (
-          <>
-            <InputField
-              icon={<ion-icon name="cash-outline"></ion-icon>}
-              type="text"
-              value={formEditProfile.money}
-            />
-            <InputField
-              icon={<ion-icon name="globe-outline"></ion-icon>}
-              type="text"
-              value={formEditProfile.website}
-            />
-            <InputField
-              icon={<ion-icon name="time-outline"></ion-icon>}
-              type="text"
-              value={formEditProfile.time}
-            />
-            <InputField
-              icon={<ion-icon name="call-outline"></ion-icon>}
-              type="text"
-              value={formEditProfile.phone}
-            />
-            <InputField
-              icon={<img src={images.follower} alt="follower" />}
-              type="text"
-              value={formEditProfile.follower}
-            />
-          </>
-        )}
-      </div>
-      {!isEditProfile ? (
-        <>
-          <Button bio onClick={handleEditProfile}>
-            Edit Profile
-          </Button>
-        </>
-      ) : (
-        <div className={cx("btn")}>
-          <Button small cancel onClick={handleEditProfile}>
-            Cancel
-          </Button>
-          <Button small saveInput>
-            Save
-          </Button>
+
+        <div className={cx("input-group")}>
+          <span className={cx("icon")}>
+            <ion-icon name="cash-outline"></ion-icon>
+          </span>
+          <div className={cx("detail")}>{formEditProfile.money} </div>
         </div>
-      )}
+        <div className={cx("input-group")}>
+          <span className={cx("icon")}>
+            <ion-icon name="globe-outline"></ion-icon>
+          </span>
+          <div className={cx("detail")}>{formEditProfile.website} </div>
+        </div>
+        <div className={cx("input-group")}>
+          <span className={cx("icon")}>
+            <ion-icon name="at-outline"></ion-icon>
+          </span>
+          <div className={cx("detail")}>{formEditProfile.time} </div>
+        </div>
+        <div className={cx("input-group")}>
+          <span className={cx("icon")}>
+            <ion-icon name="call-outline"></ion-icon>
+          </span>
+          <div className={cx("detail")}>{formEditProfile.phone} </div>
+        </div>
+        <div className={cx("input-group")}>
+          <span className={cx("icon")}>
+            <img src={images.follower} alt="follower" />
+          </span>
+          <div className={cx("detail")}>{formEditProfile.follower} </div>
+        </div>
+      </div>
     </div>
   );
 }

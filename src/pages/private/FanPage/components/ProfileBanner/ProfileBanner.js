@@ -7,9 +7,6 @@ import { FaStar } from "react-icons/fa";
 const cx = classNames.bind(styles);
 
 export default function ProfileBanner() {
-  const [rating, setRating] = useState(null);
-  const [hover, setHover] = useState(null);
-
   return (
     <div className={cx("wrapper")}>
       <img
@@ -23,27 +20,8 @@ export default function ProfileBanner() {
           <div className={cx("user-name")}>ABC restaurent</div>
           <div className={cx("follower")}>ABC restaurent</div>
           <div className={cx("start")}>
-            {[...Array(5)].map((star, i) => {
-              const ratingValue = i + 1;
-              return (
-                <label>
-                  <input
-                    type="radio"
-                    name="rating"
-                    value={ratingValue}
-                    onClick={() => setRating(ratingValue)}
-                  />
-                  <FaStar
-                    className={cx("start-icon")}
-                    size={30}
-                    color={
-                      ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"
-                    }
-                    onMouseEnter={() => setHover(ratingValue)}
-                    onMouseLeave={() => setHover(null)}
-                  />
-                </label>
-              );
+            {[...Array(5)].map((stars, index) => {
+              return <FaStar size={30} color="#ffc107" />;
             })}
           </div>
         </div>

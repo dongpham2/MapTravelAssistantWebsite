@@ -5,7 +5,6 @@
     bottom: 0;
     left: 0;
     display: flex;
-    // background-color: #F3F3F4 !important;
     .overlay {
         position: absolute;
         width: 100%;
@@ -14,7 +13,7 @@
     }
     .form-group {
         width: 500px;
-        max-height: 500px;
+        min-height: 500px;
         background-color: var(--white-color);
         border-radius: 10px;
         margin: auto;
@@ -60,22 +59,20 @@
         }
         .form-group-content {
             padding: 10px;
-            height: 370px;
             overflow-y: scroll;
             .form-group-input {
                 width: 100%;
-                height: 70px;
-                
+                max-height: 170px;  
             }
             .add-img {
                 padding: 5px;
                 border : 1px solid #9a9696;
-                min-height: 200px;
+                height: 100%;
                 overflow-y: scroll;
                 --size: 185px;
                 position: relative;
                 width: 100%;
-                height: var(--size);
+                min-height: var(--size);
                 .preview-img-block {
                     .preview-img {
                         width: 100%;
@@ -97,7 +94,6 @@
                     font-size: 17px;
                     font-weight: 700;
                     width: 100%;
-                    height: var(--size);
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -121,7 +117,8 @@
         }
         .btn {
             padding: 10px;
-            margin-top: 20px;
+            margin-bottom: 20px;
+        
         }
     
     }

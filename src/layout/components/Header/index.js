@@ -4,7 +4,7 @@ import styles from "./Header.module.scss";
 import Button from "../../../component/Button";
 import { Link } from "react-router-dom";
 import images from "../../../assets/images";
-import Input from "../../../component/Input";
+import Input from "../../../component/Input/Input";
 import config from "../../../config";
 import UserOptions from "./UserOptions";
 

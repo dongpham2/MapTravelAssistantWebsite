@@ -4,9 +4,8 @@ import * as Yup from "yup";
 import classNames from "classnames/bind";
 import styles from "../FormAccounts.module.scss";
 import Button from "../../../../component/Button";
-import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import { useDispatch } from "react-redux";
-import { actionLogin } from "src/redux/actions/authen";
+import { actionSignin } from "src/redux/actions/authen";
 // import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
@@ -23,7 +22,7 @@ export default function Loginform() {
     const { email, password } = formikRef.current.values;
 
     // console.log("Check login value", email, password);
-    dispatch(actionLogin({ email, password }));
+    dispatch(actionSignin({ email, password }));
   };
   return (
     <div className={cx("wrapper")}>

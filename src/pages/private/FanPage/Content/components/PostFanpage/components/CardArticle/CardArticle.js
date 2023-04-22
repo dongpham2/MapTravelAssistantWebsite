@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames/bind";
 import styles from "./CardArticle.module.scss";
 import images from "src/assets/images";
-import Input from "src/component/Input";
+import Input from "src/component/Input/Input";
 import UserComments from "./UserComments/UserComments";
 
 const cx = classNames.bind(styles);

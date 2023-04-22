@@ -1,12 +1,12 @@
 import { AuthService } from "src/service/authService";
 
-export const _ACTION_LOGIN = "_ACTION_LOGIN";
-export const actionLogin = (user) => {
+export const _ACTION_SIGNIN = "_ACTION_SIGNIN";
+export const actionSignin = (user) => {
   return async (dispatch) => {
-    const { data, status } = await AuthService.login(user);
+    const { data, status } = await AuthService.signin(user);
     if (status === 200) {
       dispatch({
-        type: _ACTION_LOGIN,
+        type: _ACTION_SIGNIN,
         payload: data,
       });
     }
