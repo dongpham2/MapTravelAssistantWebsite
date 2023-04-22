@@ -44,7 +44,6 @@
     border-radius: 999px;
     box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
     border-color: rgba(22, 24, 35, 0.12);
-
     &:hover {
         opacity: 0.9;
     }
@@ -52,8 +51,8 @@
 
 .primary {
     color: var(--white-color) !important;
-    background-color: var(--button-color-linear);
-
+    background-image: var(--primary-button);
+    font-weight: 400 !important;
     &:hover {
         border-color: var(--primary-color);
         opacity: 0.9;
@@ -79,7 +78,7 @@
     width: 90px;
     height: 40px;
     border-radius: 20px;    
-    background-color: var(--primary-button);
+    background-color: var(--primary-color);
     color: var(--white-color);
     font-family: 'Inter';
     font-style: normal;
@@ -88,14 +87,55 @@
     line-height: 19px;
 }
 
+.bio {
+    color: var(--black-color) !important;
+    background-color: var(--gray-color);
+    font-weight: 600 !important;
+    width: 100%;
+    &:hover {
+        border-color: var(--primary-color);
+        opacity: 0.9;
+    }
 
-
-
-
-.right {
-    float: right;
 }
 
+.cancel {
+    // border: 1p solid #ccc;
+    background-color: #D8DADF;
+    color: var(--black-color);
+}
+
+.saveInput {
+    background-color: var(--secondary-color);
+    color: var(--white-color) !important;
+}
+
+.edit {
+    border:  1px solid rgba(136, 96, 208, 1);
+    color: #8860D0 !important;
+}
+
+.articlePrimary {
+    color: var(--white-color) !important;
+    background-image: var(--primary-button);
+    height: 40px;
+    width: 100%;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.articleSecondary {
+    background-color: #E4E6E9;
+        height: 40px;
+        width: 100%;
+        color: #65676B;
+        border-radius: 20px;
+        font-size: 15px;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        font-weight: 500;
+}
 // Button sizes
 .small {
     min-width: 88px;
@@ -103,6 +143,6 @@
 }
 
 .large {
-    padding: 14px 16px;
-    min-width: 140px;
+    min-width: 68px;
+    padding: 3px 7px;
 }

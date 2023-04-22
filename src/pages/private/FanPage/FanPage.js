@@ -1,11 +1,18 @@
 import React from "react";
-import ChatBox from "../Chat/ChatBox"
+import classNames from "classnames/bind";
+import styles from "./FanPage.module.scss";
+import Content from "./Content";
+import { ChatContextProvider } from "../Chat/context/ChatContext";
 import ChatList from "../Chat/ChatList/ChatList";
-import { ChatContext, ChatContextProvider } from "../Chat/context/ChatContext";
+
+const cx = classNames.bind(styles);
 export default function FanPage() {
-  return <div>This is fanpage
-    <ChatContextProvider>
-      <ChatList/>
-    </ChatContextProvider>
-  </div>;
+  return (
+    <div className={cx("wrapper")}>
+      <ChatContextProvider>
+        <Content />
+        <ChatList />
+      </ChatContextProvider>
+    </div>
+  );
 }
