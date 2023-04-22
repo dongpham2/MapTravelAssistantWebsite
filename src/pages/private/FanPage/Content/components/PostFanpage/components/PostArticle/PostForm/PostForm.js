@@ -3,15 +3,26 @@ import styles from "./PostForm.module.scss";
 import classNames from "classnames/bind";
 import images from "src/assets/images";
 import Button from "src/component/Button";
+import TextEditor from "src/component/EditorText/EditorText";
 
 const cx = classNames.bind(styles);
+
 export default function PostForm({ setModalPostOpen, label, data }) {
   const inputRef = useRef(null);
+  const [visibleControls, setVisibleControls] = useState(false);
+  const [content, setContent] = useState("");
   const [file, setFile] = useState({
     preview: "",
     data: "",
   });
-
+  const handleChangeFile = async (e) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    };
+    setFile(img);
+    setVisibleControls(true);
+  };
   return (
     <div className={cx("wrapper")}>
       <div className={cx("overlay")}></div>
@@ -35,11 +46,7 @@ export default function PostForm({ setModalPostOpen, label, data }) {
         </div>
         <div className={cx("form-group-content")}>
           <div className={cx("form-group-input")}>
-            <input
-              type="text"
-              placeholder="Share everything perfect to your customer..."
-              className={cx("text")}
-            />
+            <TextEditor setContentBlog={setContent} sHidderTools={true} />
           </div>
           <div className={cx("add-img")}>
             <form encType="multipart/form-data">
@@ -63,6 +70,8 @@ export default function PostForm({ setModalPostOpen, label, data }) {
                   ref={inputRef}
                   className={cx("input", "input-file")}
                   type="file"
+                  onChange={handleChangeFile}
+                  multiple
                 />
                 <div className={cx("add-icon")}>
                   <ion-icon name="cloud-upload-outline"></ion-icon>
@@ -71,9 +80,9 @@ export default function PostForm({ setModalPostOpen, label, data }) {
               </label>
             </form>
           </div>
-          <div className={cx("btn")}>
-            <Button articlePrimary>Post</Button>
-          </div>
+        </div>
+        <div className={cx("btn")}>
+          <Button articlePrimary>Post</Button>
         </div>
       </div>
     </div>

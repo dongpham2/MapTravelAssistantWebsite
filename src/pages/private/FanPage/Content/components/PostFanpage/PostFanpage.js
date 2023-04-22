@@ -13,6 +13,7 @@ export default function PostFanpage() {
       </div>
       <div className={cx("post-article")}>
         <CardArticle />
+        <CardArticle />
       </div>
     </div>
   );

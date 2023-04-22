@@ -23,7 +23,7 @@ export default function RegisterForm() {
       <Formik
         innerRef={formikRef}
         initialValues={{
-          name: "",
+          fullname: "",
           email: "",
           password: "",
           passwordConfirm: "",
@@ -32,7 +32,7 @@ export default function RegisterForm() {
           handleSubmit();
         }}
         validationSchema={Yup.object({
-          name: Yup.string()
+          fullname: Yup.string()
             .min(2, "Too Short!")
             .max(50, "Too Long!")
             .required("This field must have value!"),
@@ -53,13 +53,13 @@ export default function RegisterForm() {
             <div className={cx("input-block")}>
               <Field
                 className={cx("input-text")}
-                name="name"
-                type="name"
+                name="fullname"
+                type="fullname"
                 placeholder="Fullname"
               />
             </div>
             <div className={cx("error-message")}>
-              <ErrorMessage name="name" />
+              <ErrorMessage name="fullname" />
             </div>
           </div>
           {/* Email */}

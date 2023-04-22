@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./Introduction.module.scss";
 import Button from "src/component/Button";
-import Input from "src/component/Input";
+import Input from "src/component/Input/Input";
 
 const cx = classNames.bind(styles);
 export default function Bio() {

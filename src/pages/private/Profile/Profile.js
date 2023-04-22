@@ -3,15 +3,19 @@ import styles from "./Profile.module.scss";
 import classNames from "classnames/bind";
 import InputField from "../FanPage/Content/components/ProfileFanpage/FormEdit/InputField";
 import FormUpload from "./FormUpload/FormUpload";
+import Loading from "src/component/Loading/Loading";
 
 const cx = classNames.bind(styles);
 export default function Profile() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [profileDetail, setProfileDetail] = useState({
     userName: "Dong Pham",
     email: "dongpham@gmail.com",
     birth: "21/08/2001",
     gender: "Male",
   });
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("content")}>
@@ -29,6 +33,7 @@ export default function Profile() {
             label="Gmail"
             value={profileDetail.email}
           />
+          {isLoading === true && <Loading />}
           <FormUpload data={""} label="Avatar" />
           <InputField
             isLabel

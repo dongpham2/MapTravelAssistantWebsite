@@ -1,8 +1,17 @@
 .wrapper {
-    margin: 0 150px;
+    margin: 0 260px;
     .container {
         display: flex;
         justify-content: space-between;
     }
 
+}
+
+@media only screen and (max-width: 1200px) {
+    .wrapper {
+        margin: 0 260px;
+        .container {
+            display: block;
+        }
+    }
 }

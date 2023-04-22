@@ -1,4 +1,4 @@
-import { _ACTION_LOGIN, __ACTION_SIGNUP } from "../actions/authen";
+import { _ACTION_SIGNIN, __ACTION_SIGNUP } from "../actions/authen";
 
 const initState = {
   auth: {},
@@ -6,11 +6,7 @@ const initState = {
 
 const rootReducer = (state = initState, action) => {
   switch (action.type) {
-    case "profileFanpage/updateProfile":
-      return {
-        ...state,
-      };
-    case _ACTION_LOGIN:
+    case _ACTION_SIGNIN:
       return {
         ...state,
         auth: action.payload,
@@ -21,6 +17,7 @@ const rootReducer = (state = initState, action) => {
         auth: action.payload,
       };
     default:
+      return state;
   }
 };
 

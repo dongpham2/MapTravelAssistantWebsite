@@ -1,7 +1,7 @@
 .wrapper {
-    margin-top: 20px;
-    .heading {
-        margin-left: 200px;
-        width: 100%;
-    }
+    --size: 40px;
+    padding: 0px 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: var(--white-color);
 }

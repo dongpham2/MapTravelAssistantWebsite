@@ -26,13 +26,14 @@ body {
 
 :root {
     // Default layout
-    --default-layout-header-height: 100px;
+    --default-layout-header-height: 90px;
     --default-layout-width: 1280px;
     --default-layout-horizontal-spacer: 24px;
     --default-layout-sidebar-width: 220px;
 
     // color
     --navbar-color :linear-gradient(126.94deg, #84CEEB 32.35%, #5AB9EA 71.46%);
+    --background-color:#f6f7f8;
     --primary-color: #8860D0;
     --secondary-color: #5AB9EA;
     --primary-button: linear-gradient(90deg, #8860D0 0%, #5AB9EA 100%);;

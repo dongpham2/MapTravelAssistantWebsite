@@ -16,7 +16,7 @@ export default function Map({ setCoordinates, coordinates, setBounds }) {
           latitude: 40,
           zoom: 3.5,
         }}
-        style={{ width: 800, height: 780 }}
+        style={{ height: 780 }}
         mapStyle="mapbox://styles/dongpham2/clg1z1p92005c01mm2dh1zq04"
         mapboxAccessToken={token}
         onChange={(e) => {

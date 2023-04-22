@@ -1,7 +1,10 @@
 .wrapper {
-    --size: 40px;
-    height: 100vh;
-    margin-top: 40px;
+     --size: 40px;
+    padding: 0px 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: var(--white-color);
+    
     .content {
         width: 100%;
         // flex: 1px;
