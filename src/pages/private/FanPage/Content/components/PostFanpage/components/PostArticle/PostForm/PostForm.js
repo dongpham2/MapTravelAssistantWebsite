@@ -15,6 +15,16 @@ export default function PostForm({ setModalPostOpen, label, data }) {
     preview: "",
     data: "",
   });
+  const toastifyOptions = {
+    position: "top-right",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  };
   const handleChangeFile = async (e) => {
     const img = {
       preview: URL.createObjectURL(e.target.files[0]),
@@ -22,6 +32,10 @@ export default function PostForm({ setModalPostOpen, label, data }) {
     };
     setFile(img);
     setVisibleControls(true);
+  };
+
+  const handlePostArticle = () => {
+    console.log(setContent);
   };
   return (
     <div className={cx("wrapper")}>

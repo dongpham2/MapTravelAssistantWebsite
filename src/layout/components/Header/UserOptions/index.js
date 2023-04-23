@@ -23,6 +23,17 @@ function UserOptions({ user }) {
           <div className={cx("user-name")}>Pham Van Dong</div>
         </div>
       </div>
+      <div className={cx("switch-account")}>
+        <div className={cx("switch-icon")}>
+          <ion-icon name="swap-horizontal-outline"></ion-icon>
+        </div>
+        <div className={cx("switch-text")}>Switch to</div>
+        <img
+          src={images.avt}
+          alt="Avatar"
+          className={cx("avatar-img", "avatar")}
+        />
+      </div>
       <div className={cx("option")}>
         {/* first item */}
         <ul className={cx("option-list")}>

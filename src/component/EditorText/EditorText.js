@@ -11,8 +11,7 @@ const EditorStyled = styled.div`
       p.isHidderTools ? "none !important" : "flex !important"};
   }
   .wrapperClassName {
-    border: ${(p) =>
-      p.isHidderTools ? "1px solid #ccc  !important" : "none !important"};
+    border: ${(p) => (p.isHidderTools ? ":" : "none !important")};
     width: 100%;
     height: ${(p) =>
       p.isHidderTools ? "150px !important" : "100% !important"};
@@ -22,7 +21,7 @@ const EditorStyled = styled.div`
 const TextEditor = ({
   setValue,
   fieldName,
-  isHidderTools = false,
+  isHidderTools = true,
   setContentBlog,
   defaultValueProps,
 }) => {
