@@ -22,11 +22,11 @@ export default function Home() {
         <DetailBar />
       </div>
       <div className={cx("right")}>
-        <Map
+        {/* <Map
           setCoordinates={setCoordinates}
           coordinates={coordinates}
           setBounds={setBounds}
-        />
+        /> */}
       </div>
     </header>
   );

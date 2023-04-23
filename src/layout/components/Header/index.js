@@ -31,10 +31,7 @@ export default function Header() {
           />
         </div>
         <div className={cx("notification")}>
-          <ion-icon
-            name="notifications-outline"
-            className={cx("icon")}
-          ></ion-icon>
+          <img src={images.bell} />
         </div>
         {/* <div
           className={cx("avatar")}
@@ -46,9 +43,7 @@ export default function Header() {
         </div>
         {isVisibleUserOptions ? <UserOptions /> : ""} */}
         <Link to={config.routes.accounts}>
-          <Button login rounded>
-            Login
-          </Button>
+          <Button login>Login</Button>
         </Link>
       </div>
     </header>
