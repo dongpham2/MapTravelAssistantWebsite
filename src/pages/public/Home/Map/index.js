@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./Map.module.scss";
 
 import L from 'leaflet'
 import {MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-
+import ReactMapGL from "react-map-gl";
 const cx = classNames.bind(styles);
 const markerIc = new L.Icon({
   iconUrl: require("../../../../assets/images/icon/iconmap.png"),

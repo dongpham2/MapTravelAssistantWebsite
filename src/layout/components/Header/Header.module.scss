@@ -1,6 +1,6 @@
 .wrapper {
     position: fixed;
-    width: 100vw;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -9,7 +9,7 @@
     z-index: 900;
     background-color: var(--white-color);
     height: 70px;
-    background-image: var(--navbar-color);
+    background: var(--navbar-color);
     padding: 25px;
     .right {
         display: flex;
@@ -25,12 +25,12 @@
             display: flex;
             margin: auto;
             font-size: 30px;
-            padding: 5px;
+            padding: 8px;
             border: 1px solid #ccc;
             border-radius: 50%;
             cursor: pointer;
-            color: #5680E9;
-            background-color: #C1C8E4;
+            color: var(--navbar-color);
+            background-color: var(--white-color);
         }
         .avatar {
             width: 40px;

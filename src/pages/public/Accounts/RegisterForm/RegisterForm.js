@@ -4,15 +4,18 @@ import * as Yup from "yup";
 import classNames from "classnames/bind";
 import styles from "../FormAccounts.module.scss";
 import Button from "../../../../component/Button";
+import { useDispatch } from "react-redux";
+import { actionSignup } from "src/redux/actions/authen";
 
 const cx = classNames.bind(styles);
 
 export default function RegisterForm() {
+  const dispatch = useDispatch();
   const formikRef = useRef(null);
   // const messageRef = useRef(null);
   const handleSubmit = () => {
     if (formikRef.current.isSubmitting) {
-      console.log("Chek login", formikRef.current.values);
+      dispatch(actionSignup(formikRef.current.isSubmitting));
     }
   };
   return (
@@ -20,6 +23,7 @@ export default function RegisterForm() {
       <Formik
         innerRef={formikRef}
         initialValues={{
+          fullname: "",
           email: "",
           password: "",
           passwordConfirm: "",
@@ -28,9 +32,13 @@ export default function RegisterForm() {
           handleSubmit();
         }}
         validationSchema={Yup.object({
+          fullname: Yup.string()
+            .min(2, "Too Short!")
+            .max(50, "Too Long!")
+            .required("This field must have value!"),
           email: Yup.string()
             .email("Invalid email")
-            .required("This field must have value"),
+            .required("This field must have value!"),
           password: Yup.string()
             .min(6, "At least 6 characters!")
             .required("This field must have value!"),
@@ -40,6 +48,20 @@ export default function RegisterForm() {
         })}
       >
         <Form>
+          {/* Name */}
+          <div className={cx("form-group")}>
+            <div className={cx("input-block")}>
+              <Field
+                className={cx("input-text")}
+                name="fullname"
+                type="fullname"
+                placeholder="Fullname"
+              />
+            </div>
+            <div className={cx("error-message")}>
+              <ErrorMessage name="fullname" />
+            </div>
+          </div>
           {/* Email */}
           <div className={cx("form-group")}>
             <div className={cx("input-block")}>

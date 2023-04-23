@@ -1,0 +1,15 @@
+.wrapper {
+    width: 580px;
+    border-radius: 10px;
+    .post-form {
+        margin-bottom: 30px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        box-shadow: var(--box-shadown-1);
+        background-color: var(--white-color);
+    }
+    .post-article {
+        border-radius: 10px;
+        background-color: var(--white-color);
+    }
+}

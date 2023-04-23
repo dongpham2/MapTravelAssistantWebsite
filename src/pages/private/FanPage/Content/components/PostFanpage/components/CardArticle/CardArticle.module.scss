@@ -1,0 +1,102 @@
+.wrapper {
+    --size: 40px;
+    min-height: 600px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    .heading {
+        display: flex;
+        justify-content: space-between;
+        .header-infor {
+            display: flex;
+            .img {
+                width: var(--size);
+                height: var(--size);
+                border-radius: 50%;
+                margin-right: 5px;
+            }
+            .name {
+                font-size: 17px;
+                font-weight: 700;
+                line-height: 22px;
+                .time {
+                    font-size: 13px;
+                    font-weight: 400;
+                }
+            }
+        }
+
+        .icon-option {
+            margin: 10px 10px 0 0;
+            cursor: pointer;
+            font-size: 15px;
+        }
+    }
+    .content {
+        min-height: 20px;
+        width: 100%;
+    }
+    .photos {
+        width: 100%;
+        min-height: 550px;
+        .image {
+            height: 100%;
+            width: 100%;
+            background-repeat: no-repeat;
+            object-fit: cover;
+        }
+    }
+    
+    .reaction {
+        .amount-user {
+                margin-top: 15px;
+                margin-left: 10px;
+                color: var(--smoke-color);
+            }
+        .reaction-post {
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            margin-top: 5px;
+            cursor: pointer;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            &-group {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 5px 20px;
+                line-height: 35px;
+                width: 100%;
+                &:hover {
+                    border-radius: 10px;
+                    background-color: var(--gray-light-color-2);
+                }
+                .icon {
+                    display: flex;
+                    margin-right: 5px;
+                    font-size: 17px;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+    .comments {
+        margin-top: 20px;
+        .comments-post {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .img {
+                width: var(--size);
+                height: var(--size);
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+        }
+        .comments-other {
+            
+        }
+    }
+}
