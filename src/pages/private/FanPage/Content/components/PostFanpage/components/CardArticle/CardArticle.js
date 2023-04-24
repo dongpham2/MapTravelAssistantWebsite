@@ -30,7 +30,7 @@ export default function CardArticle() {
         </article>
       </div>
       <div className={cx("photos")}>
-        <img src={images.avt} alt="" className={cx("image")} />
+        <img src={images.banner_default} alt="" className={cx("image")} />
       </div>
 
       <div className={cx("reaction")}>

@@ -16,6 +16,7 @@ export default function Home() {
   useEffect(() => {
     getPlacesData();
   }, []);
+
   return (
     <header className={cx("wrapper")}>
       {/* {isLoading === true && <Loading />} */}
