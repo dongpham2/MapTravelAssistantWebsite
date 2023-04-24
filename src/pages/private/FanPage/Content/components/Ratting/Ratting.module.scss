@@ -1,0 +1,56 @@
+.wrapper {
+    --size: 40px;
+    width: 410px;
+    min-height: 410px;
+    margin-top: 30px;
+    padding: 10px;
+    box-shadow: var(--box-shadown-1);
+    height: auto;
+    border-radius: 10px;
+    background-color: var(--white-color);
+    margin-bottom: 20px;
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    .start {
+        margin-left: var(--size);
+    }
+    .user-comment {
+        display: flex;
+        margin-top: 20p;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        .avt-user {
+            width: var(--size);
+            height: var(--size);
+            margin-right: 10px;
+        }
+        .input {
+            width: 100%;
+            overflow-y: hidden;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+    }
+        .comments {
+                margin-top: 20px;
+                height: 300px;
+                overflow-y: scroll;
+                .comments-post {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .img {
+                        width: var(--size);
+                        height: var(--size);
+                        border-radius: 50%;
+                        margin-right: 10px;
+                    }
+                }
+            }
+}

@@ -47,12 +47,12 @@ export default function CardArticle() {
             </span>
             Ratting
           </div>
-          <div className={cx("reaction-post-group")}>
+          {/* <div className={cx("reaction-post-group")}>
             <span className={cx("icon")}>
               <ion-icon name="chatbox-outline"></ion-icon>
             </span>
             Comments
-          </div>
+          </div> */}
           <div className={cx("reaction-post-group")}>
             <span className={cx("icon")}>
               <ion-icon name="return-up-forward-outline"></ion-icon>
@@ -60,7 +60,7 @@ export default function CardArticle() {
             Share
           </div>
         </div>
-        <div className={cx("comments")}>
+        {/* <div className={cx("comments")}>
           <div className={cx("comments-post")}>
             <img src={images.avt} className={cx("img")} />
             <Input
@@ -74,7 +74,7 @@ export default function CardArticle() {
           <div className={cx("comments-other")}>
             <UserComments />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

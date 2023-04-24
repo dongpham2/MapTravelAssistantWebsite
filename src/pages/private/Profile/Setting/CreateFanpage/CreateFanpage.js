@@ -8,6 +8,7 @@ import DataTime from "src/component/DateTime/DataTime";
 import Input from "src/component/Input/Input";
 import DropDown from "src/component/Input/DropDown/DropDown";
 import TextEditor from "src/component/EditorText/EditorText";
+import Map from "src/pages/public/Home/Map";
 
 const cx = classNames.bind(styles);
 const pricesValue = [
@@ -178,7 +179,8 @@ export default function CreateFanpage() {
             </div>
           </div>
           <div className={cx("location")}>
-            <div> Map</div>
+            <div className={cx("address")}>Pin Your Location</div>
+            <Map />
           </div>
           <Button
             primary
