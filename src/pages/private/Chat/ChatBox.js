@@ -36,6 +36,7 @@ export default function Chat(props) {
     }, [data.chatId])
 
     const handleSend = async () =>{
+        console.log(text)
         if(img){
             const storageRef = ref(storage, uuid());
             const uploadTask = uploadBytesResumable(storageRef, img);
@@ -118,10 +119,12 @@ export default function Chat(props) {
                     </label>
                 </div>
                 <div className={styles.textarea}>
+                    {/* <input type="text" onChange={e=>setText(e.target.value)} /> */}
                     <TextareaAutosize
                         minRows={1} // giới hạn tối đa 1 dòng
                         maxRows={10} // giới hạn tối đa 10 dòng (nếu cần)
                         placeholder="Type something..."
+                        onChange={e=>setText(e.target.value)}
                     />
                 </div>
                 <div className={styles.inputIcons} onClick={handleSend}>
