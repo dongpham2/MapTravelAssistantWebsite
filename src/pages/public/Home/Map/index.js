@@ -5,6 +5,7 @@ import styles from "./Map.module.scss";
 import L from "leaflet";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import ReactMapGL from "react-map-gl";
+import CardMap from "./CardMap/CardMap";
 const cx = classNames.bind(styles);
 const markerIc = new L.Icon({
   iconUrl: require("../../../../assets/images/icon/iconmap.png"),
@@ -19,6 +20,7 @@ export default function Map() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      {/* <CardMap /> */}
       {/*  <LeafletGeocoder /> */}
       {/* <LeafletRoutingMachine /> */}
       <Marker
@@ -26,7 +28,7 @@ export default function Map() {
         icon={markerIc}
       >
         <Popup>
-          <a href="https://www.w3schools.com">Visit W3Schools.com!</a>
+          <a href="https://thecoffeehouse.com/">Visit W3Schools.com!</a>
         </Popup>
       </Marker>
     </MapContainer>

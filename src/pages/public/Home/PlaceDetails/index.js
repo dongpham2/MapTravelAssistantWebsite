@@ -5,6 +5,7 @@ import images from "../../../../assets/images";
 import Button from "../../../../component/Button";
 import { Link } from "react-router-dom";
 import config from "../../../../config";
+import { FaStar } from "react-icons/fa";
 const cx = classNames.bind(styles);
 
 export default function PlaceDetails({ place }) {
@@ -18,7 +19,11 @@ export default function PlaceDetails({ place }) {
         </div>
         <div className={cx("name")}>{place.name}</div>
         <div className={cx("desc-card")}>
-          <div className={cx("title")}>sao</div>
+          <div className={cx("title")}>
+            {[...Array(5)].map((stars, index) => {
+              return <FaStar size={25} color="#ffc107" />;
+            })}
+          </div>
           <div className={cx("ratting-follower")}>
             {place.follower} followers
           </div>

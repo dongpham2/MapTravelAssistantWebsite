@@ -82,18 +82,16 @@ export default function Loginform() {
           >
             {messageError}
           </div> */}
-          <Link to={config.routes.home}>
-            <Button
-              primary
-              className={cx("button-form")}
-              onClick={() => {
-                handleSubmit();
-              }}
-              type="submit"
-            >
-              Login
-            </Button>
-          </Link>
+          <Button
+            primary
+            className={cx("button-form")}
+            onClick={() => {
+              handleSubmit();
+            }}
+            type="submit"
+          >
+            Login
+          </Button>
         </Form>
       </Formik>
 
