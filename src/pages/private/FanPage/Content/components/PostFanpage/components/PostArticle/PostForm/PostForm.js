@@ -23,6 +23,9 @@ export default function PostForm({ setModalPostOpen, label, data }) {
     setFile(img);
     setVisibleControls(true);
   };
+  const handlePostArticle = () => {
+    // console.log(content);
+  };
   return (
     <div className={cx("wrapper")}>
       <div className={cx("overlay")}></div>
@@ -82,7 +85,9 @@ export default function PostForm({ setModalPostOpen, label, data }) {
           </div>
         </div>
         <div className={cx("btn")}>
-          <Button articlePrimary>Post</Button>
+          <Button articlePrimary onClick={handlePostArticle}>
+            Post
+          </Button>
         </div>
       </div>
     </div>
