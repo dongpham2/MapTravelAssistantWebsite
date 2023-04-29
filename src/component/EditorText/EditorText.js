@@ -11,11 +11,14 @@ const EditorStyled = styled.div`
       p.isHidderTools ? "none !important" : "flex !important"};
   }
   .wrapperClassName {
+<<<<<<< HEAD
     border: ${(p) => (p.isHidderTools ? ":" : "none !important")};
+=======
+    border: ${(p) => (p.isHidderTools ? "" : "none !important")};
+>>>>>>> master
     width: 100%;
-    height: ${(p) =>
-      p.isHidderTools ? "150px !important" : "100% !important"};
-    padding-left: 5px;
+    height: ${(p) => (p.isHidderTools ? "80px !important" : "100% !important")};
+    margin-bottom: 15px;
   }
 `;
 const TextEditor = ({

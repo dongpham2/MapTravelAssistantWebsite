@@ -11,6 +11,8 @@ const routes = {
   createFanpage: "/setting/createFanpage",
   changePassword: "/setting/changePassword",
   notification: "/setting/notification",
+  chat: "/chat",
+  // chatbox:"/chatbox",
 };
 
 export default routes;

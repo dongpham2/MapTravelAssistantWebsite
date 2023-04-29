@@ -5,6 +5,7 @@ import styles from "./Home.module.scss";
 import DetailBar from "./DetailBar";
 import getPlacesData from "../../../api/googleClientApi";
 import Loading from "src/component/Loading/Loading";
+import CardMap from "./Map/CardMap/CardMap";
 
 const cx = classNames.bind(styles);
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
   useEffect(() => {
     getPlacesData();
   }, []);
+
   return (
     <header className={cx("wrapper")}>
       {/* {isLoading === true && <Loading />} */}
@@ -22,11 +24,11 @@ export default function Home() {
         <DetailBar />
       </div>
       <div className={cx("right")}>
-        {/* <Map
-          setCoordinates={setCoordinates}
-          coordinates={coordinates}
-          setBounds={setBounds}
-        /> */}
+        <Map
+        // setCoordinates={setCoordinates}
+        // coordinates={coordinates}
+        // setBounds={setBounds}
+        />
       </div>
     </header>
   );

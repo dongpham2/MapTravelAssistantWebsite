@@ -1,29 +1,36 @@
 import React, { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./Map.module.scss";
-import googleMapReact from "google-map-react";
-import ReactMapGL from "react-map-gl";
-const cx = classNames.bind(styles);
 
-export default function Map({ setCoordinates, coordinates, setBounds }) {
-  const token =
-    "pk.eyJ1IjoiZG9uZ3BoYW0yIiwiYSI6ImNsZno2Mmw2cDBtOGIzZnFyNGR2cm1qNGcifQ.0n85EbQStBF9pt7JvWn5Dg";
+import L from "leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import ReactMapGL from "react-map-gl";
+import CardMap from "./CardMap/CardMap";
+const cx = classNames.bind(styles);
+const markerIc = new L.Icon({
+  iconUrl: require("../../../../assets/images/icon/iconmap.png"),
+  iconSize: [35, 45],
+});
+
+export default function Map() {
+  const position = [16.06089773991539, 108.22178340647243];
   return (
-    <div className={cx("wrapper")}>
-      <ReactMapGL
-        initialViewState={{
-          longitude: -100,
-          latitude: 40,
-          zoom: 3.5,
-        }}
-        style={{ height: 780 }}
-        mapStyle="mapbox://styles/dongpham2/clg1z1p92005c01mm2dh1zq04"
-        mapboxAccessToken={token}
-        onChange={(e) => {
-          console.log("check props", e);
-          setCoordinates({ lat: e.center.lat, lng: e.center.lng });
-        }}
-      ></ReactMapGL>
-    </div>
+    <MapContainer center={position} zoom={15} scrollWheelZoom={true}>
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      {/* <CardMap /> */}
+      {/*  <LeafletGeocoder /> */}
+      {/* <LeafletRoutingMachine /> */}
+      <Marker
+        position={[16.06089773991539, 108.22178340647243]}
+        icon={markerIc}
+      >
+        <Popup>
+          <a href="https://thecoffeehouse.com/">Visit W3Schools.com!</a>
+        </Popup>
+      </Marker>
+    </MapContainer>
   );
 }

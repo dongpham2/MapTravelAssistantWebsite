@@ -21,7 +21,7 @@ export default function PlaceDetails({ place }) {
         <div className={cx("desc-card")}>
           <div className={cx("title")}>
             {[...Array(5)].map((stars, index) => {
-              return <FaStar size={30} color="#ffc107" />;
+              return <FaStar size={25} color="#ffc107" />;
             })}
           </div>
           <div className={cx("ratting-follower")}>
