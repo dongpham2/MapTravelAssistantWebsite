@@ -15,7 +15,6 @@ export default function Bio() {
     <div className={cx("wrapper")}>
       <div className={cx("header")}>
         <h3 className={cx("introduce")}>Introduce</h3>
-
         {!isBio ? (
           <Button bio onClick={handleBioChange}>
             Add Bio
@@ -31,6 +30,7 @@ export default function Bio() {
                 Save
               </Button>
             </div>
+            {/* <span>Out restaurant provide a delicous food to every one</span> */}
           </div>
         )}
       </div>

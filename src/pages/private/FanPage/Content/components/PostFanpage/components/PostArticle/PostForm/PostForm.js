@@ -35,7 +35,7 @@ export default function PostForm({ setModalPostOpen, label, data }) {
   };
 
   const handlePostArticle = () => {
-    console.log(setContent);
+    // console.log(setContent);
   };
   return (
     <div className={cx("wrapper")}>
@@ -96,7 +96,9 @@ export default function PostForm({ setModalPostOpen, label, data }) {
           </div>
         </div>
         <div className={cx("btn")}>
-          <Button articlePrimary>Post</Button>
+          <Button articlePrimary onClick={handlePostArticle}>
+            Post
+          </Button>
         </div>
       </div>
     </div>

@@ -28,7 +28,8 @@ export default function Map() {
         icon={markerIc}
       >
         <Popup>
-          <a href="https://thecoffeehouse.com/">Visit W3Schools.com!</a>
+          <CardMap />
+          {/* <a href="https://thecoffeehouse.com/">Visit W3Schools.com!</a> */}
         </Popup>
       </Marker>
     </MapContainer>

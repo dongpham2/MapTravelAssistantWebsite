@@ -57,24 +57,7 @@
             }
     }
 }
-.switch-account{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: var(--black-color);
-    margin-bottom: 5px;
-    cursor: pointer;
-    &:hover {
-        background-color: #fafafa !important;
-        border-radius: 10px;
-    }
-    .switch-icon {
-        font-size: 20px;
-    }
-    .swtich-text {
-        margin-right: 20px;
-    }
-}
+
 .option {
     .option-list {
         .option-item{

@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./CardArticle.module.scss";
 import images from "src/assets/images";
-import Input from "src/component/Input/Input";
-import UserComments from "./UserComments/UserComments";
+import ShareOptions from "./ShareOptions/ShareOptions";
 
 const cx = classNames.bind(styles);
 export default function CardArticle() {
+  const [visibleShareOptions, setVisibleUserOptions] = useState(false);
+  const handleOpenShareOptions = () => {
+    setVisibleUserOptions(!visibleShareOptions);
+  };
   return (
     <div className={cx("wrapper")}>
       <div className={cx("heading")}>
@@ -22,12 +25,17 @@ export default function CardArticle() {
         </span>
       </div>
       <div className={cx("content")}>
-        <article>
+        <span>
           In my opinion, the restaurant’s service that satisfies me the most is
           the service of Hutong. Hutong is a hotpot restaurant which belongs to
           the Golden Spoon Group. It has several branches, I’ve tried some of
           them and the staffs are all good.
-        </article>
+        </span>
+        {/* <span
+          dangerouslySetInnerHTML={{
+            __html: article?.content,
+          }}
+        ></span> */}
       </div>
       <div className={cx("photos")}>
         <img src={images.banner_default} alt="" className={cx("image")} />
@@ -45,36 +53,19 @@ export default function CardArticle() {
             <span className={cx("icon")}>
               <ion-icon name="star-outline"></ion-icon>
             </span>
-            Ratting
+            Star
           </div>
-          {/* <div className={cx("reaction-post-group")}>
+          <div
+            className={cx("reaction-post-group")}
+            onClick={handleOpenShareOptions}
+          >
             <span className={cx("icon")}>
-              <ion-icon name="chatbox-outline"></ion-icon>
-            </span>
-            Comments
-          </div> */}
-          <div className={cx("reaction-post-group")}>
-            <span className={cx("icon")}>
-              <ion-icon name="return-up-forward-outline"></ion-icon>
+              <ion-icon name="arrow-redo-outline"></ion-icon>
             </span>
             Share
           </div>
+          {visibleShareOptions ? <ShareOptions /> : ""}
         </div>
-        {/* <div className={cx("comments")}>
-          <div className={cx("comments-post")}>
-            <img src={images.avt} className={cx("img")} />
-            <Input
-              primary
-              rightIcon={
-                <ion-icon name="arrow-forward-circle-outline"></ion-icon>
-              }
-              placeholder="Write your comments"
-            />
-          </div>
-          <div className={cx("comments-other")}>
-            <UserComments />
-          </div>
-        </div> */}
       </div>
     </div>
   );

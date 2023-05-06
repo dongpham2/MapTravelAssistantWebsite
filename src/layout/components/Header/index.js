@@ -31,7 +31,8 @@ export default function Header() {
           />
         </div>
         <div className={cx("notification")}>
-          <img src={images.bell} />
+          {/* <img src={images.bell} /> */}
+          <ion-icon name="notifications-outline"></ion-icon>
         </div>
         {/* <div
           className={cx("avatar")}

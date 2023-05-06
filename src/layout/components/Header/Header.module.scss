@@ -11,6 +11,9 @@
     height: 70px;
     background: var(--navbar-color);
     padding: 25px;
+    .logo {
+        height: 50px;
+    }
     .right {
         display: flex;
         align-items: center;
@@ -29,7 +32,7 @@
             border: 1px solid #ccc;
             border-radius: 50%;
             cursor: pointer;
-            color: var(--navbar-color);
+            color: var(--primary-color) !important;
             background-color: var(--white-color);
         }
         .avatar {

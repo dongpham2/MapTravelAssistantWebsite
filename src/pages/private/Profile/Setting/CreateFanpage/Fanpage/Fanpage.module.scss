@@ -1,0 +1,45 @@
+.wrapper {
+    .services {
+            &-desc {
+                margin-bottom: 10px;
+                border-bottom: 1px solid #ccc;
+                display: inline-block;
+            }
+    
+            &-time {
+                display: flex;
+    
+                .time {
+                    margin-right: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-bottom: 20px;
+                }
+    
+                .input-time {
+                    margin-left: 10px;
+                    display: block;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 20px;
+                }
+            }
+    
+            &-price {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+    
+                .price-group {
+                    align-items: center;
+                    display: flex;
+    
+                    .input-field {
+                        width: 50%;
+                        margin-right: 8px;
+                    }
+                }
+            }
+        }
+}

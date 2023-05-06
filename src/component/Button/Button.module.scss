@@ -6,7 +6,7 @@
     padding: 8px 18px;
     border-radius: 35px;
     font-size: 1.6rem;
-    font-weight: 700;
+    font-weight: 600;
     font-family: var(--font-family);
     background-color: var(--white);
     color: var(--black-color);
@@ -51,7 +51,7 @@
 
 .primary {
     color: var(--white-color) !important;
-    background-image: var(--primary-button);
+    background-color: var(--primary-button);
     font-weight: 400 !important;
     &:hover {
         border-color: var(--primary-color);
@@ -60,7 +60,7 @@
 }
 
 .secondary {
-    background-image: linear-gradient(rgba(136, 96, 208, 1), rgba(90, 185, 234, 1));
+    background-color: var(--primary-button);
     color: #fff !important;
     font-weight: 400;
     font-size: 16px !important;
@@ -79,7 +79,7 @@
     height: 40px;
     border-radius: 20px;    
     background-color: var(--white-color);
-    color: var(--black-color);
+    color: var(--primary-color);
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
@@ -106,18 +106,18 @@
 }
 
 .saveInput {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     color: var(--white-color) !important;
 }
 
 .edit {
-    border:  1px solid rgba(136, 96, 208, 1);
-    color: #8860D0 !important;
+    border:  1px solid var(--secondary-color);
+    color: var(--secondary-color) !important;
 }
 
 .articlePrimary {
     color: var(--white-color) !important;
-    background-image: var(--primary-button);
+    background-color: var(--primary-button);
     height: 40px;
     width: 100%;
     border-radius: 20px;

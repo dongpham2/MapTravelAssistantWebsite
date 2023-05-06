@@ -4,7 +4,6 @@ import styles from "./Ratting.module.scss";
 import { FaStar } from "react-icons/fa";
 import images from "src/assets/images";
 import TextEditor from "src/component/EditorText/EditorText";
-import Input from "src/component/Input/Input";
 import UserComments from "../PostFanpage/components/CardArticle/UserComments/UserComments";
 
 const cx = classNames.bind(styles);

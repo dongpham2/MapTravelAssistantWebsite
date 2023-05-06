@@ -9,6 +9,7 @@ import Input from "src/component/Input/Input";
 import DropDown from "src/component/Input/DropDown/DropDown";
 import TextEditor from "src/component/EditorText/EditorText";
 import Map from "src/pages/public/Home/Map";
+import Fanage from "./Fanpage/Fanpage";
 
 const cx = classNames.bind(styles);
 const pricesValue = [
@@ -37,11 +38,12 @@ const pricesValue = [
 export default function CreateFanpage() {
   const formikRef = useRef(null);
   const messageRef = useRef(null);
-  const [time, setTime] = useState("12:00");
+  const [open, setOpen] = useState("12:00");
+  const [close, setClose] = useState("12:00");
   const [content, setContent] = useState("");
   const handleCreatePage = () => {
-    // const { name, description, phone, website } = formikRef.current.values;
-    // console.log(name, description, phone, website);
+    const { name, description, phone, website } = formikRef.current.values;
+    // console.log(name, description, phone, website, content, open, close);
   };
   return (
     <div className={cx("wrapper")}>
@@ -147,15 +149,20 @@ export default function CreateFanpage() {
                 Open
                 <input
                   type="time"
-                  value={time}
+                  value={open}
                   className={cx("input-time")}
-                  onChange={(e) => setTime(e.target.value)}
+                  onChange={(e) => setOpen(e.target.value)}
                 />
               </div>
               <span className={cx("time")}>-</span>
               <div className={cx("time")}>
                 Close
-                <input type="time" value={time} className={cx("input-time")} />
+                <input
+                  type="time"
+                  value={close}
+                  className={cx("input-time")}
+                  onChange={(e) => setClose(e.target.value)}
+                />
               </div>
             </div>
           </div>
@@ -193,6 +200,7 @@ export default function CreateFanpage() {
           </Button>
         </Form>
       </Formik>
+      {/* <Fanage /> */}
     </div>
   );
 }
