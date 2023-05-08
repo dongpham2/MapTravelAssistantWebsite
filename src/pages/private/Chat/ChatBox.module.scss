@@ -14,7 +14,7 @@
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25), -2px 0px 5px rgba(0, 0, 0, 0.25);;
         overflow: hidden;;
 
-        .userInfor{
+        .user-infor{
             width: 330px;
             height: 45px;
             background-color: #fff;
@@ -38,7 +38,7 @@
                     font-size: 14px;
                 }
             }
-            .chatIcons{
+            .chat-icons{
                 display: flex;
                 align-items: center;
                 ion-icon{
@@ -52,9 +52,7 @@
                         background-color: #F0F2F5;
                     }
                 }
-                
             }
-
         }
         
         .messages{
@@ -67,7 +65,7 @@
                 gap: 5px;
                 margin-top: 5px;
                 
-                .messageInfo{
+                .message-info{
                     display: flex;
                     flex-direction: column;
                     justify-content: end;
@@ -78,7 +76,7 @@
                         object-fit: cover;
                     }
                 }
-                .messageContent{
+                .message-content{
                     max-width: 80%;
                     display: flex;
                     flex-direction: column;
@@ -99,7 +97,7 @@
                 &.owner{
                     flex-direction: row-reverse;
                    
-                    .messageContent{
+                    .message-content{
                         align-items: flex-end;
                         display: flex;
                         flex-direction: column;
@@ -114,7 +112,7 @@
                             margin-top: 5px;
                         }
                     }
-                    .messageInfo{
+                    .message-info{
                         display: flex;
                         justify-content: end;
                         img{
@@ -134,7 +132,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 5px;
-            .inputIcons{
+            .input-icons{
                     padding: 2px;
                 label{
                     display: flex;
@@ -153,24 +151,30 @@
                 }
             }
             .textarea{
-                padding: 5px 0px 5px 0px;
-                display: flex;
-                margin-bottom: 0px;
-            }
-            textarea{
-                height: 30px;
-                min-height: 30px;
-                max-height: 75px;
-                width: 220px;
-                outline: none;
-                resize: none;
-                font-size: 16px;
-                padding-left: 10px;
-                border-radius: 20px;
-                overflow: hidden;
-                border: none;
+                // padding: 5px 0px 5px 0px;
+                // display: flex;
+                // margin-bottom: 0px;
+                width: 300px;
+                border-radius: 15px;
                 background-color: #f0f2f5;
+                padding-left: 10px;
+                padding-top: 5px;
+                height: 30px;
             }
+            // textarea{
+            //     height: 30px;
+            //     min-height: 30px;
+            //     max-height: 75px;
+            //     width: 220px;
+            //     outline: none;
+            //     resize: none;
+            //     font-size: 16px;
+            //     padding-left: 10px;
+            //     border-radius: 20px;
+            //     overflow: hidden;
+            //     border: none;
+            //     background-color: #f0f2f5;
+            // }
         }
     }
 }

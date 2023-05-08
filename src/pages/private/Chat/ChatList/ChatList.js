@@ -54,7 +54,6 @@ export default function ChatList() {
       const res = await getDoc(doc(db, "chats", combinedId));
       if (!res.exists()) {
         await setDoc(doc(db, "chats", combinedId), { messages: [] });
-        console.log("aa");
         //create user chats
         const res = await getDoc(doc(db, "userChats", currentUser.uid));
         const res2 = await getDoc(doc(db, "userChats", user.uid));
@@ -67,7 +66,6 @@ export default function ChatList() {
             },
             [combinedId + ".date"]: serverTimestamp(),
           });
-          console.log("cc");
         } else {
           await updateDoc(doc(db, "userChats", currentUser.uid), {
             [combinedId + ".userInfo"]: {
@@ -77,7 +75,6 @@ export default function ChatList() {
             },
             [combinedId + ".date"]: serverTimestamp(),
           });
-          console.log("cc11");
         }
         //create user chats
         if (!res2.exists()) {
@@ -88,8 +85,7 @@ export default function ChatList() {
               photoURL: currentUser.photoURL,
             },
             [combinedId + ".date"]: serverTimestamp(),
-          });
-          console.log("dd");
+          });;
         } else {
           await updateDoc(doc(db, "userChats", user.uid), {
             [combinedId + ".userInfo"]: {
@@ -99,7 +95,6 @@ export default function ChatList() {
             },
             [combinedId + ".date"]: serverTimestamp(),
           });
-          console.log("dd22");
         }
       }
     } catch (err) {}
