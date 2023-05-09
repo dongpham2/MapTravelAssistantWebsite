@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { actionSignin } from "src/redux/actions/authen";
 import config from "src/config";
 import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -21,9 +20,9 @@ export default function Loginform() {
   const formikRef = useRef(null);
   const messageRef = useRef(null);
   const handleSubmit = () => {
-    // const { email, password } = formikRef.current.values;
+    const { email, password } = formikRef.current.values;
     // // console.log("Check login value", email, password);
-    // dispatch(actionSignin({ email, password }));
+    dispatch(actionSignin({ email, password }));
   };
   return (
     <div className={cx("wrapper")}>
@@ -82,18 +81,16 @@ export default function Loginform() {
           >
             {messageError}
           </div> */}
-          <Link to={config.routes.home}>
-            <Button
-              primary
-              className={cx("button-form")}
-              onClick={() => {
-                handleSubmit();
-              }}
-              type="submit"
-            >
-              Login
-            </Button>
-          </Link>
+          <Button
+            primary
+            className={cx("button-form")}
+            onClick={() => {
+              handleSubmit();
+            }}
+            type="submit"
+          >
+            Login
+          </Button>
         </Form>
       </Formik>
 

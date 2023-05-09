@@ -162,11 +162,13 @@
             }
             .textarea{
                 width: 235px;
+                min-height: 15px;
+                max-height: 35px;
                 border-radius: 15px;
                 background-color: #f0f2f5;
                 padding-left: 10px;
                 padding-top: 10px;
-                height: 35px;
+               
                 overflow: hidden;
                 line-height: 5px;
             }

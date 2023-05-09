@@ -27,31 +27,6 @@ export default function ProfileFanpage() {
       <Introduction />
       {/* content */}
       <div className={cx("content")}>
-        <div className={cx("start")}>
-          {[...Array(5)].map((star, i) => {
-            const ratingValue = i + 1;
-            return (
-              <label>
-                <input
-                  type="radio"
-                  name="rating"
-                  value={ratingValue}
-                  onClick={() => setRating(ratingValue)}
-                />
-                <FaStar
-                  className={cx("start-icon")}
-                  size={30}
-                  color={
-                    ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"
-                  }
-                  onMouseEnter={() => setHover(ratingValue)}
-                  onMouseLeave={() => setHover(null)}
-                />
-              </label>
-            );
-          })}
-        </div>
-
         <div className={cx("input-group")}>
           <span className={cx("icon")}>
             <ion-icon name="cash-outline"></ion-icon>

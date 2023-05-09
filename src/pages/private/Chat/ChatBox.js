@@ -23,9 +23,9 @@ export default function Chat(props) {
     const [text, setText] = useState("")
     const [img, setImg] = useState(null)
     const [file, setFile] = useState(null)
-    const TextEditor = styled.div`
-        background-color: black;
-    `
+    // TextEditor = styled.textarea`
+    //     placeholder="Write something ..."
+    // `
 
     const currentUser = {
         // uid : "IrzDfxSJZQO1cn4zDd1zZCh6DZ42", 
@@ -140,7 +140,6 @@ export default function Chat(props) {
                         onChange={e=>setText(e.target.value)}
                     /> */}
                     <TextEditor setContentBlog={setContent} sHidderTools={true}
-                    
                                  />
                 </div>
                 <div className={cx("send-icons")} onClick={handleSend}>

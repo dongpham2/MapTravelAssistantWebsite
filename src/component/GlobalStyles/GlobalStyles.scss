@@ -20,6 +20,7 @@ body {
     font-size: 1.6rem;
     line-height: 1.6;
     max-width: 100vw;
+    height: 100vh;
     color: var(--text-color);
     text-rendering: optimizespeed;
 }
@@ -32,11 +33,11 @@ body {
     --default-layout-sidebar-width: 220px;
 
     // color
-    --navbar-color :#00BFFF;
+    --navbar-color :#4CAF50;
     --background-color:#f6f7f8;
-    --primary-color: #8860D0;
-    --secondary-color: #5AB9EA;
-    --primary-button: linear-gradient(90deg, #8860D0 0%, #5AB9EA 100%);;
+    --primary-color: #26A69A;
+    --secondary-color: #4DB6AC;
+    --primary-button: #009786;
     --white-color: #fff;
     --black-color: #000000;
     --gray-color: #D8DADF;

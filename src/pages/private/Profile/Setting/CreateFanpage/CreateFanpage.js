@@ -8,6 +8,8 @@ import DataTime from "src/component/DateTime/DataTime";
 import Input from "src/component/Input/Input";
 import DropDown from "src/component/Input/DropDown/DropDown";
 import TextEditor from "src/component/EditorText/EditorText";
+import Map from "src/pages/public/Home/Map";
+import Fanage from "./Fanpage/Fanpage";
 
 const cx = classNames.bind(styles);
 const pricesValue = [
@@ -36,11 +38,12 @@ const pricesValue = [
 export default function CreateFanpage() {
   const formikRef = useRef(null);
   const messageRef = useRef(null);
-  const [time, setTime] = useState("12:00");
+  const [open, setOpen] = useState("12:00");
+  const [close, setClose] = useState("12:00");
   const [content, setContent] = useState("");
   const handleCreatePage = () => {
-    // const { name, description, phone, website } = formikRef.current.values;
-    // console.log(name, description, phone, website);
+    const { name, description, phone, website } = formikRef.current.values;
+    // console.log(name, description, phone, website, content, open, close);
   };
   return (
     <div className={cx("wrapper")}>
@@ -146,39 +149,35 @@ export default function CreateFanpage() {
                 Open
                 <input
                   type="time"
-                  value={time}
+                  value={open}
                   className={cx("input-time")}
-                  onChange={(e) => setTime(e.target.value)}
+                  onChange={(e) => setOpen(e.target.value)}
                 />
               </div>
               <span className={cx("time")}>-</span>
               <div className={cx("time")}>
                 Close
-                <input type="time" value={time} className={cx("input-time")} />
+                <input
+                  type="time"
+                  value={close}
+                  className={cx("input-time")}
+                  onChange={(e) => setClose(e.target.value)}
+                />
               </div>
             </div>
           </div>
           <div className={cx("services")}>
             <div className={cx("services-desc")}>Services Price</div>
             <div className={cx("services-price")}>
-              <div className={cx("price-group")}>
-                <Input
-                  placeholder="price"
-                  primary
-                  className={cx("input-field")}
-                />
-                <DropDown title="Prices" data={pricesValue} />
-              </div>
-              <span className={cx("price-group")}>-</span>
-
-              <div className={cx("price-group")}>
-                <Input placeholder="to" primary className={cx("input-field")} />
-                <DropDown title="Prices" data={pricesValue} />
-              </div>
+              <Input placeholder="From" primary className={cx("input-field")} />
+              <span className={cx("price-dot")}>-</span>
+              <Input placeholder="To" primary className={cx("input-field")} />
+              <DropDown title="Prices" data={pricesValue} />
             </div>
           </div>
           <div className={cx("location")}>
-            <div> Map</div>
+            <div className={cx("address")}>Pin Your Location</div>
+            <Map />
           </div>
           <Button
             primary
@@ -191,6 +190,7 @@ export default function CreateFanpage() {
           </Button>
         </Form>
       </Formik>
+      {/* <Fanage /> */}
     </div>
   );
 }

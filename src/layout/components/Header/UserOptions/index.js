@@ -23,6 +23,7 @@ function UserOptions({ user }) {
           <div className={cx("user-name")}>Pham Van Dong</div>
         </div>
       </div>
+
       <div className={cx("option")}>
         {/* first item */}
         <ul className={cx("option-list")}>

@@ -12,6 +12,7 @@ const routes = {
   changePassword: "/setting/changePassword",
   notification: "/setting/notification",
   chat: "/chat",
+  admin: "/admin",
   // chatbox:"/chatbox",
 };
 
