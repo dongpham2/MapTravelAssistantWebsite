@@ -45,14 +45,14 @@ export default function Ratting() {
             <TextEditor setContentBlog={setComment} sHidderTools={true} />
           </div>
         </div>
-        <div className={cx("comments")}>
+        {/* <div className={cx("comments")}>
           <div className={cx("comments-other")}>
             <span className={cx("more")}>Rate & Review from Customer</span>
             <UserComments />
             <UserComments />
             <UserComments />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { actionSignin } from "src/redux/actions/authen";
 import config from "src/config";
 import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -22,6 +21,7 @@ export default function Loginform() {
   const messageRef = useRef(null);
   const handleSubmit = () => {
     const { email, password } = formikRef.current.values;
+    // // console.log("Check login value", email, password);
     dispatch(actionSignin({ email, password }));
   };
   return (
