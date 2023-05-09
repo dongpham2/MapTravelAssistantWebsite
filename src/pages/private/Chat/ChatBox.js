@@ -11,11 +11,10 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Message from "./Message";
 import TextareaAutosize from 'react-textarea-autosize';
 import TextEditor from "src/component/EditorText/EditorText";
-import CardArticle from "../FanPage/Content/components/PostFanpage/components/CardArticle/CardArticle";
 
 const cx = classNames.bind(styles);
 export default function Chat(props) {
-    
+
     const [content, setContent] = useState("");
     const {data} = useContext(ChatContext)
     const [chats, setChats] = useState([])
@@ -23,7 +22,7 @@ export default function Chat(props) {
     const [text, setText] = useState("")
     const [img, setImg] = useState(null)
     const [file, setFile] = useState(null)
-    const article = ``
+    const article = `{content}`
 
     const currentUser = {
         // uid : "IrzDfxSJZQO1cn4zDd1zZCh6DZ42", 
@@ -46,8 +45,6 @@ export default function Chat(props) {
 
     const handleSend = async () =>{
         // console.log(content)
-        // setText(content.slice(3,-5))
-        // console.log("settext", text)
         if(content === "") return
         if(img){
             const storageRef = ref(storage, uuid());
@@ -59,7 +56,7 @@ export default function Chat(props) {
                         await updateDoc(doc(db, "chats", data.chatId), {
                             messages: arrayUnion({
                                 id: uuid(),
-                                text:content.slice(3,-5),
+                                text: content,
                                 senderId: currentUser.uid,
                                 date: Timestamp.now(),
                                 img: downloadURL,
@@ -72,7 +69,7 @@ export default function Chat(props) {
             await updateDoc(doc(db, "chats", data.chatId), {
                 messages: arrayUnion({
                     id: uuid(),
-                    text: content.slice(3,-5),
+                    text: content,
                     senderId: currentUser.uid,
                     date: Timestamp.now(),
                 }),
@@ -90,8 +87,8 @@ export default function Chat(props) {
         //     },
         //     [data.chatId+".date"]:serverTimestamp(),
         // })
-        setText("")
         setContent("")
+        setText("")
         setImg(null)
     };
 
@@ -140,9 +137,6 @@ export default function Chat(props) {
                         onChange={e=>setText(e.target.value)}
                     /> */}
                     <TextEditor setContentBlog={setContent} sHidderTools={true}
-                                dangerouslySetInnerHTML={{
-                                    __html: article?.content,
-                                }}
                                  />
                 </div>
                 <div className={cx("send-icons")} onClick={handleSend}>

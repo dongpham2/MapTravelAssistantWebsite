@@ -31,7 +31,11 @@ export default function Message({message}) {
                         </div>
                         {/* Content */}
                         <div className={cx("message-content")}>
-                            <p>{message.text}</p>
+                            <span
+                            dangerouslySetInnerHTML={{
+                                __html:message.text
+                            }}
+                            ></span>
                             {message.img &&
                                 <img src={message.img} alt="" />}
                         </div>
