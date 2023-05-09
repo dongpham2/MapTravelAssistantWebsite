@@ -14,9 +14,8 @@ export default function RegisterForm() {
   const formikRef = useRef(null);
   // const messageRef = useRef(null);
   const handleSubmit = () => {
-    if (formikRef.current.isSubmitting) {
-      dispatch(actionSignup(formikRef.current.isSubmitting));
-    }
+    const {fullname, email, password} = formikRef.current.values
+      dispatch(actionSignup({fullname, email, password}));
   };
   return (
     <div className={cx("wrapper")}>
