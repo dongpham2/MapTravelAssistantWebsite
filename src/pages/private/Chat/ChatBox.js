@@ -11,6 +11,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Message from "./Message";
 import TextareaAutosize from 'react-textarea-autosize';
 import TextEditor from "src/component/EditorText/EditorText";
+import styled from 'styled-components'
 
 const cx = classNames.bind(styles);
 export default function Chat(props) {
@@ -22,7 +23,9 @@ export default function Chat(props) {
     const [text, setText] = useState("")
     const [img, setImg] = useState(null)
     const [file, setFile] = useState(null)
-    const article = `{content}`
+    const TextEditor = styled.div`
+        background-color: black;
+    `
 
     const currentUser = {
         // uid : "IrzDfxSJZQO1cn4zDd1zZCh6DZ42", 
@@ -137,6 +140,7 @@ export default function Chat(props) {
                         onChange={e=>setText(e.target.value)}
                     /> */}
                     <TextEditor setContentBlog={setContent} sHidderTools={true}
+                    
                                  />
                 </div>
                 <div className={cx("send-icons")} onClick={handleSend}>
