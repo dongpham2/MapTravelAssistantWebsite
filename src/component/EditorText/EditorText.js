@@ -14,7 +14,6 @@ const EditorStyled = styled.div`
     border: ${(p) => (p.isHidderTools ? "" : "none !important")};
     width: 100%;
     height: ${(p) => (p.isHidderTools ? "100% !important" : "100% !important")};
-    margin-bottom: 15px;
   }
 `;
 const TextEditor = ({
