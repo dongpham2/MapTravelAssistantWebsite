@@ -169,20 +169,10 @@ export default function CreateFanpage() {
           <div className={cx("services")}>
             <div className={cx("services-desc")}>Services Price</div>
             <div className={cx("services-price")}>
-              <div className={cx("price-group")}>
-                <Input
-                  placeholder="price"
-                  primary
-                  className={cx("input-field")}
-                />
-                <DropDown title="Prices" data={pricesValue} />
-              </div>
-              <span className={cx("price-group")}>-</span>
-
-              <div className={cx("price-group")}>
-                <Input placeholder="to" primary className={cx("input-field")} />
-                <DropDown title="Prices" data={pricesValue} />
-              </div>
+              <Input placeholder="From" primary className={cx("input-field")} />
+              <span className={cx("price-dot")}>-</span>
+              <Input placeholder="To" primary className={cx("input-field")} />
+              <DropDown title="Prices" data={pricesValue} />
             </div>
           </div>
           <div className={cx("location")}>

@@ -29,6 +29,12 @@ export const publicRoutes = [
     component: ChangePassword,
     layout: SettingLayout,
   },
+
+  // {
+  //   path: config.routes.ForgotPassword,
+  //   component: ForgotPassword,
+  //   layout: null,
+  // },
   { path: config.routes.profile, component: Profile, layout: SettingLayout },
   {
     path: config.routes.createFanpage,
@@ -41,11 +47,8 @@ export const publicRoutes = [
   { path: config.routes.videos, component: VideosPage, layout: FanpageLayout },
   { path: config.routes.more, component: More, layout: FanpageLayout },
   { path: config.routes.admin, component: admin, layout: SidebarLayout },
-  // {
-  //   path: config.routes.ForgotPassword,
-  //   component: ForgotPassword,
-  //   layout: null,
-  // },
 ];
 
 export const privateRoutes = [];
+
+export const ownerRoutes = [];

@@ -62,7 +62,6 @@ export default function UsersManage() {
                 <th>No</th>
                 <th>Fullname</th>
                 <th>Email</th>
-                <th>Role</th>
                 <th>Phone Number</th>
                 <th>Delete</th>
               </tr>
@@ -75,7 +74,6 @@ export default function UsersManage() {
                       <td>{index + 1}</td>
                       <td>{user.fullname}</td>
                       <td>{user.email}</td>
-                      <td>{user.role}</td>
                       <td>{user.phoneNumber}</td>
                       <td className={cx("action-column")}>
                         <span

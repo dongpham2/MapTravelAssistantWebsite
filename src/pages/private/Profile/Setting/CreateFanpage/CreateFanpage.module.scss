@@ -64,17 +64,15 @@
         }
         &-price {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            .price-group{
-                align-items: center;
-                display: flex;
-                .input-field {
-                    width: 50%;
-                    margin-right: 8px;
-                }
+            .input-field {
+                margin-right: 5px;
             }
+
         }
+        .price-dot {
+            margin: 5px 5px 5px 5px;
+        }
+    
     }
     .location {
         width: 100%;

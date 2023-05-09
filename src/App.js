@@ -29,7 +29,30 @@ function App() {
         <Routes>
           {/* PUBLIC ROUTES */}
           {renderRoutes(publicRoutes)}
-          <Route>{renderRoutes(publicRoutes)}</Route>
+
+          {/* PRIVATE ROUTES */}
+          {/* For ALL */}
+          <Route
+            element={
+              <ProtectedRoute
+                redirectPath={config.routes.accounts}
+                // isAllowed={isAuth}
+              />
+            }
+          >
+            {renderRoutes(privateRoutes)}
+          </Route>
+          {/* For Admin */}
+          {/* <Route
+            element={
+              <ProtectedRoute
+                redirectPath={config.routes.home}
+                isAllowed={isAuth && user?.role === "admin"}
+              ></ProtectedRoute>
+            }
+          >
+            {renderRoutes(adminPrivateRoutes)}
+          </Route> */}
           {/* NOTE FOUND */}
           <Route
             path="*"
