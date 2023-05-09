@@ -3,12 +3,18 @@ import classNames from "classnames/bind";
 import styles from "./CardArticle.module.scss";
 import images from "src/assets/images";
 import ShareOptions from "./ShareOptions/ShareOptions";
+import CardOptions from "./CardOptions/CardOptions";
 
 const cx = classNames.bind(styles);
 export default function CardArticle() {
   const [visibleShareOptions, setVisibleUserOptions] = useState(false);
+  const [visibleCardOptions, setVisibleCardOptions] = useState(false);
   const handleOpenShareOptions = () => {
     setVisibleUserOptions(!visibleShareOptions);
+  };
+
+  const handleOpenCardOptions = () => {
+    setVisibleCardOptions(!visibleCardOptions);
   };
   return (
     <div className={cx("wrapper")}>
@@ -20,9 +26,10 @@ export default function CardArticle() {
             <div className={cx("time")}>24/05/2023</div>
           </div>
         </div>
-        <span className={cx("icon-option")}>
+        <div className={cx("icon-option")} onClick={handleOpenCardOptions}>
           <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-        </span>
+        </div>
+        {visibleCardOptions ? <CardOptions /> : ""}
       </div>
       <div className={cx("content")}>
         <span>

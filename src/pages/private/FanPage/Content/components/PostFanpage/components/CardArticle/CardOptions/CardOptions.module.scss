@@ -1,10 +1,9 @@
-.wrapper{
+.wrapper {
     z-index: 998;
     position: absolute;
-    // inset: 0 0 auto auto;
     margin: 0;
-    transform: translate3d(200px, 52.8px, 0px);
-    min-width: 300px;
+    transform: translate3d(392px, 40.8px, 0px);
+    min-width: 150px;
     min-height: 60px;
     background-color: var(--white-color);
     padding: 5px;
@@ -15,36 +14,35 @@
     transition: all 0.3s ease;
     will-change: opacity, transform;
     margin-right: 10px;
-    .form-list {
+    .card-form {
         position: relative;
         ::before {
             content: "";
             position: absolute;
             background: var(--white-color);
-            top: -10px;
-            right: 80px;
+            top: -8px;
+            right: 20px;
             width: 20px;
             height: 20px;
             transform: rotate(45deg);
         }
-        .form-item {
-                display: flex;
-                height: 50px;
-                align-items: center;
-                &:hover {
-                    background-color: #fafafa;
-                }
+        .card-item {
+        display: flex;
+        padding: 5px;
+        align-items: center;
+        border-radius: 5px;
+        .icon {
+            margin-right: 5px;
+        }
+        &:hover {
+            background-color: var(--gray-color);
+            cursor: pointer;
+
+        }
         
-                .icon {
-                    margin-right: 15px;
-                }
-        
-                .text {
-                    font-weight: 500;
-                }
-        
-            }
     }
+    }
+    
     
 }
 

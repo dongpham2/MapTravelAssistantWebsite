@@ -21,9 +21,8 @@ export default function Loginform() {
   const formikRef = useRef(null);
   const messageRef = useRef(null);
   const handleSubmit = () => {
-    // const { email, password } = formikRef.current.values;
-    // // console.log("Check login value", email, password);
-    // dispatch(actionSignin({ email, password }));
+    const { email, password } = formikRef.current.values;
+    dispatch(actionSignin({ email, password }));
   };
   return (
     <div className={cx("wrapper")}>

@@ -13,6 +13,8 @@ import SettingLayout from "src/layout/SettingLayout";
 import CreateFanpage from "src/pages/private/Profile/Setting/CreateFanpage/CreateFanpage";
 import Notification from "src/pages/private/Profile/Setting/Notification/Notification";
 import ChangePassword from "src/pages/private/Profile/Setting/ChangePassword/ChangePassword";
+import admin from "src/pages/private/Admin";
+import SidebarLayout from "src/layout/SidebarLayout";
 
 export const publicRoutes = [
   { path: config.routes.home, component: Home },
@@ -38,6 +40,7 @@ export const publicRoutes = [
   { path: config.routes.photos, component: Photos, layout: FanpageLayout },
   { path: config.routes.videos, component: VideosPage, layout: FanpageLayout },
   { path: config.routes.more, component: More, layout: FanpageLayout },
+  { path: config.routes.admin, component: admin, layout: SidebarLayout },
   // {
   //   path: config.routes.ForgotPassword,
   //   component: ForgotPassword,
