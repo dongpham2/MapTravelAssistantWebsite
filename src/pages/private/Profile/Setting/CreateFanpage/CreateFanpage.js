@@ -244,7 +244,7 @@ export default function CreateFanpage() {
           </div>
           <div className={cx("location")}>
             <div className={cx("address")}>Pin Your Location</div>
-            <Map />
+            {/* <Map /> */}
           </div>
           <div className={cx("btn")}>
             <Button
