@@ -10,6 +10,10 @@ import DropDown from "src/component/Input/DropDown/DropDown";
 import TextEditor from "src/component/EditorText/EditorText";
 import Map from "src/pages/public/Home/Map";
 import Fanage from "./Fanpage/Fanpage";
+import { getObjectCreateFanpages } from "./utility";
+import { useDispatch } from "react-redux";
+import { actionCreateFangpage } from "src/redux/actions/fanpage";
+import { Col, Row } from "react-bootstrap";
 
 const cx = classNames.bind(styles);
 const pricesValue = [
@@ -41,9 +45,44 @@ export default function CreateFanpage() {
   const [open, setOpen] = useState("12:00");
   const [close, setClose] = useState("12:00");
   const [content, setContent] = useState("");
+  const [selectForm, setSelectForm] = useState({
+    denomina: "",
+  });
+  const dispatch = useDispatch();
   const handleCreatePage = () => {
-    const { name, description, phone, website } = formikRef.current.values;
-    // console.log(name, description, phone, website, content, open, close);
+    const { name, description, phone, website, priceStart, priceEnd } =
+      formikRef.current.values;
+    const selectValues = { ...selectForm };
+    console.log({
+      name,
+      description,
+      phone,
+      website,
+      priceStart,
+      priceEnd,
+      selectValues,
+    });
+    // dispatch(
+    //   actionCreateFangpage(
+    //     getObjectCreateFanpages(
+    //       name,
+    //       description,
+    //       phone,
+    //       website,
+    //       content,
+    //       open,
+    //       close,
+    //       priceStart,
+    //       priceEnd
+    //     ),
+    //     selectValues
+    //   )
+    // );
+  };
+  const handleChangeSelect = (value, name, nameSelect) => {
+    setSelectForm((prev) => {
+      return { ...prev, [nameSelect]: name };
+    });
   };
   return (
     <div className={cx("wrapper")}>
@@ -52,17 +91,15 @@ export default function CreateFanpage() {
         innerRef={formikRef}
         initialValues={{
           name: "",
-          description: "",
           phone: "",
           website: "",
+          priceStart: "",
+          priceEnd: "",
         }}
         validationSchema={Yup.object({
           name: Yup.string()
             .min(2, "Too Short!")
             .max(50, "Too Long!")
-            .required("This field must have value"),
-          description: Yup.string()
-            .min(12, "At least 12 characters")
             .required("This field must have value"),
           phone: Yup.number()
             .typeError("That doesn't look like a phone number")
@@ -76,6 +113,14 @@ export default function CreateFanpage() {
               "Enter correct url!"
             )
             .required("Please enter website"),
+          priceStart: Yup.number()
+            .required("Enter Prices")
+            .max(1000000000, "To big")
+            .min(0, "Not negative prices"),
+          priceEnd: Yup.number()
+            .required("Enter Prices")
+            .max(1000000000, "To big")
+            .min(0, "Not negative prices"),
         })}
       >
         <Form autocomplete="off">
@@ -105,15 +150,6 @@ export default function CreateFanpage() {
               <div className={cx("text-desc")}>
                 <TextEditor setContentBlog={setContent} sHidderTools={true} />
               </div>
-              {/* <Field
-                className={cx("input-text")}
-                name="description"
-                type="description"
-                placeholder="Description"
-              />
-              <div className={cx("error-message")}>
-                <ErrorMessage name="description" />
-              </div> */}
             </div>
           </div>
           <div className={cx("form-group")}>
@@ -168,26 +204,58 @@ export default function CreateFanpage() {
           </div>
           <div className={cx("services")}>
             <div className={cx("services-desc")}>Services Price</div>
-            <div className={cx("services-price")}>
-              <Input placeholder="From" primary className={cx("input-field")} />
-              <span className={cx("price-dot")}>-</span>
-              <Input placeholder="To" primary className={cx("input-field")} />
-              <DropDown title="Prices" data={pricesValue} />
-            </div>
+            <Row>
+              <Col>
+                <div className={cx("services-price")}>
+                  <div className={cx("services-field")}>
+                    <Field
+                      className={cx("input-prices")}
+                      name="priceStart"
+                      type="priceStart"
+                      placeholder="Prices"
+                    />
+                    <div className={cx("error-message")}>
+                      <ErrorMessage name="priceStart" />
+                    </div>
+                  </div>
+                  <span className={cx("price-dot")}>-</span>
+                  <div className={cx("services-field")}>
+                    <Field
+                      className={cx("input-prices")}
+                      name="priceEnd"
+                      type="priceEnd"
+                      placeholder="Prices"
+                    />
+                    <div className={cx("error-message")}>
+                      <ErrorMessage name="priceEnd" />
+                    </div>
+                  </div>
+                  <DropDown
+                    onChangeSelect={(value, name) =>
+                      handleChangeSelect(value, name, "denomina")
+                    }
+                    title="Prices"
+                    data={pricesValue}
+                    className={cx("prices-option")}
+                  />
+                </div>
+              </Col>
+            </Row>
           </div>
           <div className={cx("location")}>
             <div className={cx("address")}>Pin Your Location</div>
             <Map />
           </div>
-          <Button
-            primary
-            onClick={() => {
-              handleCreatePage();
-            }}
-            className={cx("btn")}
-          >
-            Create
-          </Button>
+          <div className={cx("btn")}>
+            <Button
+              primary
+              onClick={() => {
+                handleCreatePage();
+              }}
+            >
+              Create
+            </Button>
+          </div>
         </Form>
       </Formik>
       {/* <Fanage /> */}

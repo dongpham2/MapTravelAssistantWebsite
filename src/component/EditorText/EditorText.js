@@ -15,6 +15,9 @@ const EditorStyled = styled.div`
     width: 100%;
     height: ${(p) => (p.isHidderTools ? "100% !important" : "100% !important")};
   }
+  .public-DraftStyleDefault-block {
+    margin: 0;
+  }
 `;
 const TextEditor = ({
   setValue,
@@ -64,7 +67,7 @@ const TextEditor = ({
         editorClassName="editorClassName"
         toolbarClassName="hide-toolbar"
         onEditorStateChange={onEditorStateChange}
-        placeholder={"Write something to share ..."}
+        placeholder={"Write something ..."}
         toolbar={{
           options: [
             "inline",

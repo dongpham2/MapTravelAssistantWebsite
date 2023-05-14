@@ -1,18 +1,23 @@
 const routes = {
+  // common
   home: "/",
   accounts: "/accounts",
   forgotPassword: "/forgotPassword",
-  profile: "/setting/profile",
+  // fanpage
   fanpage: "/fanpage", // Chỗ này truyền /:id nhưng chưa có authen nên để tạm là fanpage
-  // posts: "/fanpage/posts",
   photos: "/fanpage/photos",
   videos: "/fanpage/videos",
   more: "/fanpage/more",
+  chat: "/chat",
+  // setting
+  profile: "/setting/profile",
   createFanpage: "/setting/createFanpage",
   changePassword: "/setting/changePassword",
   notification: "/setting/notification",
-  chat: "/chat",
-  admin: "/admin",
+  // admin
+  admin: "/admin/userManage",
+  notice: "/admin/notification",
+  history: "/admin/history",
   // chatbox:"/chatbox",
 };
 

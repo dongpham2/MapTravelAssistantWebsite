@@ -7,7 +7,8 @@ import Button from "../../../../component/Button";
 import { useDispatch } from "react-redux";
 import { actionSignin } from "src/redux/actions/authen";
 import config from "src/config";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
 
@@ -19,10 +20,12 @@ export default function Loginform() {
   const dispatch = useDispatch();
   const formikRef = useRef(null);
   const messageRef = useRef(null);
+  const history = useNavigate();
   const handleSubmit = () => {
     const { email, password } = formikRef.current.values;
     // // console.log("Check login value", email, password);
-    dispatch(actionSignin({ email, password }));
+    dispatch(actionSignin({ email, password }, history));
+    toast.success("Login successful");
   };
   return (
     <div className={cx("wrapper")}>

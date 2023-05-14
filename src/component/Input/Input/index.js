@@ -45,7 +45,10 @@ function Input({
       </input>
       {rightIcon && (
         <span
-          style={{ paddingRight: "20px", cursor: "pointer" }}
+          style={{
+            paddingRight: "20px",
+            cursor: "pointer",
+          }}
           className={cx("icon")}
         >
           {rightIcon}

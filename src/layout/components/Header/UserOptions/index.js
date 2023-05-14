@@ -1,18 +1,27 @@
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "./UserOptions.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import config from "../../../../config";
 import images from "../../../../assets/images";
+import { useDispatch, useSelector } from "react-redux";
+import { LogoutAction } from "src/redux/actions/authen";
 
 const cx = classNames.bind(styles);
-function UserOptions({ user }) {
+function UserOptions() {
+  const { auth } = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    dispatch(LogoutAction());
+    navigate("/accounts");
+  };
   return (
     <div className={cx("wrapper")}>
       <div className={cx("header")}>
         <div className={cx("header-left")}>
           <img
-            src={images.avt}
+            src={auth.user.avatar}
             alt="Avatar"
             className={cx("avatar-img", "avatar")}
           />
@@ -20,7 +29,7 @@ function UserOptions({ user }) {
         </div>
         <div className={cx("header-right")}>
           {/* <div className={cx("user-name")}>{user.fullname}</div>*/}
-          <div className={cx("user-name")}>Pham Van Dong</div>
+          <div className={cx("user-name")}>{auth.user.fullName}</div>
         </div>
       </div>
 
@@ -38,7 +47,7 @@ function UserOptions({ user }) {
         </ul>
         {/* second item */}
         <ul className={cx("option-list")}>
-          <Link to="" className={cx("option-item-link")}>
+          <Link to={config.routes.profile} className={cx("option-item-link")}>
             <li className={cx("option-item")}>
               <div className={cx("option-icon")}>
                 <ion-icon name="settings-outline"></ion-icon>
@@ -54,7 +63,9 @@ function UserOptions({ user }) {
               <div className={cx("option-icon")}>
                 <ion-icon name="log-out-outline"></ion-icon>
               </div>
-              <div className={cx("option-name")}>Logout</div>
+              <div className={cx("option-name")} onClick={handleLogout}>
+                Logout
+              </div>
             </li>
           </Link>
         </ul>

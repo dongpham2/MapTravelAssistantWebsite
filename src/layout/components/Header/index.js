@@ -7,14 +7,16 @@ import images from "../../../assets/images";
 import Input from "../../../component/Input/Input";
 import config from "../../../config";
 import UserOptions from "./UserOptions";
+import { useDispatch, useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 export default function Header() {
+  const { auth } = useSelector((state) => state);
   const [isVisibleUserOptions, setIsVisibleUserOptions] = useState(false);
 
-  // const toggleUserOptions = () => {
-  //   setIsVisibleUserOptions(!isVisibleUserOptions);
-  // };
+  const toggleUserOptions = () => {
+    setIsVisibleUserOptions(!isVisibleUserOptions);
+  };
   return (
     <header className={cx("wrapper")}>
       <div className={cx("left")}>
@@ -34,18 +36,26 @@ export default function Header() {
           {/* <img src={images.bell} /> */}
           <ion-icon name="notifications-outline"></ion-icon>
         </div>
-        {/* <div
-          className={cx("avatar")}
-          onClick={() => {
-            toggleUserOptions();
-          }}
-        >
-          <img className={cx("avatar-img")} src={images.avt} alt="avt" />
-        </div>
-        {isVisibleUserOptions ? <UserOptions /> : ""} */}
-        <Link to={config.routes.accounts}>
-          <Button login>Login</Button>
-        </Link>
+
+        {isVisibleUserOptions ? <UserOptions /> : ""}
+        {auth && auth.status ? (
+          <div
+            className={cx("avatar")}
+            onClick={() => {
+              toggleUserOptions();
+            }}
+          >
+            <img
+              className={cx("avatar-img")}
+              src={auth.user.avatar}
+              alt="avt"
+            />
+          </div>
+        ) : (
+          <Link to={config.routes.accounts}>
+            <Button login>Login</Button>
+          </Link>
+        )}
       </div>
     </header>
   );

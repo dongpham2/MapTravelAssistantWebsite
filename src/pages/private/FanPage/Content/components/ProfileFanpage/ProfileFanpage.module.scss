@@ -35,7 +35,14 @@
         }
     }
     .btn {
+        margin-top: 20px;
         display: flex;
         justify-content: flex-end;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .wrapper {
+        width: 680px;
     }
 }

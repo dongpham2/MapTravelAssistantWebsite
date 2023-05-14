@@ -4,8 +4,10 @@ import { useState } from "react";
 import styles from "./DropDown.module.scss";
 
 const cx = classNames.bind(styles);
+const FunC = () => {};
 export default function DropDown({
   data = [],
+  onChangeSelect = FunC,
   title = "",
   defaultValueProps = "",
 }) {
@@ -18,7 +20,7 @@ export default function DropDown({
 
     let nameValue = data[index].name;
 
-    // onChangeSelect(e.target.value, nameValue);
+    onChangeSelect(e.target.value, nameValue);
   };
 
   const renderDropDownData = () => {

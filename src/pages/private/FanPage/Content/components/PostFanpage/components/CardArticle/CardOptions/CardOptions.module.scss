@@ -16,6 +16,7 @@
     margin-right: 10px;
     .card-form {
         position: relative;
+        z-index: 1;
         ::before {
             content: "";
             position: absolute;
@@ -25,12 +26,14 @@
             width: 20px;
             height: 20px;
             transform: rotate(45deg);
+            z-index: 1;
         }
         .card-item {
-        display: flex;
-        padding: 5px;
-        align-items: center;
-        border-radius: 5px;
+            display: flex;
+            padding: 5px;
+            align-items: center;
+            border-radius: 5px;
+            z-index: 2;
         .icon {
             margin-right: 5px;
         }

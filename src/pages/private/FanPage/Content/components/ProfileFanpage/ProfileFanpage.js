@@ -19,7 +19,6 @@ export default function ProfileFanpage() {
     website: "@abcrestaurant.vn",
     time: "7:00 am - 9:00 pm",
     phone: "085 339 0931",
-    follower: "2001 followers",
   });
 
   return (
@@ -50,12 +49,6 @@ export default function ProfileFanpage() {
             <ion-icon name="call-outline"></ion-icon>
           </span>
           <div className={cx("detail")}>{formEditProfile.phone} </div>
-        </div>
-        <div className={cx("input-group")}>
-          <span className={cx("icon")}>
-            <img src={images.follower} alt="follower" />
-          </span>
-          <div className={cx("detail")}>{formEditProfile.follower} </div>
         </div>
       </div>
     </div>
