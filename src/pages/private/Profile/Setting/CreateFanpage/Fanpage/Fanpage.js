@@ -4,6 +4,9 @@ import classNames from "classnames/bind";
 import InputField from "src/pages/private/FanPage/Content/components/ProfileFanpage/FormEdit/InputField";
 import DropDown from "src/component/Input/DropDown/DropDown";
 import Input from "src/component/Input/Input";
+import { Col, Row } from "react-bootstrap";
+import TextEditor from "src/component/EditorText/EditorText";
+import Button from "src/component/Button";
 
 const pricesValue = [
   {
@@ -28,9 +31,20 @@ const pricesValue = [
   },
 ];
 const cx = classNames.bind(styles);
+
 export default function Fanage() {
   const [open, setOpen] = useState("12:00");
   const [close, setClose] = useState("12:00");
+  const [content, setContent] = useState("");
+  const [selectForm, setSelectForm] = useState({
+    denomina: "",
+  });
+  const handleChangeSelect = (value, name, nameSelect) => {
+    setSelectForm((prev) => {
+      return { ...prev, [nameSelect]: name };
+    });
+  };
+  console.log(content);
   return (
     <div className={cx("wrapper")}>
       <h3 className={cx("heading")}>Your Fanpage</h3>
@@ -47,12 +61,23 @@ export default function Fanage() {
           label="Phone "
           //   value={profileDetail.userName}
         />
-        <InputField
-          isLabel
-          type="text"
-          label="Description"
-          //   value={profileDetail.userName}
-        />
+        <h3 className={cx("field-title")}> Description</h3>
+        <div className={cx("text-desc")}>
+          <TextEditor setContentBlog={setContent} sHidderTools={true} />
+        </div>
+        {content !== "" ? (
+          <div className={cx("btn")}>
+            <Button cancel small>
+              Cancel
+            </Button>
+            <Button primary small>
+              Save
+            </Button>
+          </div>
+        ) : (
+          ""
+        )}
+
         <InputField
           isLabel
           type="text"
@@ -86,23 +111,40 @@ export default function Fanage() {
         {/* service */}
         <div className={cx("services")}>
           <div className={cx("services-desc")}>Services Price</div>
-          <div className={cx("services-price")}>
-            <div className={cx("price-group")}>
-              <Input
-                placeholder="price"
-                primary
-                className={cx("input-field")}
-              />
-              <DropDown title="Prices" data={pricesValue} />
-            </div>
-            <span className={cx("price-group")}>-</span>
-
-            <div className={cx("price-group")}>
-              <Input placeholder="to" primary className={cx("input-field")} />
-              <DropDown title="Prices" data={pricesValue} />
-            </div>
-          </div>
+          <Row>
+            <Col>
+              <div className={cx("services-price")}>
+                <div className={cx("services-input")}>
+                  <Input
+                    className={cx("input-prices")}
+                    primary
+                    placeholder="Prices"
+                  />
+                </div>
+                <span className={cx("price-dot")}>-</span>
+                <div className={cx("services-input")}>
+                  <Input
+                    className={cx("input-prices")}
+                    primary
+                    placeholder="Prices"
+                  />
+                </div>
+                <DropDown
+                  onChangeSelect={(value, name) =>
+                    handleChangeSelect(value, name, "denomina")
+                  }
+                  title="unit"
+                  data={pricesValue}
+                  className={cx("prices-option")}
+                />
+              </div>
+            </Col>
+          </Row>
         </div>
+      </div>
+      <div className={cx("btn-change")}>
+        <Button deleted>Delete</Button>
+        <Button primary>Save</Button>
       </div>
     </div>
   );

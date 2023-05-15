@@ -44,7 +44,6 @@ export default function DetailBar() {
   const places = [
     {
       name: "Cool Place",
-      follower: "2001",
       address: "122 Le Duan, Hai Chai, Da Nang",
       firstPrice: "100",
       lastPrice: "10000",
@@ -55,7 +54,6 @@ export default function DetailBar() {
     },
     {
       name: "Hawoa Food",
-      follower: "20000",
       address: "08-10 Hoàng Hoa Thám, Hai Chai, Da Nang",
       firstPrice: "50",
       lastPrice: "200",
@@ -67,7 +65,7 @@ export default function DetailBar() {
   ];
   return (
     <header className={cx("wrapper")}>
-      <h3 className={cx("heading")}>Food & Drink around you </h3>
+      <h3 className={cx("heading")}>Places & Food around you </h3>
       <div className={cx("type")}>Type</div>
       <div className={cx("option-place")}>
         <div className={cx("places")}>

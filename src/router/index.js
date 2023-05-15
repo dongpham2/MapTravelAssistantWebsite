@@ -15,6 +15,9 @@ import Notification from "src/pages/private/Profile/Setting/Notification/Notific
 import ChangePassword from "src/pages/private/Profile/Setting/ChangePassword/ChangePassword";
 import admin from "src/pages/private/Admin";
 import SidebarLayout from "src/layout/SidebarLayout";
+import UsersManage from "src/pages/private/Admin/UsersManage";
+import Notice from "src/pages/private/Admin/Notice/Notice";
+import History from "src/pages/private/Admin/History/History";
 
 export const publicRoutes = [
   { path: config.routes.home, component: Home },
@@ -35,6 +38,21 @@ export const publicRoutes = [
   //   component: ForgotPassword,
   //   layout: null,
   // },
+
+  // admin
+  {
+    path: config.routes.usersManagement,
+    component: UsersManage,
+    layout: SidebarLayout,
+  },
+  {
+    path: config.routes.history,
+    component: History,
+    layout: SidebarLayout,
+  },
+];
+
+export const privateRoutes = [
   { path: config.routes.profile, component: Profile, layout: SettingLayout },
   {
     path: config.routes.createFanpage,
@@ -46,9 +64,10 @@ export const publicRoutes = [
   { path: config.routes.photos, component: Photos, layout: FanpageLayout },
   { path: config.routes.videos, component: VideosPage, layout: FanpageLayout },
   { path: config.routes.more, component: More, layout: FanpageLayout },
-  { path: config.routes.admin, component: admin, layout: SidebarLayout },
+
+  { path: config.routes.notice, component: Notice, layout: SidebarLayout },
 ];
 
-export const privateRoutes = [];
-
-export const ownerRoutes = [];
+export const adminRouter = [
+  { path: config.routes.admin, component: UsersManage, layout: SidebarLayout },
+];

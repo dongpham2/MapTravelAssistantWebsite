@@ -1,17 +1,18 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { publicRoutes, privateRoutes } from "./router";
+import { publicRoutes, privateRoutes, adminRouter } from "./router";
 import { renderRoutes } from "./utils/route.utils";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import config from "./config";
 import ProtectedRoute from "./router/ProtectedRoute";
 import Home from "./pages/public/Home/Home";
 import DefaultLayout from "./layout/DefaultLayout";
+import { useSelector } from "react-redux";
 function App() {
+  const auth = useSelector((state) => state.auth);
+  console.log(auth.role);
   return (
-    // const isAuth = useSelector(isAuthSelector);
-    // const isAuth = useSelector(isAuthSelector);
-
     <Router>
       <div className="App">
         <ToastContainer
@@ -36,23 +37,23 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath={config.routes.accounts}
-                // isAllowed={isAuth}
+                isAllowed={auth.role === "user"}
               />
             }
           >
             {renderRoutes(privateRoutes)}
           </Route>
           {/* For Admin */}
-          {/* <Route
+          <Route
             element={
               <ProtectedRoute
                 redirectPath={config.routes.home}
-                isAllowed={isAuth && user?.role === "admin"}
+                isAllowed={auth?.role === "admin"}
               ></ProtectedRoute>
             }
           >
-            {renderRoutes(adminPrivateRoutes)}
-          </Route> */}
+            {renderRoutes(adminRouter)}
+          </Route>
           {/* NOTE FOUND */}
           <Route
             path="*"

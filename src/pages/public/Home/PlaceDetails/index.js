@@ -24,9 +24,6 @@ export default function PlaceDetails({ place }) {
               return <FaStar size={25} color="#ffc107" />;
             })}
           </div>
-          <div className={cx("ratting-follower")}>
-            {place.follower} followers
-          </div>
         </div>
         <div className={cx("desc-card")}>
           <div className={cx("title")}>Address:</div>
@@ -39,7 +36,7 @@ export default function PlaceDetails({ place }) {
           </div>
         </div>
         <div className={cx("desc-card")}>
-          <div className={cx("title")}>Price:</div>
+          <div className={cx("title")}>Opening:</div>
           <div className={cx("time-work")}>
             {place.open} am - {place.close} pm
           </div>

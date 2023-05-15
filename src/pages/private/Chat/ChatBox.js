@@ -3,12 +3,19 @@ import classNames from "classnames/bind";
  
 import styles from "./ChatBox.module.scss";
 import { ChatContext } from "./context/ChatContext";
-import { onSnapshot, doc, updateDoc, arrayUnion, Timestamp, serverTimestamp } from "firebase/firestore";
-import { db, storage } from "./firebase"
-import { v4 as uuid } from "uuid"
+import {
+  onSnapshot,
+  doc,
+  updateDoc,
+  arrayUnion,
+  Timestamp,
+  serverTimestamp,
+} from "firebase/firestore";
+import { db, storage } from "./firebase";
+import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Message from "./Message";
-import TextareaAutosize from 'react-textarea-autosize';
+import TextareaAutosize from "react-textarea-autosize";
 import TextEditor from "src/component/EditorText/EditorText";
 
 const cx = classNames.bind(styles);
@@ -75,7 +82,8 @@ export default function Chat(props) {
                     date: Timestamp.now(),
                 }),
             });
-        }
+          };
+        
         // await updateDoc(doc(db, "userchats", currentUser.uid), {
         //     [data.chatId + ".lastMessage"]: {
         //         text
@@ -145,5 +153,5 @@ export default function Chat(props) {
             </div>
         </div>
     </div>
-    ) 
+  )
 }

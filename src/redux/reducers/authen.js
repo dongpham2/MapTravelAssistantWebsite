@@ -1,7 +1,13 @@
-import { _ACTION_SIGNIN, __ACTION_SIGNUP } from "../actions/authen";
+import {
+  ACTION_LOGOUT,
+  _ACTION_SIGNIN,
+  __ACTION_SIGNUP,
+} from "../actions/authen";
+import { ACTION_CREATE_FANGPAGE } from "../actions/fanpage";
 
 const initState = {
   auth: {},
+  fanpage: {},
 };
 
 const rootReducer = (state = initState, action) => {
@@ -15,6 +21,16 @@ const rootReducer = (state = initState, action) => {
       return {
         ...state,
         auth: action.payload,
+      };
+    case ACTION_LOGOUT:
+      return {
+        ...state,
+        auth: {},
+      };
+    case ACTION_CREATE_FANGPAGE:
+      return {
+        ...state,
+        fanpage: {},
       };
     default:
       return state;

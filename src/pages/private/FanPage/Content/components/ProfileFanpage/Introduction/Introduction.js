@@ -3,11 +3,12 @@ import classNames from "classnames/bind";
 import styles from "./Introduction.module.scss";
 import Button from "src/component/Button";
 import Input from "src/component/Input/Input";
+import TextEditor from "src/component/EditorText/EditorText";
 
 const cx = classNames.bind(styles);
 export default function Bio() {
   const [isBio, setIsBio] = useState(false);
-
+  const [content, setContent] = useState("");
   const handleBioChange = () => {
     setIsBio(!isBio);
   };
@@ -21,7 +22,9 @@ export default function Bio() {
           </Button>
         ) : (
           <div className={cx("bio-infor")}>
-            <Input primary />
+            <div className={cx("edit-text")}>
+              <TextEditor setContentBlog={setContent} sHidderTools={true} />
+            </div>
             <div className={cx("btn")}>
               <Button small cancel onClick={handleBioChange}>
                 Cancel

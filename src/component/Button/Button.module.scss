@@ -90,7 +90,7 @@
 .bio {
     color: var(--black-color) !important;
     background-color: var(--gray-color);
-    font-weight: 600 !important;
+    font-weight: 500 !important;
     width: 100%;
     &:hover {
         border-color: var(--primary-color);
@@ -145,4 +145,9 @@
 .large {
     min-width: 68px;
     padding: 3px 7px;
+}
+
+.deleted {
+    border: 1px  solid red;
+    color: red;
 }

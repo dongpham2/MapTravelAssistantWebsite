@@ -1,45 +1,78 @@
 .wrapper {
-    .services {
-            &-desc {
-                margin-bottom: 10px;
-                border-bottom: 1px solid #ccc;
-                display: inline-block;
-            }
-    
-            &-time {
-                display: flex;
-    
-                .time {
-                    margin-right: 20px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    margin-bottom: 20px;
+    .heading {
+        font-size: 30px;
+        font-weight: 500;
+        border-bottom: 1px solid #5680E9;
+        padding-bottom: 5px;
+        margin-top: var(--size);
+        font-size: 30px;
+        margin-bottom: 15px;
+    }
+    .form-group {
+        .services {
+                &-desc {
+                    margin-bottom: 10px;
+                    border-bottom: 1px solid #ccc;
+                    display: inline-block;
                 }
-    
-                .input-time {
-                    margin-left: 10px;
-                    display: block;
-                    padding: 10px;
-                    border: 1px solid #ccc;
-                    border-radius: 20px;
-                }
-            }
-    
-            &-price {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-    
-                .price-group {
-                    align-items: center;
+        
+                &-time {
                     display: flex;
-    
-                    .input-field {
-                        width: 50%;
-                        margin-right: 8px;
+        
+                    .time {
+                        margin-right: 20px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin-bottom: 20px;
+                    }
+        
+                    .input-time {
+                        margin-left: 10px;
+                        display: block;
+                        padding: 10px;
+                        border: 1px solid #ccc;
+                        border-radius: 20px;
+                    }
+                }
+        
+                &-price {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+        
+                    .services-input {
+                        display: flex;
+                        align-items: center;
+                        height: 40px !important;
+                        width: 100%;
+                        margin: 0 5px;
                     }
                 }
             }
-        }
+            .field-title{
+                font-weight: 600;
+                display: block;
+                width: 100%;
+            }
+            .text-desc {
+                border: 1px solid #ccc;
+                height: 170px;
+                max-height: 210px;
+                padding: 0 8px;
+                border-radius: 10px;
+                overflow-wrap: break-word;
+                overflow-y: scroll;
+                margin-bottom: 10px;
+            }
+            .btn {
+                margin-bottom: 10px;
+                display: flex;
+                justify-content: flex-end;
+            }
+    }
+    .btn-change {
+        display: flex;
+        justify-content: flex-end;
+    }
 }
