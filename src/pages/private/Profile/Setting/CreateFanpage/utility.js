@@ -15,5 +15,8 @@ export const getObjectCreateFanpages = (
     content,
     open,
     close,
+    lat: "18.689290",
+    lon: "105.680660",
+    type: "coffee",
   };
 };

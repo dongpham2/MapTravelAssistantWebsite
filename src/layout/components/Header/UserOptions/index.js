@@ -21,7 +21,7 @@ function UserOptions() {
       <div className={cx("header")}>
         <div className={cx("header-left")}>
           <img
-            src={auth.user.avatar}
+            src={auth?.user?.avatar}
             alt="Avatar"
             className={cx("avatar-img", "avatar")}
           />

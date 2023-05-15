@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
-import styles from "./FormUpload.module.scss";
+import styles from "./FormUploadBanner.module.scss";
 import classNames from "classnames/bind";
 import { Col, Row } from "react-bootstrap";
 import images from "src/assets/images";
 import Button from "src/component/Button";
 
 const cx = classNames.bind(styles);
-export default function FormUpload({ label, data }) {
+export default function FormUploadBanner({ label, data }) {
   const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
   const [file, setFile] = useState({
@@ -49,7 +49,7 @@ export default function FormUpload({ label, data }) {
                 ) : (
                   <img
                     className={cx("preview-img")}
-                    src={images.avt_default}
+                    src={images.profile_banner}
                     alt="avatar"
                   />
                 )}
@@ -89,7 +89,6 @@ export default function FormUpload({ label, data }) {
                   >
                     Cancel
                   </Button>
-
                   <Button rounded type="submit" saveInput small>
                     Save
                   </Button>

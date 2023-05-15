@@ -84,6 +84,13 @@
         border-radius: 10px;
         margin-top: 10px;
         overflow: hidden;
+        .coordinates {
+            display: flex;
+            justify-content: space-between;
+            .latitude{
+                margin-right: 5px;
+            }
+        }
     }
     .btn {
         margin-top: 20px;

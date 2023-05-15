@@ -11,13 +11,13 @@ import DefaultLayout from "./layout/DefaultLayout";
 import { useSelector } from "react-redux";
 function App() {
   const auth = useSelector((state) => state.auth);
-  console.log(auth.role);
+  const role = auth?.user?.role;
   return (
     <Router>
       <div className="App">
         <ToastContainer
           position="top-right"
-          autoClose={5000}
+          autoClose={3000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
@@ -37,7 +37,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath={config.routes.accounts}
-                isAllowed={auth.role === "user"}
+                isAllowed={role ? role === "user" : false}
               />
             }
           >
@@ -48,7 +48,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath={config.routes.home}
-                isAllowed={auth?.role === "admin"}
+                isAllowed={role ? role === "admin" : false}
               ></ProtectedRoute>
             }
           >

@@ -8,7 +8,7 @@ import config from "../../../../config";
 import { FaStar } from "react-icons/fa";
 const cx = classNames.bind(styles);
 
-export default function PlaceDetails({ place }) {
+export default function PlaceDetails({ data }) {
   return (
     <div className={cx("wrapper")}>
       <div className={cx("container")}>
@@ -17,7 +17,7 @@ export default function PlaceDetails({ place }) {
             <img src={images.banner_default} alt="" />
           </Link>
         </div>
-        <div className={cx("name")}>{place.name}</div>
+        <div className={cx("name")}>{data.name}</div>
         <div className={cx("desc-card")}>
           <div className={cx("title")}>
             {[...Array(5)].map((stars, index) => {
@@ -27,28 +27,28 @@ export default function PlaceDetails({ place }) {
         </div>
         <div className={cx("desc-card")}>
           <div className={cx("title")}>Address:</div>
-          <div className={cx("address-location")}>{place.address}</div>
+          <div className={cx("address-location")}>{data.address}</div>
         </div>
         <div className={cx("desc-card")}>
           <div className={cx("title")}>Price:</div>
           <div className={cx("price-amount")}>
-            {place.firstPrice}$ - {place.lastPrice}$
+            {data.priceStart}$ - {data.priceEnd}$
           </div>
         </div>
         <div className={cx("desc-card")}>
           <div className={cx("title")}>Opening:</div>
           <div className={cx("time-work")}>
-            {place.open} am - {place.close} pm
+            {data.open} am - {data.close} pm
           </div>
         </div>
         <div className={cx("desc-card")}>
           <div className={cx("title")}>Phone:</div>
-          <div className={cx("phone-number")}>{place.phone}</div>
+          <div className={cx("phone-number")}>{data.phone}</div>
         </div>
         <div className={cx("desc-card")}>
           <div className={cx("description-detail")}>
             <span className={cx("title")}>Description: </span>
-            {place.desc}
+            {data.description}
           </div>
         </div>
         <Link to={config.routes.posts}>

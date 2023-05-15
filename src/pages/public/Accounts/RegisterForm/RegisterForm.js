@@ -4,13 +4,15 @@ import * as Yup from "yup";
 import classNames from "classnames/bind";
 import styles from "../FormAccounts.module.scss";
 import Button from "../../../../component/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionSignup } from "src/redux/actions/authen";
 import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
 
 export default function RegisterForm() {
+  const status = useSelector((state) => state);
+  console.log(status);
   const dispatch = useDispatch();
   const formikRef = useRef(null);
   // const messageRef = useRef(null);
@@ -27,7 +29,11 @@ export default function RegisterForm() {
   const handleSubmit = () => {
     const { fullname, email, password } = formikRef.current.values;
     dispatch(actionSignup({ fullname, email, password }));
-    toast.success("Signin successfully", toastifyOptions);
+    if (status) {
+      toast.success("Signup successfully");
+    } else {
+      toast.error("Signup failed");
+    }
   };
   return (
     <div className={cx("wrapper")}>
