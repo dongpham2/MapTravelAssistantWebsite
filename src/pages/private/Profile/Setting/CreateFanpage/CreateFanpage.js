@@ -64,6 +64,8 @@ export default function CreateFanpage() {
     //   description,
     //   phone,
     //   website,
+    //   open,
+    //   close,
     //   priceStart,
     //   priceEnd,
     //   selectValues,
@@ -91,26 +93,6 @@ export default function CreateFanpage() {
     });
   };
 
-  // const handleChangeCoordinates = () => {
-  //   let mapOptions = {
-  //     center: [51.958, 9.141],
-  //     zoom: 10,
-  //   };
-  //   let map = new L.map("map", mapOptions);
-  //   let layer = new L.TileLayer(
-  //     "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-  //   );
-  //   map.addLayer(layer);
-  //   let marker = null;
-  //   map.on("click", (event) => {
-  //     if (marker !== null) {
-  //       map.removeLayer(marker);
-  //     }
-  //     marker = L.marker([event.latlng.lat, event.latlng.lng]).addTo(map);
-  //     setLat(event.latlng.lat);
-  //     setLon(event.latlng.lon);
-  //   });
-  // };
   return (
     <div className={cx("wrapper")}>
       <h3 className={cx("heading")}>Your Fanpage</h3>
@@ -154,9 +136,11 @@ export default function CreateFanpage() {
           <Form autocomplete="off">
             <div className={cx("form-group")}>
               <div className={cx("input-block")}>
-                <div className={cx("input-desc")}>(*) Choose your Banner</div>
+                <div className={cx("input-desc")}>(*) Upload your banner</div>
                 <FormUploadBanner />
               </div>
+            </div>
+            <div className={cx("form-group")}>
               <div className={cx("input-block")}>
                 <div className={cx("input-desc")}>
                   (*) Your Page is where people go to learn more about you. Make
@@ -274,15 +258,10 @@ export default function CreateFanpage() {
                 </Col>
               </Row>
             </div>
-            <div className={cx("location")}>
+            {/* <div className={cx("location")}>
               <div className={cx("address")}>Pin Your Location</div>
-              <div className={cx("coordinates")}>
-                <Input placeholder="latitude" primary value={lat} />
-                <Input placeholder="longtitude" primary value={lon} />
-              </div>
-              <div id="map"></div>
-              {/* <Map /> */}
-            </div>
+              <Map />
+            </div> */}
             <div className={cx("btn")}>
               <Button
                 primary

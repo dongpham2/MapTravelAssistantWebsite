@@ -1,37 +1,39 @@
 import React, { useState } from "react";
-import classNames from "classnames/bind";
-import styles from "./Map.module.scss";
-
-import L from "leaflet";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import ReactMapGL from "react-map-gl";
-import CardMap from "./CardMap/CardMap";
-const cx = classNames.bind(styles);
-const markerIc = new L.Icon({
-  iconUrl: require("../../../../assets/images/icon/iconmap.png"),
-  iconSize: [35, 45],
-});
+import Maps from "./Leaflet/LeafletMap";
+import SearchBox from "./SearchBox/SearchBox";
 
 export default function Map() {
-  const position = [16.06089773991539, 108.22178340647243];
+  // const positions = [
+  //   [16.059799, 108.209244],
+  //   [16.059031, 108.207397],
+  // ];
+  // const position = [16.054407, 108.202164];
+
+  const [selectPosition, setSelectPosition] = useState(null);
   return (
-    <MapContainer center={position} zoom={15} scrollWheelZoom={true}>
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    <div>
+      <SearchBox
+        selectPosition={selectPosition}
+        setSelectPosition={setSelectPosition}
       />
-      {/* <CardMap /> */}
-      {/*  <LeafletGeocoder /> */}
-      {/* <LeafletRoutingMachine /> */}
-      <Marker
-        position={[16.06089773991539, 108.22178340647243]}
-        icon={markerIc}
-      >
-        <Popup>
-          <CardMap />
-          {/* <a href="https://thecoffeehouse.com/">Visit W3Schools.com!</a> */}
-        </Popup>
-      </Marker>
-    </MapContainer>
+      <Maps selectPosition={selectPosition} />
+      {/* <SearchBox /> */}
+      {/* <MapContainer center={position} zoom={15} scrollWheelZoom={true}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {positions &&
+          positions.map((location) => {
+            return (
+              <Marker position={location} icon={markerIc}>
+                <Popup>
+                  <CardMap />
+                </Popup>
+              </Marker>
+            );
+          })}
+      </MapContainer> */}
+    </div>
   );
 }
