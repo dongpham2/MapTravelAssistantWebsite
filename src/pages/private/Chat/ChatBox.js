@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
 import classNames from "classnames/bind";
-import Draggable from 'react-draggable';
  
 import styles from "./ChatBox.module.scss";
 import { ChatContext } from "./context/ChatContext";
@@ -11,7 +10,6 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Message from "./Message";
 import TextareaAutosize from 'react-textarea-autosize';
 import TextEditor from "src/component/EditorText/EditorText";
-import styled from 'styled-components'
 
 const cx = classNames.bind(styles);
 export default function Chat(props) {
@@ -97,7 +95,6 @@ export default function Chat(props) {
 
     return (
     <div className={cx("wrapper")} ref={ref}>
-        {/* <Draggable> */}
         <div className={cx("chatbox")} >
             {/* Chat Infor */}
             <div className={cx("user-infor")} >
@@ -147,7 +144,6 @@ export default function Chat(props) {
                 </div>
             </div>
         </div>
-        {/* </Draggable> */}
     </div>
     ) 
 }

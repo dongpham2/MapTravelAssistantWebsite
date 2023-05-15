@@ -47,7 +47,7 @@
                     display: flex;
                     font-size: 25px;
                     margin-right: 10px;
-                    color: #5AB9EA;
+                    color: var(--secondary-color);
                     &:hover{
                         background-color: #F0F2F5;
                     }
@@ -81,16 +81,25 @@
                     display: flex;
                     flex-direction: column;
                     word-wrap: break-word;
-                    p{
+                    span{
                         user-select: text;
-                        background-color: #E4E6EB;
-                        padding: 10px 20px;
+                        background-color: var(--gray-color);
+                        padding: 10px;
                         border-radius: 15px 15px 15px 15px;
                         max-width: max-content;
                         margin-bottom: 0px;
+                        p{
+                            max-width: max-content;
+                            border-radius: 15px 15px 15px 15px;
+                            word-break: break-word;
+                            line-height: 5px;
+                            margin: 0px;
+                            padding: 10px 0px;
+                        }
                     }
                     img{
                         width: 80%;
+                        padding-top: 5px;
                     }
                 }
 
@@ -105,12 +114,12 @@
                         span{
                             padding: 10px;
                             max-width: max-content;
-                            background-color: #5AB9EA;
+                            background-color: var(--secondary-color);
                             border-radius: 15px 15px 15px 15px;
                             word-break: break-word;
                             p{
                                 max-width: max-content;
-                                background-color: #5AB9EA;
+                                background-color: var(--secondary-color);
                                 border-radius: 15px 15px 15px 15px;
                                 word-break: break-word;
                                 line-height: 5px;
@@ -155,7 +164,7 @@
                 cursor: pointer;
                 display: flex;
                 font-size: 25px;
-                color: #5AB9EA;
+                color: var(--secondary-color);
                 &:hover{
                     background-color: #F0F2F5;
                 }
@@ -168,7 +177,6 @@
                 background-color: #f0f2f5;
                 padding-left: 10px;
                 padding-top: 10px;
-               
                 overflow: hidden;
                 line-height: 5px;
             }

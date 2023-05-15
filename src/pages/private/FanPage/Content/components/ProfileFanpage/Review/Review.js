@@ -18,7 +18,7 @@ export default function Review (){
         userName: "Han Nguyen",
         stars: 3,
         photoURL: "https://screenrant.com/wp-content/uploads/2017/04/Guardians-of-the-Galaxy-Milano-Concept-Art.jpg",
-        comment: "maybe ok",
+        comment: "haha",
     }
     const data = [
       {
