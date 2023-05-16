@@ -61,7 +61,7 @@ export default function CreateFanpage() {
   const [lon, setLon] = useState();
   const [open, setOpen] = useState("12:00");
   const [close, setClose] = useState("12:00");
-  const [content, setContent] = useState("");
+  const [description, setDescription] = useState("");
   const [selectForm, setSelectForm] = useState({
     denomina: "",
     type: "",
@@ -71,37 +71,36 @@ export default function CreateFanpage() {
 
   // submit data create fanpage
   const handleCreatePage = () => {
-    const { name, description, phone, website, priceStart, priceEnd } =
+    const { name, phone, website, priceStart, priceEnd } =
       formikRef.current.values;
     const selectValues = { ...selectForm };
     console.log(selectValues);
-    // console.log({
-    //   name,
-    //   description,
-    //   phone,
-    //   website,
-    //   open,
-    //   close,
-    //   priceStart,
-    //   priceEnd,
-    //   selectValues,
-    // });
-    dispatch(
-      actionCreateFangpage(
-        getObjectCreateFanpages(
-          name,
-          description,
-          phone,
-          website,
-          content,
-          open,
-          close,
-          priceStart,
-          priceEnd
-        ),
-        selectValues
-      )
-    );
+    console.log({
+      name,
+      setDescription,
+      phone,
+      website,
+      open,
+      close,
+      priceStart,
+      priceEnd,
+      selectValues,
+    });
+    // dispatch(
+    //   actionCreateFangpage(
+    //     getObjectCreateFanpages(
+    //       name,
+    //       phone,
+    //       website,
+    //       description,
+    //       open,
+    //       close,
+    //       priceStart,
+    //       priceEnd
+    //     ),
+    //     selectValues
+    //   )
+    // );
   };
   const handleChangeSelect = (value, name, nameSelect) => {
     setSelectForm((prev) => {
@@ -180,7 +179,10 @@ export default function CreateFanpage() {
                   name that helps explain your Page.
                 </div>
                 <div className={cx("text-desc")}>
-                  <TextEditor setContentBlog={setContent} sHidderTools={true} />
+                  <TextEditor
+                    setContentBlog={setDescription}
+                    sHidderTools={true}
+                  />
                 </div>
               </div>
             </div>

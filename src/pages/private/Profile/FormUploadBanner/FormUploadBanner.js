@@ -1,9 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./FormUploadBanner.module.scss";
 import classNames from "classnames/bind";
 import { Col, Row } from "react-bootstrap";
 import images from "src/assets/images";
 import Button from "src/component/Button";
+import { storage } from "../../Chat/firebase";
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
+import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
 export default function FormUploadBanner({ label, data }) {
@@ -14,6 +18,11 @@ export default function FormUploadBanner({ label, data }) {
     data: "",
   });
 
+  useEffect(() => {
+    return () => {
+      file && URL.revokeObjectURL(file);
+    };
+  }, [file]);
   const handleChangeFile = async (e) => {
     const img = {
       preview: URL.createObjectURL(e.target.files[0]),
@@ -25,8 +34,25 @@ export default function FormUploadBanner({ label, data }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const formData = new FormData();
-    // formData.append("file", file.data, "file");
+    const imageRef = ref(storage, `images/${file.data + v4()}`);
+    uploadBytes(imageRef, file.data)
+      .then(() => {
+        getDownloadURL(imageRef)
+          .then((file) => {
+            console.log(file);
+            setFile(file);
+            toast.success("upload successfully!");
+          })
+          .catch((error) => {
+            console.log(error.message, "error getting url");
+            toast.error("failed to upload");
+          });
+      })
+      .catch((error) => {
+        console.log(error.message);
+        toast.error("failed to upload");
+      });
+    setVisibleControls(false);
   };
   return (
     <div className={cx("wrapper")}>
