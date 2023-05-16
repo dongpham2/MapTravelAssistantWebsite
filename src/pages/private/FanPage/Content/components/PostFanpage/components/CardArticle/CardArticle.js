@@ -4,9 +4,12 @@ import styles from "./CardArticle.module.scss";
 import images from "src/assets/images";
 import ShareOptions from "./ShareOptions/ShareOptions";
 import CardOptions from "./CardOptions/CardOptions";
+import { useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 export default function CardArticle() {
+  const auth = useSelector((state) => state.auth);
+  const userInfor = auth.user;
   const [visibleShareOptions, setVisibleUserOptions] = useState(false);
   const [visibleCardOptions, setVisibleCardOptions] = useState(false);
   const handleOpenShareOptions = () => {
@@ -20,9 +23,9 @@ export default function CardArticle() {
     <div className={cx("wrapper")}>
       <div className={cx("heading")}>
         <div className={cx("header-infor")}>
-          <img src={images.avt} className={cx("img")} />
+          <img src={userInfor.avatar} className={cx("img")} />
           <div className={cx("name")}>
-            Đông Phạm
+            {userInfor.fullName}
             <div className={cx("time")}>24/05/2023</div>
           </div>
         </div>

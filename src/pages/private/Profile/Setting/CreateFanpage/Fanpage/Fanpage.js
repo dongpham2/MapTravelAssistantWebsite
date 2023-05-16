@@ -7,6 +7,7 @@ import Input from "src/component/Input/Input";
 import { Col, Row } from "react-bootstrap";
 import TextEditor from "src/component/EditorText/EditorText";
 import Button from "src/component/Button";
+import { useSelector } from "react-redux";
 
 const pricesValue = [
   {
@@ -33,12 +34,15 @@ const pricesValue = [
 const cx = classNames.bind(styles);
 
 export default function Fanage() {
-  const [open, setOpen] = useState("12:00");
-  const [close, setClose] = useState("12:00");
+  const fanpage = useSelector((state) => state.fanpage);
+
+  const [open, setOpen] = useState(fanpage.open);
+  const [close, setClose] = useState(fanpage.close);
   const [content, setContent] = useState("");
   const [selectForm, setSelectForm] = useState({
     denomina: "",
   });
+
   const handleChangeSelect = (value, name, nameSelect) => {
     setSelectForm((prev) => {
       return { ...prev, [nameSelect]: name };
@@ -49,21 +53,14 @@ export default function Fanage() {
     <div className={cx("wrapper")}>
       <h3 className={cx("heading")}>Your Fanpage</h3>
       <div className={cx("form-group")}>
-        <InputField
-          isLabel
-          type="text"
-          label="Name"
-          //   value={profileDetail.userName}
-        />
-        <InputField
-          isLabel
-          type="text"
-          label="Phone "
-          //   value={profileDetail.userName}
-        />
+        <InputField isLabel type="text" label="Name" value={fanpage.name} />
+        <InputField isLabel type="text" label="Phone " value={fanpage.phone} />
         <h3 className={cx("field-title")}> Description</h3>
         <div className={cx("text-desc")}>
-          <TextEditor setContentBlog={setContent} sHidderTools={true} />
+          <TextEditor
+            setContentBlog={fanpage.description}
+            sHidderTools={true}
+          />
         </div>
         {content !== "" ? (
           <div className={cx("btn")}>
@@ -82,7 +79,7 @@ export default function Fanage() {
           isLabel
           type="text"
           label="Website"
-          //   value={profileDetail.userName}
+          value={fanpage.website}
         />
         <div className={cx("services")}>
           <div className={cx("services-desc")}>Time Open</div>

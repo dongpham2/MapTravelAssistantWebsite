@@ -6,20 +6,15 @@ import { FaStar } from "react-icons/fa";
 import images from "../../../../../../assets/images";
 import Introduction from "./Introduction/Introduction";
 import InputField from "./FormEdit/InputField";
+import { useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 
 export default function ProfileFanpage() {
+  const fanpage = useSelector((state) => state.fanpage);
   // state controller
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
-  // state onChange
-  const [formEditProfile, setFormEditProfile] = useState({
-    money: "1000 vnd - 10000 vnd",
-    website: "@abcrestaurant.vn",
-    time: "7:00 am - 9:00 pm",
-    phone: "085 339 0931",
-  });
 
   return (
     <div className={cx("wrapper")}>
@@ -30,25 +25,37 @@ export default function ProfileFanpage() {
           <span className={cx("icon")}>
             <ion-icon name="cash-outline"></ion-icon>
           </span>
-          <div className={cx("detail")}>{formEditProfile.money} </div>
+          <div className={cx("detail")}>
+            {fanpage.priceStart} {fanpage.denomina}
+          </div>
+          <span className={cx("dot")}>-</span>
+          <div className={cx("detail")}>
+            {fanpage.priceEnd} {fanpage.denomina}
+          </div>
         </div>
         <div className={cx("input-group")}>
           <span className={cx("icon")}>
             <ion-icon name="globe-outline"></ion-icon>
           </span>
-          <div className={cx("detail")}>{formEditProfile.website} </div>
+          <div className={cx("detail")}>{fanpage.website} </div>
         </div>
         <div className={cx("input-group")}>
           <span className={cx("icon")}>
             <ion-icon name="at-outline"></ion-icon>
           </span>
-          <div className={cx("detail")}>{formEditProfile.time} </div>
+          <div className={cx("detail")}>
+            {fanpage.priceStart} {fanpage.open}
+          </div>
+          <span className={cx("dot")}>-</span>
+          <div className={cx("detail")}>
+            {fanpage.priceEnd} {fanpage.close}
+          </div>
         </div>
         <div className={cx("input-group")}>
           <span className={cx("icon")}>
             <ion-icon name="call-outline"></ion-icon>
           </span>
-          <div className={cx("detail")}>{formEditProfile.phone} </div>
+          <div className={cx("detail")}>{fanpage.phone} </div>
         </div>
       </div>
     </div>

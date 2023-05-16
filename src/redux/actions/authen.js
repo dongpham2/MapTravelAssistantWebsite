@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { AuthService } from "src/service/authService";
 
 export const _ACTION_SIGNIN = "_ACTION_SIGNIN";
@@ -5,7 +6,6 @@ export const _ACTION_SIGNIN = "_ACTION_SIGNIN";
 export const actionSignin = (user, history) => {
   return async (dispatch) => {
     const { data, status } = await AuthService.signin(user);
-    console.log(data);
     const newData = { ...data, role: "user" };
     if (status === 200) {
       dispatch({
@@ -13,20 +13,26 @@ export const actionSignin = (user, history) => {
         payload: data,
       });
       redirect(newData.role, history);
+      toast.success("login successful");
+    } else {
+      toast.error("Login failed");
     }
   };
 };
-// export default actionLogin;
 
 export const __ACTION_SIGNUP = "__ACTION_SIGNUP";
 export const actionSignup = (user) => {
   return async (dispatch) => {
     const { data, status } = await AuthService.signup(user);
-    if (status === 200) {
+    console.log(data, status);
+    if (status === 201) {
       dispatch({
         type: __ACTION_SIGNUP,
         payload: data,
       });
+      toast.success("login successful");
+    } else {
+      toast.error("Login failed");
     }
   };
 };
@@ -39,6 +45,7 @@ const redirect = (role, history) => {
 export const ACTION_LOGOUT = "ACTION_LOGOUT";
 export const LogoutAction = () => {
   return (dispatch) => {
+    toast.success("Logout successful");
     dispatch({
       type: ACTION_LOGOUT,
     });

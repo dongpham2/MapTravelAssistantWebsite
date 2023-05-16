@@ -22,24 +22,42 @@ import History from "src/pages/private/Admin/History/History";
 export const publicRoutes = [
   { path: config.routes.home, component: Home },
   { path: config.routes.accounts, component: Accounts, layout: null },
-  {
-    path: config.routes.notification,
-    component: Notification,
-    layout: SettingLayout,
-  },
-  {
-    path: config.routes.changePassword,
-    component: ChangePassword,
-    layout: SettingLayout,
-  },
-
   // {
   //   path: config.routes.ForgotPassword,
   //   component: ForgotPassword,
   //   layout: null,
   // },
 
-  // admin
+  {
+    path: config.routes.changePassword,
+    component: ChangePassword,
+    layout: SettingLayout,
+  },
+  {
+    path: config.routes.createFanpage,
+    component: CreateFanpage,
+    layout: SettingLayout,
+  },
+];
+
+export const privateRoutes = [
+  { path: config.routes.profile, component: Profile, layout: SettingLayout },
+
+  { path: config.routes.fanpage, component: FanPage, layout: FanpageLayout },
+  { path: config.routes.posts, component: Posts, layout: FanpageLayout },
+  { path: config.routes.photos, component: Photos, layout: FanpageLayout },
+  { path: config.routes.videos, component: VideosPage, layout: FanpageLayout },
+  { path: config.routes.more, component: More, layout: FanpageLayout },
+
+  { path: config.routes.notice, component: Notice, layout: SidebarLayout },
+  {
+    path: config.routes.notification,
+    component: Notification,
+    layout: SettingLayout,
+  },
+];
+
+export const adminRouter = [
   {
     path: config.routes.usersManagement,
     component: UsersManage,
@@ -50,24 +68,4 @@ export const publicRoutes = [
     component: History,
     layout: SidebarLayout,
   },
-];
-
-export const privateRoutes = [
-  { path: config.routes.profile, component: Profile, layout: SettingLayout },
-  {
-    path: config.routes.createFanpage,
-    component: CreateFanpage,
-    layout: SettingLayout,
-  },
-  { path: config.routes.fanpage, component: FanPage, layout: FanpageLayout },
-  { path: config.routes.posts, component: Posts, layout: FanpageLayout },
-  { path: config.routes.photos, component: Photos, layout: FanpageLayout },
-  { path: config.routes.videos, component: VideosPage, layout: FanpageLayout },
-  { path: config.routes.more, component: More, layout: FanpageLayout },
-
-  { path: config.routes.notice, component: Notice, layout: SidebarLayout },
-];
-
-export const adminRouter = [
-  { path: config.routes.admin, component: UsersManage, layout: SidebarLayout },
 ];
