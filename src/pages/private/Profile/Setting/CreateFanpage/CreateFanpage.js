@@ -77,7 +77,7 @@ export default function CreateFanpage() {
     console.log(selectValues);
     console.log({
       name,
-      setDescription,
+      description,
       phone,
       website,
       open,
