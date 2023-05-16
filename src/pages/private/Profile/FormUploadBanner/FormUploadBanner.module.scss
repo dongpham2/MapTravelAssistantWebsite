@@ -1,0 +1,76 @@
+.wrapper {
+    margin-bottom: 20px;
+
+    .form-group-lablel {
+        font-weight: 600;
+        padding-bottom: 10px;
+        display: block;
+    }
+
+    .input-file-img {
+    }
+}
+
+
+.input-file-block {
+    --width: 100%;
+    --height: 400px;
+    position: relative;
+    width: var(--width);
+    height: var(--height);
+
+    &:hover {
+        .mark {
+            display: block;
+        }
+    }
+
+    .preview-img-block {
+        .preview-img {
+            width: var(--width);
+            height: var(--height);
+            object-fit: cover;
+            background-repeat: no-repeat;
+        }
+    }
+
+    .mark {
+        display: none;
+    }
+
+    .input-file {
+        position: absolute;
+        bottom: 28px;
+        opacity: 0;
+        width: 0;
+    }
+
+    .input-mark {
+        position: absolute;
+        display: flex;
+        color: var(--gray-color);
+        background: rgba(0, 0, 0, 0.46);
+        font-size: 28px;
+        width: var(--width);
+        height: var(--height);
+        align-items: center;
+        justify-content: center;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        cursor: pointer;
+        z-index: 6;
+        transition: all 0.3 ease;
+
+        &:hover {
+            color: var(--white-color)
+        }
+    }
+}
+
+.btn {
+    position: relative;
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-end;
+}

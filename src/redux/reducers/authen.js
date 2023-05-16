@@ -30,7 +30,7 @@ const rootReducer = (state = initState, action) => {
     case ACTION_CREATE_FANGPAGE:
       return {
         ...state,
-        fanpage: {},
+        fanpage: action.payload,
       };
     default:
       return state;

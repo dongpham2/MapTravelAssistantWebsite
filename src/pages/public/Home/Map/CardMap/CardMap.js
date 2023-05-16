@@ -5,7 +5,9 @@ import images from "src/assets/images";
 import { FaStar } from "react-icons/fa";
 
 const cx = classNames.bind(styles);
-export default function CardMap() {
+export default function CardMap(props) {
+  const { position } = props;
+  console.log(position);
   return (
     <div className={cx("wrapper")}>
       <h3 className={cx("title")}>Nhà hàng jun je</h3>

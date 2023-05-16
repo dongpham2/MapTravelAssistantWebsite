@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import styles from "./FormUpload.module.scss";
+import styles from "./FormUploadBanner.module.scss";
 import classNames from "classnames/bind";
 import { Col, Row } from "react-bootstrap";
 import images from "src/assets/images";
@@ -10,7 +10,7 @@ import { v4 } from "uuid";
 import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
-export default function FormUpload({ label, data }) {
+export default function FormUploadBanner({ label, data }) {
   const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
   const [file, setFile] = useState({
@@ -23,7 +23,6 @@ export default function FormUpload({ label, data }) {
       file && URL.revokeObjectURL(file);
     };
   }, [file]);
-
   const handleChangeFile = async (e) => {
     const img = {
       preview: URL.createObjectURL(e.target.files[0]),
@@ -55,7 +54,6 @@ export default function FormUpload({ label, data }) {
       });
     setVisibleControls(false);
   };
-
   return (
     <div className={cx("wrapper")}>
       <div className={cx("form-group")}>
@@ -77,7 +75,7 @@ export default function FormUpload({ label, data }) {
                 ) : (
                   <img
                     className={cx("preview-img")}
-                    src={images.avt_default}
+                    src={images.profile_banner}
                     alt="avatar"
                   />
                 )}
@@ -117,7 +115,6 @@ export default function FormUpload({ label, data }) {
                   >
                     Cancel
                   </Button>
-
                   <Button rounded type="submit" saveInput small>
                     Save
                   </Button>

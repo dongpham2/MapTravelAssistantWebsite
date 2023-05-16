@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import classNames from "classnames/bind";
 import styles from "../FormAccounts.module.scss";
 import Button from "../../../../component/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionSignin } from "src/redux/actions/authen";
 import config from "src/config";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,15 +17,14 @@ export default function Loginform() {
   // const handleNavigateForgotForm = () => {
   //   navigate("/forgotPassword");
   // };
+  const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
   const formikRef = useRef(null);
   const messageRef = useRef(null);
   const history = useNavigate();
   const handleSubmit = () => {
     const { email, password } = formikRef.current.values;
-    // // console.log("Check login value", email, password);
     dispatch(actionSignin({ email, password }, history));
-    toast.success("Login successful");
   };
   return (
     <div className={cx("wrapper")}>
@@ -35,9 +34,7 @@ export default function Loginform() {
           email: "",
           password: "",
         }}
-        onSubmit={() => {
-          handleSubmit();
-        }}
+        onSubmit={handleSubmit}
         validationSchema={Yup.object({
           email: Yup.string()
             .email("Invalid email")
@@ -87,10 +84,8 @@ export default function Loginform() {
           <Button
             primary
             className={cx("button-form")}
-            onClick={() => {
-              handleSubmit();
-            }}
             type="submit"
+            onClick={handleSubmit}
           >
             Login
           </Button>
