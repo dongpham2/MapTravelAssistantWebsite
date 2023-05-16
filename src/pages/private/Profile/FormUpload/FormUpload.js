@@ -1,9 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./FormUpload.module.scss";
 import classNames from "classnames/bind";
 import { Col, Row } from "react-bootstrap";
 import images from "src/assets/images";
 import Button from "src/component/Button";
+import { storage } from "../../Chat/firebase";
+import { listAll, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
 
 const cx = classNames.bind(styles);
 export default function FormUpload({ label, data }) {
@@ -25,9 +28,18 @@ export default function FormUpload({ label, data }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const formData = new FormData();
-    // formData.append("file", file.data, "file");
+    // const imageRef = storage
+    //   .ref("/images/" + file.nam)
+    //   .put(file)
+    //   .on("state_changed", alert("success"), alert);
+
+    // imageRef();
+    const imageRef = ref(storage, `picture/${file.preview + v4()}`);
+    uploadBytes(imageRef, file.preview).then(() => {
+      alert("success");
+    });
   };
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("form-group")}>

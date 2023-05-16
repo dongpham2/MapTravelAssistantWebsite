@@ -39,6 +39,20 @@ const pricesValue = [
     name: "Won",
   },
 ];
+const typeStore = [
+  {
+    value: "6",
+    name: "coffee",
+  },
+  {
+    value: "7",
+    name: "restaurant",
+  },
+  {
+    value: "8",
+    name: "coffee & restaurant",
+  },
+];
 
 export default function CreateFanpage() {
   const formikRef = useRef(null);
@@ -50,6 +64,7 @@ export default function CreateFanpage() {
   const [content, setContent] = useState("");
   const [selectForm, setSelectForm] = useState({
     denomina: "",
+    type: "",
   });
   const fanpage = useSelector((state) => state.fanpage);
   const dispatch = useDispatch();
@@ -59,6 +74,7 @@ export default function CreateFanpage() {
     const { name, description, phone, website, priceStart, priceEnd } =
       formikRef.current.values;
     const selectValues = { ...selectForm };
+    console.log(selectValues);
     // console.log({
     //   name,
     //   description,
@@ -194,26 +210,40 @@ export default function CreateFanpage() {
                 </div>
               </div>
             </div>
-            <div className={cx("services")}>
-              <div className={cx("services-desc")}>Time Open</div>
-              <div className={cx("services-time")}>
-                <div className={cx("time")}>
-                  Open
-                  <input
-                    type="time"
-                    value={open}
-                    className={cx("input-time")}
-                    onChange={(e) => setOpen(e.target.value)}
-                  />
+            <div className={cx("form-create")}>
+              <div className={cx("services")}>
+                <div className={cx("services-desc")}>Time Open</div>
+                <div className={cx("services-time")}>
+                  <div className={cx("time")}>
+                    Open
+                    <input
+                      type="time"
+                      value={open}
+                      className={cx("input-time")}
+                      onChange={(e) => setOpen(e.target.value)}
+                    />
+                  </div>
+                  <span className={cx("time")}>-</span>
+                  <div className={cx("time")}>
+                    Close
+                    <input
+                      type="time"
+                      value={close}
+                      className={cx("input-time")}
+                      onChange={(e) => setClose(e.target.value)}
+                    />
+                  </div>
                 </div>
-                <span className={cx("time")}>-</span>
-                <div className={cx("time")}>
-                  Close
-                  <input
-                    type="time"
-                    value={close}
-                    className={cx("input-time")}
-                    onChange={(e) => setClose(e.target.value)}
+              </div>
+              <div className={cx("services")}>
+                <div className={cx("services-desc")}>Type</div>
+                <div className={cx("type-option")}>
+                  <DropDown
+                    onChangeSelect={(value, name) =>
+                      handleChangeSelect(value, name, "type")
+                    }
+                    title="Type"
+                    data={typeStore}
                   />
                 </div>
               </div>
