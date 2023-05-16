@@ -17,9 +17,12 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Message from "./Message";
 import TextareaAutosize from "react-textarea-autosize";
 import TextEditor from "src/component/EditorText/EditorText";
+import { useDispatch, useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
-export default function Chat(props) {
+export default function Chat() {
+
+    const { auth } = useSelector((state) => state);
 
     const [content, setContent] = useState("");
     const {data} = useContext(ChatContext)
@@ -42,7 +45,10 @@ export default function Chat(props) {
         photoURL: "https://static.nationalgeographic.co.uk/files/styles/image_3200/public/webbdeepfield.jpg?w=1600&h=900",
         displayName: "user1"
     } 
+    // console.log("auth")
     useEffect (() =>{
+      // console.log("auth")
+      console.log(content)
         const unsub = onSnapshot(doc(db, "chats", data.chatId), (doc) =>{
             doc.exists() && setMessages(doc.data().messages)
         })
@@ -52,7 +58,7 @@ export default function Chat(props) {
     }, [data.chatId])
 
     const handleSend = async () =>{
-        // console.log(content)
+        console.log(content)
         if(content === "") return
         if(img){
             const storageRef = ref(storage, uuid());
