@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
 export default function FormUpload({ label, data }) {
+  const [imagesCurrent, setImagesCurrent] = useState();
   const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
   const [file, setFile] = useState({
@@ -41,7 +42,7 @@ export default function FormUpload({ label, data }) {
         getDownloadURL(imageRef)
           .then((file) => {
             console.log(file);
-            setFile(file);
+            setFile({ preview: file, data: "" });
             toast.success("upload successfully!");
           })
           .catch((error) => {
@@ -53,8 +54,20 @@ export default function FormUpload({ label, data }) {
         console.log(error.message);
         toast.error("failed to upload");
       });
+
     setVisibleControls(false);
   };
+
+  // const handleChangeImage = (e) => {
+  //   const file = e.target.files[0];
+  //   setFileName(file.name);
+  //   let storeRef = firebase.storage().ref(buses/${file.name});
+  //   storeRef.put(file).then((e) => {
+  //     storeRef.getDownloadURL().then(async (url, e) => {
+  //       setUrlImage(url);
+  //     });
+  //   });
+  // };
 
   return (
     <div className={cx("wrapper")}>
@@ -72,8 +85,6 @@ export default function FormUpload({ label, data }) {
                     src={file.preview}
                     alt="avatar"
                   />
-                ) : data ? (
-                  <img className={cx("preview-img")} src={data} alt="avatar" />
                 ) : (
                   <img
                     className={cx("preview-img")}

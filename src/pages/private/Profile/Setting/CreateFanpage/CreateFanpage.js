@@ -15,7 +15,10 @@ import { actionCreateFangpage } from "src/redux/actions/fanpage";
 import { Col, Row } from "react-bootstrap";
 import L from "leaflet";
 import FormUploadBanner from "../../FormUploadBanner/FormUploadBanner";
-
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
+import { toast } from "react-toastify";
+import { storage } from "src/pages/private/Chat/firebase";
 const cx = classNames.bind(styles);
 const pricesValue = [
   {
@@ -55,6 +58,10 @@ const typeStore = [
 ];
 
 export default function CreateFanpage() {
+  const [file, setFile] = useState({
+    preview: "",
+    data: "",
+  });
   const formikRef = useRef(null);
   const messageRef = useRef(null);
   const [lat, setLat] = useState();
@@ -86,6 +93,7 @@ export default function CreateFanpage() {
       priceEnd,
       selectValues,
     });
+    handleSubmitImages();
     // dispatch(
     //   actionCreateFangpage(
     //     getObjectCreateFanpages(
@@ -102,6 +110,31 @@ export default function CreateFanpage() {
     //   )
     // );
   };
+  const handleSetFile = (file) => {
+    setFile(file);
+  };
+
+  const handleSubmitImages = async (e) => {
+    const imageRef = ref(storage, `images/${file.data + v4()}`);
+    uploadBytes(imageRef, file.data)
+      .then(() => {
+        getDownloadURL(imageRef)
+          .then((file) => {
+            setFile({ preview: file, data: "" });
+            toast.success("upload successfully!");
+          })
+          .catch((error) => {
+            console.log(error.message, "error getting url");
+            toast.error("failed to upload");
+          });
+      })
+      .catch((error) => {
+        console.log(error.message);
+        toast.error("failed to upload");
+      });
+    // setVisibleControls(false);
+  };
+
   const handleChangeSelect = (value, name, nameSelect) => {
     setSelectForm((prev) => {
       return { ...prev, [nameSelect]: name };
@@ -152,7 +185,7 @@ export default function CreateFanpage() {
             <div className={cx("form-group")}>
               <div className={cx("input-block")}>
                 <div className={cx("input-desc")}>(*) Upload your banner</div>
-                <FormUploadBanner />
+                <FormUploadBanner setFile={handleSetFile} file={file} />
               </div>
             </div>
             <div className={cx("form-group")}>
