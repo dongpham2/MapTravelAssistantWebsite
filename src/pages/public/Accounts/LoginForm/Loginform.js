@@ -9,6 +9,7 @@ import { actionSignin } from "src/redux/actions/authen";
 import config from "src/config";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Loading from "src/component/Loading/Loading";
 
 const cx = classNames.bind(styles);
 
@@ -17,17 +18,21 @@ export default function Loginform() {
   // const handleNavigateForgotForm = () => {
   //   navigate("/forgotPassword");
   // };
+  const [loading, setLoading] = useState(false);
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
   const formikRef = useRef(null);
   const messageRef = useRef(null);
   const history = useNavigate();
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const { email, password } = formikRef.current.values;
-    dispatch(actionSignin({ email, password }, history));
+    setLoading(true);
+    await dispatch(actionSignin({ email, password }, history));
+    setLoading(false);
   };
   return (
     <div className={cx("wrapper")}>
+      {loading && <Loading />}
       <Formik
         innerRef={formikRef}
         initialValues={{
@@ -81,12 +86,7 @@ export default function Loginform() {
           >
             {messageError}
           </div> */}
-          <Button
-            primary
-            className={cx("button-form")}
-            type="submit"
-            onClick={handleSubmit}
-          >
+          <Button primary className={cx("button-form")} type="submit">
             Login
           </Button>
         </Form>

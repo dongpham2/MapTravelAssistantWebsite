@@ -34,13 +34,13 @@
     background-repeat: no-repeat;
     width: var(--size);
     height: var(--size);
-    cursor: pointer;;
+    cursor: pointer;
 }
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     .header-left{
         display: flex;
         align-items: center;
@@ -73,6 +73,7 @@
                 width: 18px;
                 margin-right: 20px;
                 margin-top: 5px;
+                color: var(--black-color);
             }
             .option-name {
                 font-weight: 400;

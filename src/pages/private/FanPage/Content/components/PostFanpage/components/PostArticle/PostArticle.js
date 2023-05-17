@@ -21,6 +21,7 @@ export default function PostArticle() {
       >
         Write something to share with your customer...
       </Button>
+
       {modalPostOpen && <PostForm setModalPostOpen={setModalPostOpen} />}
     </div>
   );
