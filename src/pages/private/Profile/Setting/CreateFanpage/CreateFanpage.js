@@ -18,7 +18,7 @@ import FormUploadBanner from "../../FormUploadBanner/FormUploadBanner";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { toast } from "react-toastify";
-import { storage } from "src/pages/private/Chat/firebase";
+import { storage } from "src/service/Firebase/firebase";
 const cx = classNames.bind(styles);
 const pricesValue = [
   {

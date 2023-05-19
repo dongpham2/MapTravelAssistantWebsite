@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import { Col, Row } from "react-bootstrap";
 import images from "src/assets/images";
 import Button from "src/component/Button";
-import { storage } from "../../Chat/firebase";
+import { storage } from "src/service/Firebase/firebase";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { toast } from "react-toastify";
