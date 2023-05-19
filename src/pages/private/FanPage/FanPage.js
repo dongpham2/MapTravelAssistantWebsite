@@ -8,19 +8,18 @@ import OptionFanpage from "src/layout/components/OptionFanpage/OptionFanpage";
 
 const cx = classNames.bind(styles);
 export default function FanPage() {
+  const [openMess, setOpenMess] = useState(false);
+  const openMessage = () => {
+    setOpenMess(true);
+  };
 
-  const [openMess, setOpenMess] = useState(false)
-  const openMessage = () =>{
-    setOpenMess(true)
-  }
-  
   return (
     <div className={cx("wrapper")}>
       <ChatContextProvider>
         <Content />
-        <OptionFanpage onButtonClick ={openMessage}/>
-        { openMess &&
-          <ChatList/>}
+        <OptionFanpage onButtonClick={openMessage} />
+        {/* { openMess && */}
+        <ChatList />
       </ChatContextProvider>
     </div>
   );
