@@ -51,7 +51,7 @@ function App() {
           <Route
             element={
               <ProtectedRoute
-                redirectPath={config.routes.home}
+                redirectPath={config.routes.admin}
                 isAllowed={role ? role === "admin" : false}
               ></ProtectedRoute>
             }

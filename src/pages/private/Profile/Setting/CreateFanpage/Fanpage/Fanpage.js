@@ -8,6 +8,8 @@ import { Col, Row } from "react-bootstrap";
 import TextEditor from "src/component/EditorText/EditorText";
 import Button from "src/component/Button";
 import { useSelector } from "react-redux";
+import FormUploadBanner from "../../../FormUploadBanner/FormUploadBanner";
+import FormUpload from "../../../FormUpload/FormUpload";
 
 const pricesValue = [
   {
@@ -31,11 +33,29 @@ const pricesValue = [
     name: "Won",
   },
 ];
+
+const typeStore = [
+  {
+    value: "6",
+    name: "coffee",
+  },
+  {
+    value: "7",
+    name: "restaurant",
+  },
+  {
+    value: "8",
+    name: "coffee & restaurant",
+  },
+];
 const cx = classNames.bind(styles);
 
 export default function Fanage() {
   const fanpage = useSelector((state) => state.fanpage);
-
+  const [file, setFile] = useState({
+    preview: "",
+    data: "",
+  });
   const [open, setOpen] = useState(fanpage.open);
   const [close, setClose] = useState(fanpage.close);
   const [content, setContent] = useState("");
@@ -48,17 +68,32 @@ export default function Fanage() {
       return { ...prev, [nameSelect]: name };
     });
   };
-  console.log(content);
+  const handleSetFile = (file) => {
+    setFile(file);
+  };
   return (
     <div className={cx("wrapper")}>
       <h3 className={cx("heading")}>Your Fanpage</h3>
+      <div className={cx("form-group")}>
+        <div className={cx("input-block")}>
+          <div className={cx("input-desc")}>(*) Upload your banner</div>
+          <FormUploadBanner setFile={handleSetFile} file={file} />
+        </div>
+      </div>
+      <div className={cx("form-group")}>
+        <div className={cx("input-block")}>
+          <div className={cx("input-desc")}>(*) Upload your fanpage avatar</div>
+          <FormUpload />
+        </div>
+      </div>
       <div className={cx("form-group")}>
         <InputField isLabel type="text" label="Name" value={fanpage.name} />
         <InputField isLabel type="text" label="Phone " value={fanpage.phone} />
         <h3 className={cx("field-title")}> Description</h3>
         <div className={cx("text-desc")}>
           <TextEditor
-            setContentBlog={fanpage.description}
+            setContentBlog={setContent}
+            // setContentBlog={fanpage.description}
             sHidderTools={true}
           />
         </div>
@@ -81,26 +116,40 @@ export default function Fanage() {
           label="Website"
           value={fanpage.website}
         />
-        <div className={cx("services")}>
-          <div className={cx("services-desc")}>Time Open</div>
-          <div className={cx("services-time")}>
-            <div className={cx("time")}>
-              Open
-              <input
-                type="time"
-                value={open}
-                className={cx("input-time")}
-                onChange={(e) => setOpen(e.target.value)}
-              />
+        <div className={cx("form-create")}>
+          <div className={cx("services")}>
+            <div className={cx("services-desc")}>Time Open</div>
+            <div className={cx("services-time")}>
+              <div className={cx("time")}>
+                Open
+                <input
+                  type="time"
+                  value={open}
+                  className={cx("input-time")}
+                  onChange={(e) => setOpen(e.target.value)}
+                />
+              </div>
+              <span className={cx("time")}>-</span>
+              <div className={cx("time")}>
+                Close
+                <input
+                  type="time"
+                  value={close}
+                  className={cx("input-time")}
+                  onChange={(e) => setClose(e.target.value)}
+                />
+              </div>
             </div>
-            <span className={cx("time")}>-</span>
-            <div className={cx("time")}>
-              Close
-              <input
-                type="time"
-                value={close}
-                className={cx("input-time")}
-                onChange={(e) => setClose(e.target.value)}
+          </div>
+          <div className={cx("services")}>
+            <div className={cx("services-desc")}>Type</div>
+            <div className={cx("type-option")}>
+              <DropDown
+                onChangeSelect={(value, name) =>
+                  handleChangeSelect(value, name, "type")
+                }
+                title="Type"
+                data={typeStore}
               />
             </div>
           </div>

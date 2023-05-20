@@ -5,6 +5,10 @@ import images from "src/assets/images";
 import Button from "src/component/Button";
 import TextEditor from "src/component/EditorText/EditorText";
 import FormUploadBanner from "src/pages/private/Profile/FormUploadBanner/FormUploadBanner";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
+import { toast } from "react-toastify";
+import { storage } from "src/pages/private/Chat/firebase";
 
 const cx = classNames.bind(styles);
 
@@ -13,8 +17,36 @@ export default function PostForm({ setModalPostOpen, label, data }) {
   const [visibleControls, setVisibleControls] = useState(false);
   const [content, setContent] = useState("");
 
+  const [file, setFile] = useState({
+    preview: "",
+    data: "",
+  });
+  const handleSubmitImages = async (e) => {
+    const imageRef = ref(storage, `images/${file.data + v4()}`);
+    uploadBytes(imageRef, file.data)
+      .then(() => {
+        getDownloadURL(imageRef)
+          .then((file) => {
+            setFile({ preview: file, data: "" });
+            toast.success("upload successfully!");
+          })
+          .catch((error) => {
+            console.log(error.message, "error getting url");
+            toast.error("failed to upload");
+          });
+      })
+      .catch((error) => {
+        console.log(error.message);
+        toast.error("failed to upload");
+      });
+    // setVisibleControls(false);
+  };
   const handlePostArticle = () => {
     console.log(content);
+    handleSubmitImages();
+  };
+  const handleSetFile = (file) => {
+    setFile(file);
   };
   return (
     <div className={cx("wrapper")}>
@@ -43,7 +75,7 @@ export default function PostForm({ setModalPostOpen, label, data }) {
             <TextEditor setContentBlog={setContent} sHidderTools={true} />
           </div>
           <div className={cx("image")}>
-            <FormUploadBanner />
+            <FormUploadBanner setFile={handleSetFile} file={file} />
           </div>
         </div>
         <div className={cx("btn")}>
