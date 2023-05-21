@@ -35,6 +35,7 @@ export default function PostForm({ setModalPostOpen, label, data }) {
       .then(() => {
         getDownloadURL(imageRef)
           .then((file) => {
+            console.log(file);
             setFile({ preview: file, data: "" });
             toast.success("upload successfully!");
           })
@@ -47,18 +48,20 @@ export default function PostForm({ setModalPostOpen, label, data }) {
         console.log(error.message);
         toast.error("failed to upload");
       });
-    // setVisibleControls(false);
+
+    setVisibleControls(false);
   };
+
   const handlePostArticle = () => {
     handleSubmitImages();
     dispatch(
       actionCreatePost({
         userID: id,
         title: content,
-        img: file.preview,
+        img: file,
       })
     );
-    // console.log(content, file.preview);
+    console.log(content, file);
   };
   const handleSetFile = (file) => {
     setFile(file);

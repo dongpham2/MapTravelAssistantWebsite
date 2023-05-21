@@ -1,3 +1,4 @@
+import { ACTION_GETALLUSERS } from "../actions/admin";
 import { _ACTION_POSTARTICLE } from "../actions/article";
 import {
   ACTION_LOGOUT,
@@ -48,11 +49,11 @@ const rootReducer = (state = initState, action) => {
         ...state,
         post: action.payload,
       };
-    // case _ACTION_GETALLUSERS:
-    //   return {
-    //     ...state,
-    //     listUsers: action.payload,
-    //   };
+    case ACTION_GETALLUSERS:
+      return {
+        ...state,
+        listUsers: action.payload,
+      };
     default:
       return state;
   }

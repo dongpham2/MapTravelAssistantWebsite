@@ -5,4 +5,7 @@ export const adminService = {
   getAllUsers(users) {
     return httpClient.get(API_GETALLUSER);
   },
+  deleteUsers(id) {
+    return httpClient.delete(`${API_GETALLUSER}/${id}`);
+  },
 };

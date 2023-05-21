@@ -11,7 +11,6 @@ export default function PostArticle() {
   const [modalPostOpen, setModalPostOpen] = useState(false);
   const auth = useSelector((state) => state.auth);
   const user = auth?.user;
-  console.log(user);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("avatar")}>

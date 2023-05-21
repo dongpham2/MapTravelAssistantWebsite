@@ -68,10 +68,7 @@ export default function CreateFanpage() {
     pre: "",
     data: "",
   });
-  const [avatar, setAvatar] = useState({
-    preAvatar: "",
-    data: "",
-  });
+
   const formikRef = useRef(null);
   const messageRef = useRef(null);
   const [lat, setLat] = useState();
@@ -92,6 +89,7 @@ export default function CreateFanpage() {
   const handleCreatePage = () => {
     const { name, phone, website, priceStart, priceEnd } =
       formikRef.current.values;
+    console.log(formikRef.current.values);
     // const selectValues = { ...selectForm };
     // console.log(selectValues);
     console.log({
@@ -129,7 +127,6 @@ export default function CreateFanpage() {
   };
   const handleSetFile = (file) => {
     setFile(file);
-    console.log("1");
   };
 
   const handleSubmitImages = async (e) => {
@@ -172,6 +169,7 @@ export default function CreateFanpage() {
             priceStart: "",
             priceEnd: "",
           }}
+          onSubmit={handleCreatePage}
           validationSchema={Yup.object({
             name: Yup.string()
               .min(2, "Too Short!")
@@ -365,12 +363,7 @@ export default function CreateFanpage() {
               </div>
             </div>
             <div className={cx("btn")}>
-              <Button
-                primary
-                onClick={() => {
-                  handleCreatePage();
-                }}
-              >
+              <Button primary type="submit">
                 Create
               </Button>
             </div>

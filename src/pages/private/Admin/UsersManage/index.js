@@ -8,20 +8,28 @@ import Button from "src/component/Button";
 import AddAccountModal from "./AddAccountModal/AddAccountModal";
 import Input from "src/component/Input/Input";
 import { useDispatch, useSelector } from "react-redux";
+import { actionDeleteUsers, actionGetAllUsers } from "src/redux/actions/admin";
 
 const cx = classNames.bind(styles);
 
 function UsersManage() {
   const listUsers = useSelector((state) => state.listUsers);
   console.log(listUsers);
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
+  const [isId, setIsId] = useState(null);
   const [idUserDelete, setIdUserDelete] = useState(null);
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
-  const handleDeleteUser = (idUserDelete) => {};
+  const handleDeleteUser = () => {
+    dispatch(actionDeleteUsers(isId));
+  };
+  useEffect(() => {
+    dispatch(actionGetAllUsers());
+  }, []);
 
   return (
     <>
@@ -50,7 +58,7 @@ function UsersManage() {
             primary
             rounded
             onClick={() => {
-              handleDeleteUser(idUserDelete);
+              handleDeleteUser();
               setShowModalDelete(false);
             }}
           >
@@ -94,31 +102,32 @@ function UsersManage() {
               </tr>
             </thead>
             <tbody>
-              {/* {userList.length && */}
-              {/* userList.map((user, index) => { */}
-              {/* return ( */}
-              <tr>
-                <td>1</td>
-                <td>dong</td>
-                <td>dongpham@gmail.com</td>
-                <td>
-                  <ion-icon name="checkmark-outline"></ion-icon>
-                </td>
-                <td>0853390931</td>
-                <td className={cx("action-column")}>
-                  <span
-                    onClick={() => {
-                      // setIdUserDelete(user.id);
-                      setShowModalDelete(true);
-                    }}
-                    className={cx("content-icon")}
-                  >
-                    <ion-icon name="trash-sharp"></ion-icon>
-                  </span>
-                </td>
-              </tr>
-              {/* ); */}
-              {/* })} */}
+              {listUsers.length &&
+                listUsers.map((user, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{user.fullname}</td>
+                      <td>{user.email}</td>
+                      <td>
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                      </td>
+                      <td>0853390931</td>
+                      <td className={cx("action-column")}>
+                        <span
+                          onClick={() => {
+                            // setIdUserDelete(user.id);
+                            setShowModalDelete(true);
+                            setIsId(user?._id);
+                          }}
+                          className={cx("content-icon")}
+                        >
+                          <ion-icon name="trash-sharp"></ion-icon>
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </Table>
         </div>

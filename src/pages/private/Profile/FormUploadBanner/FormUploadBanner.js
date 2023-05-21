@@ -11,12 +11,12 @@ import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
 export default function FormUploadBanner({ label, data, file, setFile }) {
-  const inputRef = useRef(null);
+  // const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
 
   useEffect(() => {
     return () => {
-      file && URL.revokeObjectURL(file);
+      // file && URL.revokeObjectURL(file);
     };
   }, [file]);
 
@@ -58,7 +58,7 @@ export default function FormUploadBanner({ label, data, file, setFile }) {
                 <input
                   name="file"
                   id="file"
-                  ref={inputRef}
+                  // ref={inputRef}
                   className={cx("input", "input-file")}
                   type="file"
                   onChange={handleChangeFile}

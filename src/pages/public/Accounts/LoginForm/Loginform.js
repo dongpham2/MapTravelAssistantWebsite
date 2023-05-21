@@ -27,8 +27,8 @@ export default function Loginform() {
   const handleSubmit = async () => {
     const { email, password } = formikRef.current.values;
     setLoading(true);
-    await dispatch(actionSignin({ email, password }, history));
-    setLoading(false);
+    await dispatch(actionSignin({ email, password }, history, setLoading));
+    // setLoading(false);
   };
   return (
     <div className={cx("wrapper")}>
