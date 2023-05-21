@@ -2,6 +2,7 @@ import axios from "axios";
 
 const httpClient = axios.create({
   baseURL: "https://map-travel-assistant-website-dev.onrender.com",
+  // baseURL: "http://localhost:3001",
   headers: {
     "Content-Type": "application/json",
   },

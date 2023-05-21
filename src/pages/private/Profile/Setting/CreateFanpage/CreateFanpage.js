@@ -12,7 +12,7 @@ import { getObjectCreateFanpages } from "./utility";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreateFangpage } from "src/redux/actions/fanpage";
 import { Col, Row } from "react-bootstrap";
-import L from "leaflet";
+import L, { latLngBounds } from "leaflet";
 import FormUploadBanner from "../../FormUploadBanner/FormUploadBanner";
 import { CCol, CRow } from "@coreui/react";
 import Map from "src/pages/public/Home/Map/Leaflet/LeafletMap";
@@ -62,6 +62,9 @@ const typeStore = [
 ];
 
 export default function CreateFanpage() {
+  const id = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")).userID
+    : "";
   const [selectPosition, setSelectPosition] = useState(null);
   const [file, setFile] = useState({
     pre: "",
@@ -79,43 +82,48 @@ export default function CreateFanpage() {
     type: "",
   });
   // const fanpage = useSelector((state) => state.fanpage);
-  const fanpage = localStorage.getItem("isFanpage") || false;
-  console.log(fanpage);
+  const fanpage = localStorage.getItem("isFanpage");
+
   const dispatch = useDispatch();
 
   // submit data create fanpage
   const handleCreatePage = () => {
     const { name, phone, website, priceStart, priceEnd } =
       formikRef.current.values;
-    const selectValues = { ...selectForm };
-    console.log(selectValues);
+    // const selectValues = { ...selectForm };
+    // console.log(selectValues);
     console.log({
+      userID: id,
+      img: file?.pre,
       name,
-      setDescription,
+      description,
       phone,
       website,
       open,
       close,
       priceStart,
       priceEnd,
-      selectValues,
+      ...selectForm,
+      lat: selectPosition?.lat,
+      lon: selectPosition?.lon,
     });
     handleSubmitImages();
-    // dispatch(
-    //   actionCreateFangpage(
-    //     getObjectCreateFanpages(
-    //       name,
-    //       phone,
-    //       website,
-    //       description,
-    //       open,
-    //       close,
-    //       priceStart,
-    //       priceEnd
-    //     ),
-    //     selectValues
-    //   )
-    // );
+    dispatch(
+      actionCreateFangpage({
+        userID: id,
+        name,
+        description,
+        phone,
+        website,
+        open,
+        close,
+        priceStart,
+        priceEnd,
+        ...selectForm,
+        lat: selectPosition?.lat,
+        lon: selectPosition?.lon,
+      })
+    );
   };
   const handleSetFile = (file) => {
     setFile(file);
@@ -151,7 +159,7 @@ export default function CreateFanpage() {
   return (
     <div className={cx("wrapper")}>
       <h3 className={cx("heading")}>Your Fanpage</h3>
-      {!fanpage ? (
+      {true ? (
         <Formik
           innerRef={formikRef}
           initialValues={{
@@ -172,12 +180,11 @@ export default function CreateFanpage() {
               .integer("A phone number can't include a decimal point")
               .min(9)
               .required("Please enter your phone number"),
-            website: Yup.string()
-              .matches(
-                /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-                "Enter correct url!"
-              )
-              .required("Please enter website"),
+            website: Yup.string().matches(
+              /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+              "Enter correct url!"
+            ),
+            // .required("Please enter website"),
             priceStart: Yup.number()
               .required("Enter Prices")
               .max(1000000000, "To big")
