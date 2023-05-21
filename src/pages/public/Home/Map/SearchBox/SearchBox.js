@@ -64,27 +64,28 @@ export default function SearchBox(props) {
       </div>
       <div>
         <List component="nav" aria-label="main mailbox folders">
-          {listPlace.map((item) => {
-            return (
-              <div key={item?.place_id}>
-                <ListItem
-                  button
-                  onClick={() => {
-                    setSelectPosition(item);
-                  }}
-                >
-                  <ListItemIcon>
-                    <img
-                      src={icon}
-                      alt="Placeholder"
-                      style={{ width: 38, height: 38 }}
-                    />
-                  </ListItemIcon>
-                  <ListItemText primary={item?.display_name} />
-                </ListItem>
-                <Divider />
-              </div>
-            );
+          {listPlace.map((item, index) => {
+            if (index < 2)
+              return (
+                <div key={item?.place_id}>
+                  <ListItem
+                    button
+                    onClick={() => {
+                      setSelectPosition(item);
+                    }}
+                  >
+                    <ListItemIcon>
+                      <img
+                        src={icon}
+                        alt="Placeholder"
+                        style={{ width: 38, height: 38 }}
+                      />
+                    </ListItemIcon>
+                    <ListItemText primary={item?.display_name} />
+                  </ListItem>
+                  <Divider />
+                </div>
+              );
           })}
         </List>
       </div>
