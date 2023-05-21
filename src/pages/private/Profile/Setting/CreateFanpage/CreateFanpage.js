@@ -7,7 +7,6 @@ import Button from "src/component/Button";
 import Input from "src/component/Input/Input";
 import DropDown from "src/component/Input/DropDown/DropDown";
 import TextEditor from "src/component/EditorText/EditorText";
-import Map from "src/pages/public/Home/Map";
 import Fanage from "./Fanpage/Fanpage";
 import { getObjectCreateFanpages } from "./utility";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +14,10 @@ import { actionCreateFangpage } from "src/redux/actions/fanpage";
 import { Col, Row } from "react-bootstrap";
 import L from "leaflet";
 import FormUploadBanner from "../../FormUploadBanner/FormUploadBanner";
-
+import { CCol, CRow } from "@coreui/react";
+import Map from "src/pages/public/Home/Map/Leaflet/LeafletMap";
+import SearchBox from "src/pages/public/Home/Map/SearchBox/SearchBox";
+import "leaflet/dist/leaflet.css";
 const cx = classNames.bind(styles);
 const pricesValue = [
   {
@@ -55,53 +57,58 @@ const typeStore = [
 ];
 
 export default function CreateFanpage() {
+  const [selectPosition, setSelectPosition] = useState(null);
   const formikRef = useRef(null);
   const messageRef = useRef(null);
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
   const [open, setOpen] = useState("12:00");
   const [close, setClose] = useState("12:00");
-  const [content, setContent] = useState("");
+  const [description, setDescription] = useState("");
   const [selectForm, setSelectForm] = useState({
     denomina: "",
     type: "",
   });
-  const fanpage = useSelector((state) => state.fanpage);
+  // const fanpage = useSelector((state) => state.fanpage);
+  const fanpage = localStorage.getItem("isFanpage") || false;
+  console.log(fanpage);
   const dispatch = useDispatch();
 
   // submit data create fanpage
   const handleCreatePage = () => {
-    const { name, description, phone, website, priceStart, priceEnd } =
+    const { name, phone, website, priceStart, priceEnd } =
       formikRef.current.values;
-    const selectValues = { ...selectForm };
-    console.log(selectValues);
-    // console.log({
-    //   name,
-    //   description,
-    //   phone,
-    //   website,
-    //   open,
-    //   close,
-    //   priceStart,
-    //   priceEnd,
-    //   selectValues,
-    // });
-    dispatch(
-      actionCreateFangpage(
-        getObjectCreateFanpages(
-          name,
-          description,
-          phone,
-          website,
-          content,
-          open,
-          close,
-          priceStart,
-          priceEnd
-        ),
-        selectValues
-      )
-    );
+    // const selectValues = { ...selectForm };
+    // console.log(selectValues);
+    console.log({
+      name,
+      description,
+      phone,
+      website,
+      open,
+      close,
+      priceStart,
+      priceEnd,
+      ...selectForm,
+      lat: selectPosition.lat,
+      lon: selectPosition.lon,
+    });
+    // dispatch(
+    //   actionCreateFangpage(
+    //     getObjectCreateFanpages(
+    //       name,
+    //       description,
+    //       phone,
+    //       website,
+    //       description,
+    //       open,
+    //       close,
+    //       priceStart,
+    //       priceEnd
+    //     ),
+    //     selectValues
+    //   )
+    // );
   };
   const handleChangeSelect = (value, name, nameSelect) => {
     setSelectForm((prev) => {
@@ -112,7 +119,7 @@ export default function CreateFanpage() {
   return (
     <div className={cx("wrapper")}>
       <h3 className={cx("heading")}>Your Fanpage</h3>
-      {fanpage ? (
+      {!fanpage ? (
         <Formik
           innerRef={formikRef}
           initialValues={{
@@ -180,7 +187,10 @@ export default function CreateFanpage() {
                   name that helps explain your Page.
                 </div>
                 <div className={cx("text-desc")}>
-                  <TextEditor setContentBlog={setContent} sHidderTools={true} />
+                  <TextEditor
+                    setContentBlog={setDescription}
+                    sHidderTools={true}
+                  />
                 </div>
               </div>
             </div>
@@ -292,6 +302,17 @@ export default function CreateFanpage() {
               <div className={cx("address")}>Pin Your Location</div>
               <Map />
             </div> */}
+            <div>
+              <div>
+                <SearchBox
+                  selectPosition={selectPosition}
+                  setSelectPosition={setSelectPosition}
+                />
+              </div>
+              <div style={{ height: "500px", overflow: "hidden" }}>
+                <Map selectPosition={selectPosition} isPosition={false} />
+              </div>
+            </div>
             <div className={cx("btn")}>
               <Button
                 primary
