@@ -16,7 +16,7 @@ export const actionSignin = (user, history) => {
         type: _ACTION_SIGNIN,
         payload: data,
       });
-      redirect(newData.role, history);
+      // redirect(newData.role, history);
     } else {
       toast.error("Login failed");
     }
@@ -39,10 +39,10 @@ export const actionSignup = (user) => {
   };
 };
 
-const redirect = (role, history) => {
-  if (role === "admin") history("/admin");
-  else history("/");
-};
+// const redirect = (role, history) => {
+//   if (role === "admin") history("/admin/userManage");
+//   else history("/");
+// };
 
 export const ACTION_LOGOUT = "ACTION_LOGOUT";
 export const LogoutAction = () => {

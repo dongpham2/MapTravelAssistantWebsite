@@ -22,27 +22,6 @@ import Statitical from "src/pages/private/Admin/Statitical/Statitical";
 import SettingAdmin from "src/pages/private/Admin/SettingAdmin/SettingAdmin";
 
 export const publicRoutes = [
-  {
-    path: config.routes.admin,
-    component: UsersManage,
-    layout: SidebarLayout,
-  },
-  {
-    path: config.routes.history,
-    component: History,
-    layout: SidebarLayout,
-  },
-  {
-    path: config.routes.statitic,
-    component: Statitical,
-    layout: SidebarLayout,
-  },
-  {
-    path: config.routes.settingAdmin,
-    component: SettingAdmin,
-    layout: SidebarLayout,
-  },
-
   { path: config.routes.home, component: Home },
   { path: config.routes.accounts, component: Accounts, layout: null },
   // {
@@ -79,4 +58,25 @@ export const privateRoutes = [
   },
 ];
 
-export const adminRouter = [];
+export const adminRouter = [
+  {
+    path: config.routes.admin,
+    component: UsersManage,
+    layout: SidebarLayout,
+  },
+  {
+    path: config.routes.history,
+    component: History,
+    layout: SidebarLayout,
+  },
+  {
+    path: config.routes.statitic,
+    component: Statitical,
+    layout: SidebarLayout,
+  },
+  {
+    path: config.routes.settingAdmin,
+    component: SettingAdmin,
+    layout: SidebarLayout,
+  },
+];
