@@ -118,10 +118,6 @@ export default function CreateFanpage() {
     setFile(file);
     console.log("1");
   };
-  const handleSetAvatar = (avatar) => {
-    setAvatar(avatar);
-    console.log("3");
-  };
 
   const handleSubmitImages = async (e) => {
     const imageRef = ref(storage, `images/${file.data + v4()}`);
