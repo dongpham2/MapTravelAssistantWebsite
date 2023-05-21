@@ -10,6 +10,21 @@ const cx = classNames.bind(styles);
 export default function Message({ message }) {
   const { auth } = useSelector((state) => state);
   const { data } = useContext(ChatContext);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const formatTimestamp = (timestamp) => {
+    const dateObj = new Date(timestamp * 1000); // Convert timestamp to milliseconds
+    const formattedDate = dateObj.toLocaleDateString(); // Format date
+    const formattedTime = dateObj.toLocaleTimeString(); // Format time
+    return `${formattedDate} ${formattedTime}`;
+  };
+
+  const handleMouseEnter = () => {
+    setShowTooltip(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowTooltip(false);
+  };
 
   const ref = useRef();
   const currentUser = {
@@ -25,7 +40,7 @@ export default function Message({ message }) {
   return (
     <div
       ref={ref}
-      key={message.id}
+      key={message.senderId}
       className={`${styles.message} ${
         message.senderId === currentUser._id && styles.owner
       }`}
@@ -41,12 +56,21 @@ export default function Message({ message }) {
         />
       </div>
       {/* Content */}
-      <div className={cx("message-content")}>
+      <div
+        className={cx("message-content")}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <span
           dangerouslySetInnerHTML={{
             __html: message.text,
           }}
         ></span>
+        {showTooltip && (
+          <div className={cx("tooltip")}>
+            {formatTimestamp(message.date.seconds)}
+          </div>
+        )}
         {message.img && <img src={message.img} alt="" />}
       </div>
     </div>

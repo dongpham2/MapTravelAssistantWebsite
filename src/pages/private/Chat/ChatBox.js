@@ -146,7 +146,11 @@ export default function Chat() {
           </div>
           <div className={cx("textarea")}>
             {/* <input type="text" onChange={e=>setText(e.target.value)} /> */}
-            <TextEditor setContentBlog={setContent} sHidderTools={true} />
+            <TextEditor
+              setContentBlog={setContent}
+              sHidderTools={true}
+              defaultValueProps={content}
+            />
           </div>
           <div className={cx("send-icons")} onClick={handleSend}>
             <ion-icon name="send"></ion-icon>

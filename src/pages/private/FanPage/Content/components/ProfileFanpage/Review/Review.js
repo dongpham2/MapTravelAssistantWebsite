@@ -16,6 +16,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db, storage } from "src/service/Firebase/firebase";
+import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
 
@@ -69,6 +70,8 @@ export default function Review() {
       stars: rating,
       date: Timestamp.now(),
     });
+    toast.success("Review successful");
+    window.location.reload();
   };
   const handleCancel = () => {
     return;
@@ -83,6 +86,8 @@ export default function Review() {
         stars: rating,
         date: Timestamp.now(),
       });
+      toast.success("Review successful");
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }
