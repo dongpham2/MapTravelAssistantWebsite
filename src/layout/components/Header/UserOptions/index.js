@@ -21,11 +21,19 @@ function UserOptions() {
       <Link to={config.routes.fanpage}>
         <div className={cx("header")}>
           <div className={cx("header-left")}>
-            <img
-              src={auth?.user?.avatar}
-              alt="Avatar"
-              className={cx("avatar-img", "avatar")}
-            />
+            {auth?.user?.avatar ? (
+              <img
+                src={auth?.user?.avatar}
+                alt="Avatar"
+                className={cx("avatar-img", "avatar")}
+              />
+            ) : (
+              <img
+                src={images.avt_default}
+                className={cx("avatar-img", "avatar")}
+              />
+            )}
+
             {/* <img src={images.avt} alt="Avatar" className={cx("avatar")} /> */}
           </div>
           <div className={cx("header-right")}>

@@ -12,6 +12,7 @@ const initState = {
   fanpage: {},
   post: {},
   // isLoading: false,
+  listUsers: {},
 };
 
 const rootReducer = (state = initState, action) => {
@@ -47,6 +48,11 @@ const rootReducer = (state = initState, action) => {
         ...state,
         post: action.payload,
       };
+    // case _ACTION_GETALLUSERS:
+    //   return {
+    //     ...state,
+    //     listUsers: action.payload,
+    //   };
     default:
       return state;
   }

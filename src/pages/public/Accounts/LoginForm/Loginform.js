@@ -91,10 +91,6 @@ export default function Loginform() {
           </Button>
         </Form>
       </Formik>
-
-      <div className={cx("forgot-password")}>
-        <span>Forgot password?</span>
-      </div>
     </div>
   );
 }

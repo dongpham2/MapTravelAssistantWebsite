@@ -7,10 +7,13 @@ import { Modal, Table } from "react-bootstrap";
 import Button from "src/component/Button";
 import AddAccountModal from "./AddAccountModal/AddAccountModal";
 import Input from "src/component/Input/Input";
+import { useDispatch, useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 
 function UsersManage() {
+  const listUsers = useSelector((state) => state.listUsers);
+  console.log(listUsers);
   const [showModal, setShowModal] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [idUserDelete, setIdUserDelete] = useState(null);

@@ -18,8 +18,31 @@ import SidebarLayout from "src/layout/SidebarLayout";
 import UsersManage from "src/pages/private/Admin/UsersManage";
 import Notice from "src/pages/private/Admin/Notice/Notice";
 import History from "src/pages/private/Admin/History/History";
+import Statitical from "src/pages/private/Admin/Statitical/Statitical";
+import SettingAdmin from "src/pages/private/Admin/SettingAdmin/SettingAdmin";
 
 export const publicRoutes = [
+  {
+    path: config.routes.admin,
+    component: UsersManage,
+    layout: SidebarLayout,
+  },
+  {
+    path: config.routes.history,
+    component: History,
+    layout: SidebarLayout,
+  },
+  {
+    path: config.routes.statitic,
+    component: Statitical,
+    layout: SidebarLayout,
+  },
+  {
+    path: config.routes.settingAdmin,
+    component: SettingAdmin,
+    layout: SidebarLayout,
+  },
+
   { path: config.routes.home, component: Home },
   { path: config.routes.accounts, component: Accounts, layout: null },
   // {
@@ -56,15 +79,4 @@ export const privateRoutes = [
   },
 ];
 
-export const adminRouter = [
-  {
-    path: config.routes.admin,
-    component: UsersManage,
-    layout: SidebarLayout,
-  },
-  {
-    path: config.routes.history,
-    component: History,
-    layout: SidebarLayout,
-  },
-];
+export const adminRouter = [];

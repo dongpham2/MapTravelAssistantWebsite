@@ -18,8 +18,8 @@ import FormUploadBanner from "../../FormUploadBanner/FormUploadBanner";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { toast } from "react-toastify";
-import { storage } from "src/pages/private/Chat/firebase";
 import FormUpload from "../../FormUpload/FormUpload";
+import { storage } from "src/service/Firebase/firebase";
 const cx = classNames.bind(styles);
 const pricesValue = [
   {
@@ -63,6 +63,10 @@ export default function CreateFanpage() {
     pre: "",
     data: "",
   });
+  const [avatar, setAvatar] = useState({
+    preAvatar: "",
+    data: "",
+  });
   const formikRef = useRef(null);
   const messageRef = useRef(null);
   const [lat, setLat] = useState();
@@ -82,7 +86,6 @@ export default function CreateFanpage() {
     const { name, phone, website, priceStart, priceEnd } =
       formikRef.current.values;
     const selectValues = { ...selectForm };
-    console.log(selectValues);
     console.log({
       name,
       setDescription,
@@ -113,6 +116,11 @@ export default function CreateFanpage() {
   };
   const handleSetFile = (file) => {
     setFile(file);
+    console.log("1");
+  };
+  const handleSetAvatar = (avatar) => {
+    setAvatar(avatar);
+    console.log("3");
   };
 
   const handleSubmitImages = async (e) => {

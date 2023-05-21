@@ -16,7 +16,7 @@ const EditorStyled = styled.div`
     height: ${(p) => (p.isHidderTools ? "100% !important" : "100% !important")};
   }
   .public-DraftStyleDefault-block {
-    margin: 0;
+    // margin: 0px;
   }
 `;
 const TextEditor = ({

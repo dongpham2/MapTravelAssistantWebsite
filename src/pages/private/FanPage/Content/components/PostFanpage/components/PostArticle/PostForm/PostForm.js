@@ -8,11 +8,14 @@ import FormUploadBanner from "src/pages/private/Profile/FormUploadBanner/FormUpl
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { toast } from "react-toastify";
-import { storage } from "src/pages/private/Chat/firebase";
+import { storage } from "src/service/Firebase/firebase";
+import { useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 
 export default function PostForm({ setModalPostOpen, label, data }) {
+  const auth = useSelector((state) => state.auth);
+  const user = auth?.user;
   const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
   const [content, setContent] = useState("");
@@ -65,8 +68,13 @@ export default function PostForm({ setModalPostOpen, label, data }) {
             </div>
           </div>
           <div className={cx("header-infor")}>
-            <img src={images.avt} className={cx("img")} />
-            <div className={cx("name")}>Đông Phạm</div>
+            {user.avatar ? (
+              <img src={images.avt} className={cx("img")} />
+            ) : (
+              <img src={images.avt_default} className={cx("img")} />
+            )}
+
+            <div className={cx("name")}>{user.fullName}</div>
           </div>
         </div>
         {/* content */}

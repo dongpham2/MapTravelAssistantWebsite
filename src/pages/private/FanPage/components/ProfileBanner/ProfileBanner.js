@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 const cx = classNames.bind(styles);
 
 export default function ProfileBanner() {
+  const auth = useSelector((state) => state.auth);
+  const user = auth?.user;
   const fanpage = useSelector((state) => state.fanpage);
   return (
     <div className={cx("wrapper")}>
@@ -17,7 +19,12 @@ export default function ProfileBanner() {
         alt="background-profile"
       />
       <div className={cx("user-avatar")}>
-        <img className={cx("avatar-img")} src={fanpage.avatar} />
+        {user.avatar ? (
+          <img className={cx("avatar-img")} src={fanpage.avatar} />
+        ) : (
+          <img src={images.avt_default} className={cx("avatar-img")} />
+        )}
+
         <div className={cx("group-infor")}>
           <div className={cx("user-name")}>{fanpage.name}</div>
           {/* <div className={cx("follower")}>ABC restaurent</div> */}

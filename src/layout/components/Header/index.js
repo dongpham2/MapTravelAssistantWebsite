@@ -11,7 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 export default function Header() {
-  const { auth } = useSelector((state) => state);
+  const auth = useSelector((state) => state.auth);
+  const user = auth?.user;
   const [isVisibleUserOptions, setIsVisibleUserOptions] = useState(false);
   const toggleUserOptions = () => {
     setIsVisibleUserOptions(!isVisibleUserOptions);
@@ -43,11 +44,15 @@ export default function Header() {
               toggleUserOptions();
             }}
           >
-            <img
-              className={cx("avatar-img")}
-              src={auth.user.avatar}
-              alt="avt"
-            />
+            {user.avatar ? (
+              <img
+                className={cx("avatar-img")}
+                src={auth.user.avatar}
+                alt="avt"
+              />
+            ) : (
+              <img src={images.avt_default} className={cx("avatar-img")} />
+            )}
           </div>
         ) : (
           <Link to={config.routes.accounts}>

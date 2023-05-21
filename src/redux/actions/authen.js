@@ -7,10 +7,6 @@ export const _ACTION_LOADING = "_ACTION_LOADING";
 
 export const actionSignin = (user, history) => {
   return async (dispatch) => {
-    // dispatch({
-    //   type: _ACTION_LOADING,
-    //   payload: true,
-    // });
     const { data, status } = await AuthService.signin(user);
     const newData = { ...data, role: "user" };
     if (status === 200) {
@@ -19,7 +15,6 @@ export const actionSignin = (user, history) => {
         payload: data,
       });
       redirect(newData.role, history);
-      toast.success("login successful");
     } else {
       toast.error("Login failed");
     }

@@ -1,5 +1,10 @@
 import httpClient from "src/api/httpClient";
-import { API_POSTARTICLE, API_SIGNIN, API_SIGNUP } from "src/config/apis";
+import {
+  API_GETALLUSER,
+  API_POSTARTICLE,
+  API_SIGNIN,
+  API_SIGNUP,
+} from "src/config/apis";
 
 export const AuthService = {
   signin(user) {
@@ -17,5 +22,8 @@ export const AuthService = {
   },
   postarticle(post) {
     return httpClient.post(API_POSTARTICLE, post);
+  },
+  getAllUsers(users) {
+    return httpClient.get(API_GETALLUSER);
   },
 };
