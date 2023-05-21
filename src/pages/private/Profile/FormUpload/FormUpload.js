@@ -5,17 +5,25 @@ import { Col, Row } from "react-bootstrap";
 import images from "src/assets/images";
 import Button from "src/component/Button";
 import { storage } from "../../Chat/firebase";
-import { listAll, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
+import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
 export default function FormUpload({ label, data }) {
+  const [imagesCurrent, setImagesCurrent] = useState();
   const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
   const [file, setFile] = useState({
     preview: "",
     data: "",
   });
+
+  useEffect(() => {
+    return () => {
+      file && URL.revokeObjectURL(file);
+    };
+  }, [file]);
 
   const handleChangeFile = async (e) => {
     const img = {
@@ -28,17 +36,38 @@ export default function FormUpload({ label, data }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const imageRef = storage
-    //   .ref("/images/" + file.nam)
-    //   .put(file)
-    //   .on("state_changed", alert("success"), alert);
+    const imageRef = ref(storage, `images/${file.data + v4()}`);
+    uploadBytes(imageRef, file.data)
+      .then(() => {
+        getDownloadURL(imageRef)
+          .then((file) => {
+            console.log(file);
+            setFile({ preview: file, data: "" });
+            toast.success("upload successfully!");
+          })
+          .catch((error) => {
+            console.log(error.message, "error getting url");
+            toast.error("failed to upload");
+          });
+      })
+      .catch((error) => {
+        console.log(error.message);
+        toast.error("failed to upload");
+      });
 
-    // imageRef();
-    const imageRef = ref(storage, `picture/${file.preview + v4()}`);
-    uploadBytes(imageRef, file.preview).then(() => {
-      alert("success");
-    });
+    setVisibleControls(false);
   };
+
+  // const handleChangeImage = (e) => {
+  //   const file = e.target.files[0];
+  //   setFileName(file.name);
+  //   let storeRef = firebase.storage().ref(buses/${file.name});
+  //   storeRef.put(file).then((e) => {
+  //     storeRef.getDownloadURL().then(async (url, e) => {
+  //       setUrlImage(url);
+  //     });
+  //   });
+  // };
 
   return (
     <div className={cx("wrapper")}>
@@ -56,8 +85,6 @@ export default function FormUpload({ label, data }) {
                     src={file.preview}
                     alt="avatar"
                   />
-                ) : data ? (
-                  <img className={cx("preview-img")} src={data} alt="avatar" />
                 ) : (
                   <img
                     className={cx("preview-img")}

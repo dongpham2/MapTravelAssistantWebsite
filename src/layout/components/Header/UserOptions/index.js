@@ -18,23 +18,36 @@ function UserOptions() {
   };
   return (
     <div className={cx("wrapper")}>
-      <div className={cx("header")}>
-        <div className={cx("header-left")}>
-          <img
-            src={auth?.user?.avatar}
-            alt="Avatar"
-            className={cx("avatar-img", "avatar")}
-          />
-          {/* <img src={images.avt} alt="Avatar" className={cx("avatar")} /> */}
+      <Link to={config.routes.fanpage}>
+        <div className={cx("header")}>
+          <div className={cx("header-left")}>
+            <img
+              src={auth?.user?.avatar}
+              alt="Avatar"
+              className={cx("avatar-img", "avatar")}
+            />
+            {/* <img src={images.avt} alt="Avatar" className={cx("avatar")} /> */}
+          </div>
+          <div className={cx("header-right")}>
+            {/* <div className={cx("user-name")}>{user.fullname}</div>*/}
+            <div className={cx("user-name")}>{auth.user.fullName}</div>
+          </div>
         </div>
-        <div className={cx("header-right")}>
-          {/* <div className={cx("user-name")}>{user.fullname}</div>*/}
-          <div className={cx("user-name")}>{auth.user.fullName}</div>
-        </div>
-      </div>
+      </Link>
 
       <div className={cx("option")}>
         {/* first item */}
+        <ul className={cx("option-list")}>
+          <Link to={config.routes.fanpage} className={cx("option-item-link")}>
+            <li className={cx("option-item")}>
+              <div className={cx("option-icon")}>
+                <ion-icon name="logo-mastodon"></ion-icon>
+              </div>
+              <div className={cx("option-name")}>Fanpage</div>
+            </li>
+          </Link>
+        </ul>
+
         <ul className={cx("option-list")}>
           <Link to="" className={cx("option-item-link")}>
             <li className={cx("option-item")}>
@@ -45,6 +58,7 @@ function UserOptions() {
             </li>
           </Link>
         </ul>
+
         {/* second item */}
         <ul className={cx("option-list")}>
           <Link to={config.routes.profile} className={cx("option-item-link")}>

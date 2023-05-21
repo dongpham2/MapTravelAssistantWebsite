@@ -42,7 +42,6 @@ export const publicRoutes = [
 
 export const privateRoutes = [
   { path: config.routes.profile, component: Profile, layout: SettingLayout },
-
   { path: config.routes.fanpage, component: FanPage, layout: FanpageLayout },
   { path: config.routes.posts, component: Posts, layout: FanpageLayout },
   { path: config.routes.photos, component: Photos, layout: FanpageLayout },
@@ -59,7 +58,7 @@ export const privateRoutes = [
 
 export const adminRouter = [
   {
-    path: config.routes.usersManagement,
+    path: config.routes.admin,
     component: UsersManage,
     layout: SidebarLayout,
   },

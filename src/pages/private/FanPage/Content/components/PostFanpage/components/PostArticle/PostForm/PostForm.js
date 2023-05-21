@@ -4,6 +4,11 @@ import classNames from "classnames/bind";
 import images from "src/assets/images";
 import Button from "src/component/Button";
 import TextEditor from "src/component/EditorText/EditorText";
+import FormUploadBanner from "src/pages/private/Profile/FormUploadBanner/FormUploadBanner";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
+import { toast } from "react-toastify";
+import { storage } from "src/pages/private/Chat/firebase";
 
 const cx = classNames.bind(styles);
 
@@ -11,31 +16,37 @@ export default function PostForm({ setModalPostOpen, label, data }) {
   const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
   const [content, setContent] = useState("");
+
   const [file, setFile] = useState({
     preview: "",
     data: "",
   });
-  const toastifyOptions = {
-    position: "top-right",
-    autoClose: 1000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
+  const handleSubmitImages = async (e) => {
+    const imageRef = ref(storage, `images/${file.data + v4()}`);
+    uploadBytes(imageRef, file.data)
+      .then(() => {
+        getDownloadURL(imageRef)
+          .then((file) => {
+            setFile({ preview: file, data: "" });
+            toast.success("upload successfully!");
+          })
+          .catch((error) => {
+            console.log(error.message, "error getting url");
+            toast.error("failed to upload");
+          });
+      })
+      .catch((error) => {
+        console.log(error.message);
+        toast.error("failed to upload");
+      });
+    // setVisibleControls(false);
   };
-  const handleChangeFile = async (e) => {
-    const img = {
-      preview: URL.createObjectURL(e.target.files[0]),
-      data: e.target.files[0],
-    };
-    setFile(img);
-    setVisibleControls(true);
-  };
-
   const handlePostArticle = () => {
-    // console.log(setContent);
+    console.log(content);
+    handleSubmitImages();
+  };
+  const handleSetFile = (file) => {
+    setFile(file);
   };
   return (
     <div className={cx("wrapper")}>
@@ -58,41 +69,13 @@ export default function PostForm({ setModalPostOpen, label, data }) {
             <div className={cx("name")}>Đông Phạm</div>
           </div>
         </div>
-        <div className={cx("form-group-content")}>
-          <div className={cx("form-group-input")}>
+        {/* content */}
+        <div className={cx("content")}>
+          <div className={cx("text")}>
             <TextEditor setContentBlog={setContent} sHidderTools={true} />
           </div>
-          <div className={cx("add-img")}>
-            <form encType="multipart/form-data">
-              <div className={cx("preview-img-block")}>
-                {file.preview ? (
-                  <img
-                    className={cx("preview-img")}
-                    src={file.preview}
-                    alt="avatar"
-                  />
-                ) : data ? (
-                  <img className={cx("preview-img")} src={data} alt="avatar" />
-                ) : (
-                  ""
-                )}
-              </div>
-              <label className={cx("upload")} htmlFor="file">
-                <input
-                  name="file"
-                  id="file"
-                  ref={inputRef}
-                  className={cx("input", "input-file")}
-                  type="file"
-                  onChange={handleChangeFile}
-                  multiple
-                />
-                <div className={cx("add-icon")}>
-                  <ion-icon name="cloud-upload-outline"></ion-icon>
-                </div>
-                <div className={cx("text")}>Add Images/Videos</div>
-              </label>
-            </form>
+          <div className={cx("image")}>
+            <FormUploadBanner setFile={handleSetFile} file={file} />
           </div>
         </div>
         <div className={cx("btn")}>

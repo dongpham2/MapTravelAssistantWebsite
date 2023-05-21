@@ -1,18 +1,28 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./FormUploadBanner.module.scss";
 import classNames from "classnames/bind";
 import { Col, Row } from "react-bootstrap";
 import images from "src/assets/images";
 import Button from "src/component/Button";
+import { storage } from "../../Chat/firebase";
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
+import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
-export default function FormUploadBanner({ label, data }) {
+export default function FormUploadBanner({ label, data, file, setFile }) {
   const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
-  const [file, setFile] = useState({
-    preview: "",
-    data: "",
-  });
+  // const [file, setFile] = useState({
+  //   preview: "",
+  //   data: "",
+  // });
+
+  useEffect(() => {
+    return () => {
+      file && URL.revokeObjectURL(file);
+    };
+  }, [file]);
 
   const handleChangeFile = async (e) => {
     const img = {
@@ -23,18 +33,14 @@ export default function FormUploadBanner({ label, data }) {
     setVisibleControls(true);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // const formData = new FormData();
-    // formData.append("file", file.data, "file");
-  };
   return (
     <div className={cx("wrapper")}>
       <div className={cx("form-group")}>
         <label className={cx("form-group-label")} htmlFor="">
           {label}
         </label>
-        <form encType="multipart/form-data" onSubmit={handleSubmit}>
+        {/* onSubmit={handleSubmit} */}
+        <form encType="multipart/form-data">
           <div className={cx("input-file-img")}>
             <div className={cx("input-file-block")}>
               <div className={cx("preview-img-block")}>
@@ -44,8 +50,6 @@ export default function FormUploadBanner({ label, data }) {
                     src={file.preview}
                     alt="avatar"
                   />
-                ) : data ? (
-                  <img className={cx("preview-img")} src={data} alt="avatar" />
                 ) : (
                   <img
                     className={cx("preview-img")}
@@ -71,7 +75,7 @@ export default function FormUploadBanner({ label, data }) {
                 </div>
               </label>
             </div>
-            <div className={cx("btn")}>
+            {/* <div className={cx("btn")}>
               {visibleControls ? (
                 <div className={cx("controls")}>
                   <Button
@@ -89,14 +93,15 @@ export default function FormUploadBanner({ label, data }) {
                   >
                     Cancel
                   </Button>
-                  <Button rounded type="submit" saveInput small>
+
+                  <Button rounded onClick={handleSubmit} saveInput small>
                     Save
                   </Button>
                 </div>
               ) : (
                 ""
               )}
-            </div>
+            </div> */}
           </div>
         </form>
       </div>

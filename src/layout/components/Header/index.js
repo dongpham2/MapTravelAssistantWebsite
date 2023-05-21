@@ -13,7 +13,6 @@ const cx = classNames.bind(styles);
 export default function Header() {
   const { auth } = useSelector((state) => state);
   const [isVisibleUserOptions, setIsVisibleUserOptions] = useState(false);
-
   const toggleUserOptions = () => {
     setIsVisibleUserOptions(!isVisibleUserOptions);
   };
@@ -36,7 +35,6 @@ export default function Header() {
           {/* <img src={images.bell} /> */}
           <ion-icon name="notifications-outline"></ion-icon>
         </div>
-
         {isVisibleUserOptions ? <UserOptions /> : ""}
         {auth && auth.status ? (
           <div

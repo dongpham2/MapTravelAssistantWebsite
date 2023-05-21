@@ -75,15 +75,15 @@ export default function DetailBar() {
           <DropDown title="Ratting" data={dataRatting} />
         </div>
       </div>
-      <Row className={cx("list")}>
-        {/* {places.map((place, i) => (
+      {/* <Row className={cx("list")}>
+        {places.map((place, i) => (
           <div className={cx("list-store")}>
             <Row xs={12} key={i}>
               <PlaceDetails />
             </Row>
           </div>
-        ))} */}
-      </Row>
+        ))}
+      </Row> */}
     </header>
   );
 }

@@ -18,6 +18,11 @@ import { CCol, CRow } from "@coreui/react";
 import Map from "src/pages/public/Home/Map/Leaflet/LeafletMap";
 import SearchBox from "src/pages/public/Home/Map/SearchBox/SearchBox";
 import "leaflet/dist/leaflet.css";
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
+import { toast } from "react-toastify";
+import { storage } from "src/pages/private/Chat/firebase";
+import FormUpload from "../../FormUpload/FormUpload";
 const cx = classNames.bind(styles);
 const pricesValue = [
   {
@@ -58,6 +63,10 @@ const typeStore = [
 
 export default function CreateFanpage() {
   const [selectPosition, setSelectPosition] = useState(null);
+  const [file, setFile] = useState({
+    pre: "",
+    data: "",
+  });
   const formikRef = useRef(null);
   const messageRef = useRef(null);
   const [lat, setLat] = useState();
@@ -78,26 +87,24 @@ export default function CreateFanpage() {
   const handleCreatePage = () => {
     const { name, phone, website, priceStart, priceEnd } =
       formikRef.current.values;
-    // const selectValues = { ...selectForm };
-    // console.log(selectValues);
+    const selectValues = { ...selectForm };
+    console.log(selectValues);
     console.log({
       name,
-      description,
+      setDescription,
       phone,
       website,
       open,
       close,
       priceStart,
       priceEnd,
-      ...selectForm,
-      lat: selectPosition.lat,
-      lon: selectPosition.lon,
+      selectValues,
     });
+    handleSubmitImages();
     // dispatch(
     //   actionCreateFangpage(
     //     getObjectCreateFanpages(
     //       name,
-    //       description,
     //       phone,
     //       website,
     //       description,
@@ -110,6 +117,31 @@ export default function CreateFanpage() {
     //   )
     // );
   };
+  const handleSetFile = (file) => {
+    setFile(file);
+  };
+
+  const handleSubmitImages = async (e) => {
+    const imageRef = ref(storage, `images/${file.data + v4()}`);
+    uploadBytes(imageRef, file.data)
+      .then(() => {
+        getDownloadURL(imageRef)
+          .then((file) => {
+            setFile({ pre: file, data: "" });
+            toast.success("upload successfully!");
+          })
+          .catch((error) => {
+            console.log(error.message, "error getting url");
+            toast.error("failed to upload");
+          });
+      })
+      .catch((error) => {
+        console.log(error.message);
+        toast.error("failed to upload");
+      });
+    // setVisibleControls(false);
+  };
+
   const handleChangeSelect = (value, name, nameSelect) => {
     setSelectForm((prev) => {
       return { ...prev, [nameSelect]: name };
@@ -160,7 +192,13 @@ export default function CreateFanpage() {
             <div className={cx("form-group")}>
               <div className={cx("input-block")}>
                 <div className={cx("input-desc")}>(*) Upload your banner</div>
-                <FormUploadBanner />
+                <FormUploadBanner setFile={handleSetFile} file={file} />
+              </div>
+            </div>
+            <div className={cx("form-group")}>
+              <div className={cx("input-block")}>
+                <div className={cx("input-desc")}>(*) Upload your avatar</div>
+                <FormUpload />
               </div>
             </div>
             <div className={cx("form-group")}>
@@ -194,32 +232,35 @@ export default function CreateFanpage() {
                 </div>
               </div>
             </div>
-            <div className={cx("form-group")}>
-              <div className={cx("input-block")}>
-                <Field
-                  className={cx("input-text")}
-                  name="phone"
-                  type="phone"
-                  placeholder="Phone"
-                />
-                <div className={cx("error-message")}>
-                  <ErrorMessage name="phone" />
+            <div className={cx("form-create")}>
+              <div className={cx("form-group")}>
+                <div className={cx("input-block")}>
+                  <Field
+                    className={cx("input-text")}
+                    name="phone"
+                    type="phone"
+                    placeholder="Phone"
+                  />
+                  <div className={cx("error-message")}>
+                    <ErrorMessage name="phone" />
+                  </div>
+                </div>
+              </div>
+              <div className={cx("form-group")}>
+                <div className={cx("input-block")}>
+                  <Field
+                    className={cx("input-text")}
+                    name="website"
+                    type="website"
+                    placeholder="Your website"
+                  />
+                  <div className={cx("error-message")}>
+                    <ErrorMessage name="website" />
+                  </div>
                 </div>
               </div>
             </div>
-            <div className={cx("form-group")}>
-              <div className={cx("input-block")}>
-                <Field
-                  className={cx("input-text")}
-                  name="website"
-                  type="website"
-                  placeholder="Your website"
-                />
-                <div className={cx("error-message")}>
-                  <ErrorMessage name="website" />
-                </div>
-              </div>
-            </div>
+
             <div className={cx("form-create")}>
               <div className={cx("services")}>
                 <div className={cx("services-desc")}>Time Open</div>
@@ -290,7 +331,7 @@ export default function CreateFanpage() {
                       onChangeSelect={(value, name) =>
                         handleChangeSelect(value, name, "denomina")
                       }
-                      title="Prices"
+                      title="Denomina"
                       data={pricesValue}
                       className={cx("prices-option")}
                     />

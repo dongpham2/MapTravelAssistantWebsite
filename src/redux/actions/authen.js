@@ -1,10 +1,16 @@
 import { toast } from "react-toastify";
+import Loading from "src/component/Loading/Loading";
 import { AuthService } from "src/service/authService";
 
 export const _ACTION_SIGNIN = "_ACTION_SIGNIN";
+export const _ACTION_LOADING = "_ACTION_LOADING";
 
 export const actionSignin = (user, history) => {
   return async (dispatch) => {
+    // dispatch({
+    //   type: _ACTION_LOADING,
+    //   payload: true,
+    // });
     const { data, status } = await AuthService.signin(user);
     const newData = { ...data, role: "user" };
     localStorage.setItem("isFanpage", data?.user?.page);
@@ -26,7 +32,6 @@ export const __ACTION_SIGNUP = "__ACTION_SIGNUP";
 export const actionSignup = (user) => {
   return async (dispatch) => {
     const { data, status } = await AuthService.signup(user);
-    console.log(data, status);
     if (status === 201) {
       dispatch({
         type: __ACTION_SIGNUP,

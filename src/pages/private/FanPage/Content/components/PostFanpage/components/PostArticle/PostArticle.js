@@ -8,6 +8,7 @@ import PostForm from "./PostForm/PostForm";
 const cx = classNames.bind(styles);
 export default function PostArticle() {
   const [modalPostOpen, setModalPostOpen] = useState(false);
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("avatar")}>
@@ -21,6 +22,7 @@ export default function PostArticle() {
       >
         Write something to share with your customer...
       </Button>
+
       {modalPostOpen && <PostForm setModalPostOpen={setModalPostOpen} />}
     </div>
   );

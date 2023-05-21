@@ -1,0 +1,11 @@
+.wrapper {
+    --size: 185px;
+    margin: 5px;
+    .img {
+        width: var(--size);
+        height: var(--size);
+        object-fit: cover;
+        background-repeat: no-repeat;
+        border-radius: 10px;
+    }
+}
