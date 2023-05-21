@@ -12,11 +12,11 @@ export default function Map() {
   const [selectPosition, setSelectPosition] = useState(null);
   return (
     <div>
-      <SearchBox
+      {/* <SearchBox
         selectPosition={selectPosition}
         setSelectPosition={setSelectPosition}
-      />
-      <Maps selectPosition={selectPosition} />
+      /> */}
+      <Maps selectPosition={selectPosition} isPosition={true} />
       {/* <SearchBox /> */}
       {/* <MapContainer center={position} zoom={15} scrollWheelZoom={true}>
         <TileLayer

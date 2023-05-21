@@ -32,7 +32,7 @@ function ResetCenterView(props) {
 }
 
 export default function Maps(props) {
-  const { selectPosition } = props;
+  const { selectPosition, isPosition } = props;
   const locationSelection = [selectPosition?.lat, selectPosition?.lon];
   const positions = [
     [16.059799, 108.209244],
@@ -67,31 +67,77 @@ export default function Maps(props) {
     //   )}
     //   <ResetCenterView selectPosition={selectPosition} />
     // </MapContainer>
-    <MapContainer center={position} zoom={15} scrollWheelZoom={true}>
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {selectPosition ? (
-        <Marker position={locationSelection} icon={markerIc}>
-          <Popup autoPan={true} ref={popupRef}>
-            <CardMap position={locationSelection} />
-          </Popup>
-        </Marker>
-      ) : (
-        positions &&
-        positions.map((location) => {
-          return (
-            <Marker position={location} icon={markerIc}>
-              <Popup autoPan={true} ref={popupRef}>
-                <CardMap position={location} />
-              </Popup>
-            </Marker>
-          );
-        })
-      )}
+    !isPosition ? (
+      <MapContainer center={position} zoom={15} scrollWheelZoom={true}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {selectPosition ? (
+          <Marker position={locationSelection} icon={markerIc}>
+            <Popup autoPan={true} ref={popupRef}>
+              {/* <CardMap position={locationSelection} /> */}
+            </Popup>
+          </Marker>
+        ) : (
+          <></>
+        )}
 
-      <ResetCenterView selectPosition={selectPosition} />
-    </MapContainer>
+        <ResetCenterView selectPosition={selectPosition} />
+      </MapContainer>
+    ) : (
+      <MapContainer center={position} zoom={15} scrollWheelZoom={true}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {selectPosition ? (
+          <Marker position={locationSelection} icon={markerIc}>
+            <Popup autoPan={true} ref={popupRef}>
+              <CardMap position={locationSelection} />
+            </Popup>
+          </Marker>
+        ) : (
+          positions &&
+          positions.map((location) => {
+            return (
+              <Marker position={location} icon={markerIc}>
+                <Popup autoPan={true} ref={popupRef}>
+                  <CardMap position={location} />
+                </Popup>
+              </Marker>
+            );
+          })
+        )}
+
+        <ResetCenterView selectPosition={selectPosition} />
+      </MapContainer>
+    )
+    // <MapContainer center={position} zoom={15} scrollWheelZoom={true}>
+    //   <TileLayer
+    //     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    //     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    //   />
+    //   {selectPosition ? (
+    //     <Marker position={locationSelection} icon={markerIc}>
+    //       <Popup autoPan={true} ref={popupRef}>
+    //         <CardMap position={locationSelection} />
+    //       </Popup>
+    //     </Marker>
+    //   ) : (
+    //     positions &&
+    //     positions.map((location) => {
+    //       return (
+    //         <Marker position={location} icon={markerIc}>
+    //           <Popup autoPan={true} ref={popupRef}>
+    //             <CardMap position={location} />
+    //           </Popup>
+    //         </Marker>
+    //       );
+    //     })
+    //   )}
+
+    //   <ResetCenterView selectPosition={selectPosition} />
+    // </MapContainer>
   );
 }
