@@ -9,16 +9,21 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { toast } from "react-toastify";
 import { storage } from "src/service/Firebase/firebase";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreatePost } from "src/redux/actions/post";
 
 const cx = classNames.bind(styles);
 
 export default function PostForm({ setModalPostOpen, label, data }) {
   const auth = useSelector((state) => state.auth);
   const user = auth?.user;
+  const id = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")).userID
+    : "";
   const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
   const [content, setContent] = useState("");
+  const dispatch = useDispatch();
 
   const [file, setFile] = useState({
     preview: "",
@@ -45,8 +50,15 @@ export default function PostForm({ setModalPostOpen, label, data }) {
     // setVisibleControls(false);
   };
   const handlePostArticle = () => {
-    console.log(content);
     handleSubmitImages();
+    dispatch(
+      actionCreatePost({
+        userID: id,
+        title: content,
+        img: file.preview,
+      })
+    );
+    // console.log(content, file.preview);
   };
   const handleSetFile = (file) => {
     setFile(file);
