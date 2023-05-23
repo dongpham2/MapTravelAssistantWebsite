@@ -48,7 +48,11 @@ export default function PlaceDetails({ data }) {
         <div className={cx("desc-card")}>
           <div className={cx("description-detail")}>
             <span className={cx("title")}>Description: </span>
-            {data.description}
+            <span
+              dangerouslySetInnerHTML={{
+                __html: data.description,
+              }}
+            ></span>
           </div>
         </div>
         <Link to={config.routes.posts}>

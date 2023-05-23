@@ -28,7 +28,7 @@ export const actionGetAllFangpage = ({ callBack }) => {
         //   type: ACTION_GET_ALL_FANGPAGE,
         // });
         callBack(res.data);
-        toast.success("Get All success!");
+        // toast.success("Get All success!");
         return res.data;
       }
     } catch (error) {

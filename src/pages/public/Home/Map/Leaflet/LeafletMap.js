@@ -37,6 +37,8 @@ export default function Maps(props) {
   const locationSelection = [selectPosition?.lat, selectPosition?.lon];
   const [positions, setPositions] = useState([]);
   const [dataRender, setDataRender] = useState([]);
+  const mapRef = useRef(null);
+  const markerRef = useRef(null);
   const dispatch = useDispatch();
 
   // const positions = [
@@ -71,6 +73,13 @@ export default function Maps(props) {
       })
     );
   }, []);
+  useEffect(() => {
+    const a = document.querySelectorAll(".leaflet-marker-icon");
+    console.log(a);
+    // a.map((item) => {
+    //   item.click();
+    // });
+  }, []);
   return !isPosition ? (
     <MapContainer center={center} zoom={15} scrollWheelZoom={true}>
       <TileLayer
@@ -79,7 +88,7 @@ export default function Maps(props) {
       />
       {selectPosition ? (
         <Marker position={locationSelection} icon={markerIc}>
-          <Popup autoPan={true} ref={popupRef}></Popup>
+          {/* <Popup autoPan={true} ref={popupRef}></Popup> */}
         </Marker>
       ) : (
         <></>
@@ -88,32 +97,38 @@ export default function Maps(props) {
       <ResetCenterView selectPosition={selectPosition} />
     </MapContainer>
   ) : (
-    // <MapContainer center={center} zoom={15} scrollWheelZoom={true}>
-    //   <TileLayer
-    //     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    //     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    //   />
-    //   {selectPosition ? (
-    //     <Marker position={locationSelection} icon={markerIc}>
-    //       <Popup autoPan={true} ref={popupRef}>
-    //         <CardMap position={locationSelection} />
-    //       </Popup>
-    //     </Marker>
-    //   ) : (
-    //     positions &&
-    //     positions.map((location) => {
-    //       return (
-    //         <Marker position={location} icon={markerIc}>
-    //           <Popup autoPan={true} ref={popupRef}>
-    //             <CardMap position={location} />
-    //           </Popup>
-    //         </Marker>
-    //       );
-    //     })
-    //   )}
-
-    //   <ResetCenterView selectPosition={selectPosition} />
-    // </MapContainer>
-    <></>
+    <MapContainer center={center} zoom={15} scrollWheelZoom={true}>
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      {selectPosition ? (
+        <Marker position={locationSelection} icon={markerIc} ref={markerRef}>
+          <Popup autoPan={true} ref={popupRef}>
+            <CardMap position={locationSelection} />
+          </Popup>
+        </Marker>
+      ) : (
+        positions &&
+        positions.map((location, index) => {
+          return (
+            // <div ref>
+            <Marker
+              position={location}
+              icon={markerIc}
+              ref={markerRef}
+              key={index}
+            >
+              <Popup autoPan={true}>
+                <CardMap position={location} />
+              </Popup>
+            </Marker>
+            // </div>
+          );
+        })
+      )}
+      <ResetCenterView selectPosition={selectPosition} />
+    </MapContainer>
+    // <></>
   );
 }
