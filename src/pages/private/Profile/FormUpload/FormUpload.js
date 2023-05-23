@@ -12,18 +12,18 @@ import { toast } from "react-toastify";
 const cx = classNames.bind(styles);
 export default function FormUpload({ label, data }) {
   const [imagesCurrent, setImagesCurrent] = useState();
-  const inputRef = useRef(null);
+  // const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
   const [file, setFile] = useState({
     preview: "",
     data: "",
   });
 
-  useEffect(() => {
-    return () => {
-      file && URL.revokeObjectURL(file);
-    };
-  }, [file]);
+  // useEffect(() => {
+  //   return () => {
+  //     file && URL.revokeObjectURL(file);
+  //   };
+  // }, [file]);
 
   const handleChangeFile = async (e) => {
     const img = {
@@ -32,6 +32,7 @@ export default function FormUpload({ label, data }) {
     };
     setFile(img);
     setVisibleControls(true);
+    console.log("2");
   };
 
   const handleSubmit = async (e) => {
@@ -97,7 +98,7 @@ export default function FormUpload({ label, data }) {
                 <input
                   name="file"
                   id="file"
-                  ref={inputRef}
+                  // ref={inputRef}
                   className={cx("input", "input-file")}
                   type="file"
                   onChange={handleChangeFile}

@@ -17,10 +17,12 @@ import {
 } from "firebase/firestore";
 import { db, storage } from "src/service/Firebase/firebase";
 import { toast } from "react-toastify";
+import Loading from "src/component/Loading/Loading";
 
 const cx = classNames.bind(styles);
 
 export default function Review() {
+  const [loading, setLoading] = useState(false);
   const { auth } = useSelector((state) => state);
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
@@ -94,13 +96,15 @@ export default function Review() {
   };
 
   const getAllReview = async () => {
+    setLoading(true);
+
     const query = await getDocs(collection(db, "comments"));
     const docs = [];
     query.forEach((item) => {
       docs.push({ reviewerID: item.reviewerID, ...item.data() });
     });
     setAllReview(docs);
-    console.log("allreview", allReview);
+    setLoading(false);
   };
 
   return (
@@ -110,9 +114,7 @@ export default function Review() {
         <div className={cx("review")}>
           <div className={cx("user-infor")}>
             <img
-              src="
-                        https://screenrant.com/wp-content/uploads/2017/04/Guardians-of-the-Galaxy-Milano-Concept-Art.jpg
-                        "
+              src="https://screenrant.com/wp-content/uploads/2017/04/Guardians-of-the-Galaxy-Milano-Concept-Art.jpg"
               alt=""
             />
           </div>
@@ -183,6 +185,7 @@ export default function Review() {
           <div className={cx("line")}></div>
           <h4>Rate & Comment from Customer</h4>
           <div className={cx("comments")}>
+            {loading && <Loading />}
             {allReview.map((doc) => (
               <div className={cx("user-comment")}>
                 <div className={cx("user-infor")}>

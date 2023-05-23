@@ -11,6 +11,7 @@ const images = {
   avt_default: require("../../assets/images/avatar-default.png"),
   bell: require("../../assets/images/bell.png"),
   drink: require("../../assets/images/drinks.png"),
+  like: require("../../assets/images/like.png"),
 };
 
 export default images;

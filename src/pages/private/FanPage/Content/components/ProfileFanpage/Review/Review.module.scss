@@ -88,40 +88,70 @@
     h4 {
       font-weight: bold;
     }
-    .line {
-      margin-top: 10px;
-      margin-bottom: 10px;
-      width: 100%;
-      height: 1px;
-      background-color: #d9d9d9;
-    }
-    .comments {
-      margin-top: 20px;
-      width: 100%;
-      overflow: scroll;
-      .user-comment {
-        display: flex;
+
+    .display-comments {
+      height: 300px;
+      overflow-y: scroll;
+      .line {
+        margin-top: 10px;
         margin-bottom: 10px;
-        .comment-group {
-          background-color: #f0f2f5;
-          width: 100%;
-          margin-left: 10px;
-          border-radius: 15px;
-          padding: 10px;
-          .head {
-            display: flex;
-            align-items: center;
-            h4 {
-              margin: 0px;
-              font-weight: bold;
+        width: 100%;
+        height: 1px;
+        background-color: #d9d9d9;
+      }
+
+      .comments {
+        margin-top: 20px;
+        width: 100%;
+        overflow: scroll;
+
+        .user-comment {
+          display: flex;
+          margin-bottom: 10px;
+
+          .comment-group {
+            background-color: #f0f2f5;
+            width: 100%;
+            margin-left: 10px;
+            border-radius: 15px;
+            padding: 10px;
+
+            .head {
+              display: flex;
+              align-items: center;
+
+              h4 {
+                margin: 0px;
+                font-weight: bold;
+              }
+
+              .small-stars {
+                margin-left: 10px;
+              }
+
+              .time-review {
+                margin-left: 5px;
+                font-size: 14px;
+              }
             }
-            .small-stars {
-              margin-left: 10px;
-            }
-            .time-review {
-              margin-left: 5px;
-              font-size: 14px;
-            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .wrapper {
+    width: 580px;
+
+    .content {
+      .write-review {
+        padding-left: 10px;
+        width: 100%;
+        .send {
+          .input-group {
+            width: 100%;
           }
         }
       }

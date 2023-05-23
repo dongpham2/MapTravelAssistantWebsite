@@ -18,6 +18,8 @@ const routes = {
   admin: "/admin/userManage",
   notice: "/admin/notification",
   history: "/admin/history",
+  statitic: "/admin/statitic",
+  settingAdmin: "/admin/setting",
   // chatbox:"/chatbox",
 };
 

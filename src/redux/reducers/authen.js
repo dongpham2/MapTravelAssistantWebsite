@@ -1,3 +1,4 @@
+import { ACTION_GETALLUSERS } from "../actions/admin";
 import { _ACTION_POSTARTICLE } from "../actions/article";
 import {
   ACTION_LOGOUT,
@@ -12,6 +13,7 @@ const initState = {
   fanpage: {},
   post: {},
   // isLoading: false,
+  listUsers: {},
 };
 
 const rootReducer = (state = initState, action) => {
@@ -46,6 +48,11 @@ const rootReducer = (state = initState, action) => {
       return {
         ...state,
         post: action.payload,
+      };
+    case ACTION_GETALLUSERS:
+      return {
+        ...state,
+        listUsers: action.payload,
       };
     default:
       return state;

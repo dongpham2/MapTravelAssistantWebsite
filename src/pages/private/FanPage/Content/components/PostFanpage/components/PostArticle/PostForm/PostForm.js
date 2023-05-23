@@ -9,13 +9,21 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { toast } from "react-toastify";
 import { storage } from "src/service/Firebase/firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreatePost } from "src/redux/actions/post";
 
 const cx = classNames.bind(styles);
 
 export default function PostForm({ setModalPostOpen, label, data }) {
+  const auth = useSelector((state) => state.auth);
+  const user = auth?.user;
+  const id = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")).userID
+    : "";
   const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
   const [content, setContent] = useState("");
+  const dispatch = useDispatch();
 
   const [file, setFile] = useState({
     preview: "",
@@ -27,6 +35,7 @@ export default function PostForm({ setModalPostOpen, label, data }) {
       .then(() => {
         getDownloadURL(imageRef)
           .then((file) => {
+            console.log(file);
             setFile({ preview: file, data: "" });
             toast.success("upload successfully!");
           })
@@ -39,11 +48,20 @@ export default function PostForm({ setModalPostOpen, label, data }) {
         console.log(error.message);
         toast.error("failed to upload");
       });
-    // setVisibleControls(false);
+
+    setVisibleControls(false);
   };
+
   const handlePostArticle = () => {
-    console.log(content);
     handleSubmitImages();
+    dispatch(
+      actionCreatePost({
+        userID: id,
+        title: content,
+        img: file,
+      })
+    );
+    console.log(content, file);
   };
   const handleSetFile = (file) => {
     setFile(file);
@@ -65,8 +83,13 @@ export default function PostForm({ setModalPostOpen, label, data }) {
             </div>
           </div>
           <div className={cx("header-infor")}>
-            <img src={images.avt} className={cx("img")} />
-            <div className={cx("name")}>Đông Phạm</div>
+            {user.avatar ? (
+              <img src={images.avt} className={cx("img")} />
+            ) : (
+              <img src={images.avt_default} className={cx("img")} />
+            )}
+
+            <div className={cx("name")}>{user.fullName}</div>
           </div>
         </div>
         {/* content */}

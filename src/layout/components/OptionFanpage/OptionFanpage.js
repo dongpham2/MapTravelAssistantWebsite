@@ -4,6 +4,7 @@ import styles from "./OptionFanpage.module.scss";
 import { NavLink } from "react-router-dom";
 import config from "../../../config";
 import Button from "../../../component/Button";
+import ChatList from "src/pages/private/Chat/ChatList/ChatList";
 
 const cx = classNames.bind(styles);
 
@@ -30,7 +31,11 @@ const NavOptions = [
   },
 ];
 
-export default function OptionFanpage(onButtonClick) {
+export default function OptionFanpage() {
+  const [showChat, setShowChat] = useState(false);
+  const handleShowChat = () => {
+    setShowChat(!showChat);
+  };
   const renderOptions = () => {
     // const roleMenu = option.role.some((item) => item === role);
     // if (option) {
@@ -52,9 +57,6 @@ export default function OptionFanpage(onButtonClick) {
       );
     });
   };
-  const handleOpenChat = () =>{
-    onButtonClick.openMessage();
-  }
 
   return (
     <div className={cx("wrapper")}>
@@ -63,10 +65,12 @@ export default function OptionFanpage(onButtonClick) {
         <Button
           primary
           leftIcon={<ion-icon name="chatbox-ellipses-outline"></ion-icon>}
-          onClick={handleOpenChat}
+          onClick={handleShowChat}
         >
           Message
         </Button>
+        {/* {showChat ? : ""} */}
+        {/* <ChatList /> */}
       </ul>
     </div>
   );

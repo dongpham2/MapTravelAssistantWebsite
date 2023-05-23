@@ -10,7 +10,7 @@ export default function AddAccountModal({ show, onClose }) {
       <div className={cx("wrapper")}>
         <Modal show={show} onHide={onClose}>
           <Modal.Header closeButton>
-            <Modal.Title>ĐĂNG KÝ TÀI KHOẢN CHO DOANH NGHIỆP</Modal.Title>
+            <Modal.Title>Signin for user</Modal.Title>
           </Modal.Header>
           <Modal.Body>{/* <RegisterForm adminAddAccountForm /> */}</Modal.Body>
         </Modal>

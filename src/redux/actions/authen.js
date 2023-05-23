@@ -5,25 +5,28 @@ import { AuthService } from "src/service/authService";
 export const _ACTION_SIGNIN = "_ACTION_SIGNIN";
 export const _ACTION_LOADING = "_ACTION_LOADING";
 
-export const actionSignin = (user, history) => {
+export const actionSignin = (user, history, setLoading) => {
   return async (dispatch) => {
-    // dispatch({
-    //   type: _ACTION_LOADING,
-    //   payload: true,
-    // });
     const { data, status } = await AuthService.signin(user);
+    console.log("status", status);
     const newData = { ...data, role: "user" };
-    localStorage.setItem("isFanpage", data?.user?.page);
-    // console.log(data);
+    localStorage.setItem("isFanpage", data?.user?.page || false);
+    localStorage.setItem("user", JSON.stringify(data.user));
     if (status === 200) {
       dispatch({
         type: _ACTION_SIGNIN,
         payload: data,
       });
       redirect(newData.role, history);
-      toast.success("login successful");
+      setLoading(false);
     } else {
       toast.error("Login failed");
+      setLoading(false);
+    }
+
+    if (status === 401) {
+      toast.error("Login failed");
+      setLoading(false);
     }
   };
 };
@@ -45,7 +48,7 @@ export const actionSignup = (user) => {
 };
 
 const redirect = (role, history) => {
-  if (role === "admin") history("/admin");
+  if (role === "admin") history("/admin/userManage");
   else history("/");
 };
 

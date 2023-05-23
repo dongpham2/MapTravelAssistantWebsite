@@ -27,8 +27,8 @@ export default function Loginform() {
   const handleSubmit = async () => {
     const { email, password } = formikRef.current.values;
     setLoading(true);
-    await dispatch(actionSignin({ email, password }, history));
-    setLoading(false);
+    await dispatch(actionSignin({ email, password }, history, setLoading));
+    // setLoading(false);
   };
   return (
     <div className={cx("wrapper")}>
@@ -91,10 +91,6 @@ export default function Loginform() {
           </Button>
         </Form>
       </Formik>
-
-      <div className={cx("forgot-password")}>
-        <span>Forgot password?</span>
-      </div>
     </div>
   );
 }

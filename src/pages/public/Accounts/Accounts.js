@@ -9,14 +9,14 @@ import { Navigate } from "react-router";
 
 const cx = classNames.bind(styles);
 export default function Accounts() {
-  // const auth = useSelector((state) => state.auth);
-  // const roleUser = auth?.user?.role;
+  const auth = useSelector((state) => state.auth);
+  const roleUser = auth?.user?.role;
 
-  // if (roleUser === "admin") {
-  //   return <Navigate to={config.routes.admin} replace />;
-  // } else if (roleUser === "recruiter") {
-  //   return <Navigate to={config.routes.home} replace />;
-  // }
+  if (roleUser === "admin") {
+    return <Navigate to={config.routes.admin} replace />;
+  } else if (roleUser === "recruiter") {
+    return <Navigate to={config.routes.home} replace />;
+  }
 
   return (
     <div className={cx("wrapper")}>
