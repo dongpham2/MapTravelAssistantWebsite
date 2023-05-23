@@ -12,6 +12,7 @@ const cx = classNames.bind(styles);
 
 export default function ProfileFanpage() {
   const fanpage = useSelector((state) => state.fanpage);
+  console.log("check fanpage", fanpage);
   // state controller
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);

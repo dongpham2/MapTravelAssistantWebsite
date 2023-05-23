@@ -5,6 +5,7 @@ import L from "leaflet";
 import CardMap from "../CardMap/CardMap";
 import { useDispatch } from "react-redux";
 import { actionGetAllFangpage } from "src/redux/actions/fanpage";
+import { Row } from "react-bootstrap";
 
 const markerIc = new L.Icon({
   iconUrl: require("../../../../../assets/images/icon/iconmap3.png"),
@@ -37,6 +38,7 @@ export default function Maps(props) {
   const locationSelection = [selectPosition?.lat, selectPosition?.lon];
   const [positions, setPositions] = useState([]);
   const [dataRender, setDataRender] = useState([]);
+  const [dataFanpage, setDataFanpage] = useState([]);
   const mapRef = useRef(null);
   const markerRef = useRef(null);
   const dispatch = useDispatch();
@@ -61,9 +63,10 @@ export default function Maps(props) {
         callBack(data) {
           if (data.message === "GET SUCCESSFUL") {
             const result = data.data;
-            console.log(result);
+            // console.log("2", result);
             const positions = [];
             const dataRender = [];
+            setDataFanpage(result);
             result.map((item) => {
               positions.push([+item?.location?.lat, +item?.location?.lon]);
             });
@@ -75,7 +78,7 @@ export default function Maps(props) {
   }, []);
   useEffect(() => {
     const a = document.querySelectorAll(".leaflet-marker-icon");
-    console.log(a);
+    // console.log(a);
     // a.map((item) => {
     //   item.click();
     // });
@@ -120,7 +123,11 @@ export default function Maps(props) {
               key={index}
             >
               <Popup autoPan={true}>
-                <CardMap position={location} />
+                {dataFanpage.map((data, i) => (
+                  <Row xs={12} key={i}>
+                    <CardMap position={locationSelection} data={data} />
+                  </Row>
+                ))}
               </Popup>
             </Marker>
             // </div>
