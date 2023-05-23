@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import { fanpageService } from "src/service/fanpageService";
 export const ACTION_CREATE_FANGPAGE = "ACTION_CREATE_FANGPAGE";
+export const ACTION_GET_ALL_FANGPAGE = "ACTION_GET_ALL_FANGPAGE";
 // export const ACTION
 
 export const actionCreateFangpage = (data) => {
@@ -14,6 +15,24 @@ export const actionCreateFangpage = (data) => {
       toast.success("Create succesfull!");
     } else {
       toast.error("Fail to create");
+    }
+  };
+};
+
+export const actionGetAllFangpage = ({ callBack }) => {
+  return async (dispatch) => {
+    try {
+      const res = await fanpageService.getAllFanpage();
+      if (res.status === 200) {
+        // dispatch({
+        //   type: ACTION_GET_ALL_FANGPAGE,
+        // });
+        callBack(res.data);
+        toast.success("Get All success!");
+        return res.data;
+      }
+    } catch (error) {
+      // toast.error("Fail to get");
     }
   };
 };
