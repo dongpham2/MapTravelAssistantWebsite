@@ -33,16 +33,11 @@ export default function Chat() {
   const currentUser = {
     _id: auth.user.userID,
     email: auth.user.email,
-    avatar:
-      "https://static.nationalgeographic.co.uk/files/styles/image_3200/public/webbdeepfield.jpg?w=1600&h=900",
+    avatar: auth.user.avatar,
     fullname: auth.user.fullname,
   };
   useEffect(() => {
-    // console.log(auth.user.userID);
-    // console.log(auth.user.email);
-    // console.log(auth.user.fullName);
     console.log(content);
-    // console.log("chat ID", data.chatId);
     const unsub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
       doc.exists() && setMessages(doc.data().messages);
     });
