@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import classNames from "classnames/bind";
+import styles from "./SearchBox.module.scss";
 import { OutlinedInput } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ButtonBase from "@material-ui/core/ButtonBase";
@@ -14,29 +16,28 @@ const params = {
   addressdetails: "addressdetails",
 };
 
+const cx = classNames.bind(styles);
 export default function SearchBox(props) {
   const { selectPosition, setSelectPosition } = props;
   const [searchText, setSearchText] = useState("");
   const [listPlace, setListPlace] = useState([]);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <div style={{ display: "flex" }}>
-        <div style={{ flex: 1 }}>
-          <OutlinedInput
-            style={{ width: "100%" }}
-            value={searchText}
-            onChange={(event) => {
-              setSearchText(event.target.value);
-            }}
-          />
-        </div>
-        <div
-          style={{ display: "flex", alignItems: "center", padding: "0px 20px" }}
-        >
+    <div className={cx("wrapper")}>
+      <div className={cx("content")}>
+        <OutlinedInput
+          value={searchText}
+          onChange={(event) => {
+            setSearchText(event.target.value);
+          }}
+          className={cx("search-input")}
+          placeholder="Search..."
+          style={{ fontSize: "15px" }}
+        />
+        <div className={cx("search-btn")}>
           <ButtonBase
             variant="contained"
-            color="primary"
+            className={cx("search-btn")}
             onClick={() => {
               // Search
               const params = {
@@ -58,7 +59,7 @@ export default function SearchBox(props) {
                 .catch((err) => console.log("err: ", err));
             }}
           >
-            Search
+            <ion-icon name="search-outline"></ion-icon>
           </ButtonBase>
         </div>
       </div>

@@ -196,7 +196,12 @@ export default function CreateFanpage() {
               .min(0, "Not negative prices"),
           })}
         >
-          <Form autocomplete="off">
+          <Form
+            autocomplete="off"
+            onKeyDown={(e) => {
+              e.key === "Enter" && e.preventDefault();
+            }}
+          >
             <div className={cx("form-group")}>
               <div className={cx("input-block")}>
                 <div className={cx("input-desc")}>(*) Upload your banner</div>

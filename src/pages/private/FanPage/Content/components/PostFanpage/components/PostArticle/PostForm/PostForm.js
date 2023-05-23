@@ -15,8 +15,8 @@ import { actionCreatePost } from "src/redux/actions/post";
 const cx = classNames.bind(styles);
 
 export default function PostForm({ setModalPostOpen, label, data }) {
-  const auth = useSelector((state) => state.auth);
-  const user = auth?.user;
+  const fanpage = useSelector((state) => state.fanpage);
+  console.log(fanpage);
   const id = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")).userID
     : "";
@@ -83,13 +83,13 @@ export default function PostForm({ setModalPostOpen, label, data }) {
             </div>
           </div>
           <div className={cx("header-infor")}>
-            {user.avatar ? (
+            {fanpage.avatar ? (
               <img src={images.avt} className={cx("img")} />
             ) : (
               <img src={images.avt_default} className={cx("img")} />
             )}
 
-            <div className={cx("name")}>{user.fullName}</div>
+            <div className={cx("name")}>{fanpage.fullName}</div>
           </div>
         </div>
         {/* content */}
