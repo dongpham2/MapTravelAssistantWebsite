@@ -60,7 +60,6 @@ export default function OptionFanpage(onButtonClick) {
     <div className={cx("wrapper")}>
       <ul className={cx("navbar-list")}>{renderOptions()}</ul>
       <ul className={cx("navbar-option")}>
-        <div className={cx("dot-option")}>...</div>
         <Button
           primary
           leftIcon={<ion-icon name="chatbox-ellipses-outline"></ion-icon>}

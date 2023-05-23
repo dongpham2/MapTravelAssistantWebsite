@@ -1,3 +1,4 @@
+import { _ACTION_POSTARTICLE } from "../actions/article";
 import {
   ACTION_LOGOUT,
   _ACTION_LOADING,
@@ -9,6 +10,7 @@ import { ACTION_CREATE_FANGPAGE } from "../actions/fanpage";
 const initState = {
   auth: {},
   fanpage: {},
+  post: {},
   // isLoading: false,
 };
 
@@ -39,6 +41,11 @@ const rootReducer = (state = initState, action) => {
       return {
         ...state,
         isLoading: action.payload,
+      };
+    case _ACTION_POSTARTICLE:
+      return {
+        ...state,
+        post: action.payload,
       };
     default:
       return state;

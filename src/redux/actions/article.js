@@ -1,13 +1,19 @@
-export const postArticle = (article) => {
-  return {
-    type: "owner/postArticle",
-    payload: article,
-  };
-};
+import { toast } from "react-toastify";
+import { AuthService } from "src/service/authService";
 
-export const updateArticle = (article) => {
-  return {
-    type: "owner/updateArticle",
-    payload: article,
+export const _ACTION_POSTARTICLE = "_ACTION_POSTARTICLE";
+
+export const actionSignin = (post) => {
+  return async (dispatch) => {
+    const { data, status } = await AuthService.postarticle(post);
+    if (status === 200) {
+      dispatch({
+        type: _ACTION_POSTARTICLE,
+        payload: data,
+      });
+      toast.success("Post successful");
+    } else {
+      toast.error("Post failed");
+    }
   };
 };

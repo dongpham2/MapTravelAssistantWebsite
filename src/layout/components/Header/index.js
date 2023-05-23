@@ -45,7 +45,7 @@ export default function Header() {
           >
             <img
               className={cx("avatar-img")}
-              src={auth.user.avatar}
+              // src={auth.user.avatar}
               alt="avt"
             />
           </div>
