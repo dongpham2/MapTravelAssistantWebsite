@@ -27,6 +27,7 @@ export default function Profile() {
             isLabel
             type="text"
             label="Gmail"
+            isRepair
             value={userInfor.email}
           />
           {isLoading === true && <Loading />}

@@ -32,7 +32,6 @@ export default function FormUpload({ label, data }) {
     };
     setFile(img);
     setVisibleControls(true);
-    console.log("2");
   };
 
   const handleSubmit = async (e) => {
@@ -114,6 +113,9 @@ export default function FormUpload({ label, data }) {
             <div className={cx("btn")}>
               {visibleControls ? (
                 <div className={cx("controls")}>
+                  <Button rounded type="submit" saveInput small>
+                    Save
+                  </Button>
                   <Button
                     type="button"
                     cancel
@@ -128,10 +130,6 @@ export default function FormUpload({ label, data }) {
                     }}
                   >
                     Cancel
-                  </Button>
-
-                  <Button rounded type="submit" saveInput small>
-                    Save
                   </Button>
                 </div>
               ) : (

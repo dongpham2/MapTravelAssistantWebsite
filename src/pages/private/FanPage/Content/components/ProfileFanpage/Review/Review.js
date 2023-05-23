@@ -16,7 +16,9 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db, storage } from "src/service/Firebase/firebase";
+import { toast } from "react-toastify";
 import Loading from "src/component/Loading/Loading";
+import images from "src/assets/images";
 
 const cx = classNames.bind(styles);
 
@@ -40,11 +42,11 @@ export default function Review() {
   const currentUser = {
     _id: auth.user.userID,
     fullname: auth.user.fullName,
-    avatar:
-      "https://screenrant.com/wp-content/uploads/2017/04/Guardians-of-the-Galaxy-Milano-Concept-Art.jpg",
+    avatar: auth.user.avatar,
   };
 
   useEffect(() => {
+    // console.log("aav", auth.user);
     getCurrentReview();
     getAllReview();
   }, []);
@@ -65,26 +67,40 @@ export default function Review() {
   const handleSave = async () => {
     await updateDoc(doc(db, "comments", currentUser._id), {
       reviewerID: currentUser._id,
-      avatar: currentUser.avatar,
+      avatar:
+        currentUser.avatar == null ? images.avt_default : currentUser.avatar,
       fullname: currentUser.fullname,
       text: content,
       stars: rating,
       date: Timestamp.now(),
     });
+    toast.success("Review successful");
+
+    window.location.reload();
   };
   const handleCancel = () => {
     return;
   };
   const handleSend = async () => {
+    if (auth.user.avatar == null) {
+      console.log("av null");
+    } else {
+      console.log("ok");
+    }
+    console.log(auth.user.avatar);
     try {
       await setDoc(doc(db, "comments", currentUser._id), {
         reviewerID: currentUser._id,
-        avatar: currentUser.avatar,
+        avatar:
+          currentUser.avatar == null ? images.avt_default : currentUser.avatar,
         fullname: currentUser.fullname,
         text: content,
         stars: rating,
         date: Timestamp.now(),
       });
+
+      toast.success("Review successful");
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }
@@ -108,10 +124,15 @@ export default function Review() {
         <h3>Review</h3>
         <div className={cx("review")}>
           <div className={cx("user-infor")}>
-            <img
-              src="https://screenrant.com/wp-content/uploads/2017/04/Guardians-of-the-Galaxy-Milano-Concept-Art.jpg"
-              alt=""
-            />
+            {auth.user.avatar ? (
+              <img
+                className={cx("avatar-img")}
+                src={auth.user.avatar}
+                alt="avt"
+              />
+            ) : (
+              <img src={images.avt_default} className={cx("avatar-img")} />
+            )}
           </div>
           <div className={cx("write-review")}>
             <div className={cx("stars")}>

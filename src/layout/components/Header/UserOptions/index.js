@@ -38,7 +38,7 @@ function UserOptions() {
           </div>
           <div className={cx("header-right")}>
             {/* <div className={cx("user-name")}>{user.fullname}</div>*/}
-            <div className={cx("user-name")}>{auth.user.fullName}</div>
+            {/* <div className={cx("user-name")}>{auth.user.fullName}</div> */}
           </div>
         </div>
       </Link>
