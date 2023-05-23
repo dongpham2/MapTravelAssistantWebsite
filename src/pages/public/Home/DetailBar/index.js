@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "./DetailBar.module.scss";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import PlaceDetails from "../PlaceDetails";
 import DropDown from "src/component/Input/DropDown/DropDown";
+import { useDispatch } from "react-redux";
+import { actionGetAllFangpage } from "src/redux/actions/fanpage";
 const cx = classNames.bind(styles);
-
 const dataPlaces = [
   {
     value: 1,
@@ -40,7 +41,8 @@ const dataRatting = [
 export default function DetailBar() {
   const [type, setType] = useState("restaurants");
   const [rating, setRating] = useState("");
-
+  const [dataRender, setDataRender] = useState([]);
+  const dispatch = useDispatch();
   // const places = [
   //   {
   //     name: "Cool Place",
@@ -63,6 +65,19 @@ export default function DetailBar() {
   //     desc: "Welcome to our restaurant, where we aim to delight your senses and satisfy your cravings with our delicious and diverse menu. As you enter, you will be greeted by a warm and inviting atmosphere, with soft lighting, cozy seating arrangements, and tasteful decor that exudes a comfortable and sophisticated vibe. Our friendly staff will be ready to welcome you and guide you through our menu, which features a range of culinary delights from different parts of the world. Whether you are in the mood for a hearty breakfast...",
   //   },
   // ];
+  useEffect(() => {
+    dispatch(
+      actionGetAllFangpage({
+        callBack(data) {
+          if (data.message === "GET SUCCESSFUL") {
+            setDataRender(data.data);
+            // const result = data.data;
+            // console.log(result);
+          }
+        },
+      })
+    );
+  }, []);
   return (
     <header className={cx("wrapper")}>
       <h3 className={cx("heading")}>Places & Food around you </h3>
@@ -75,15 +90,15 @@ export default function DetailBar() {
           <DropDown title="Ratting" data={dataRatting} />
         </div>
       </div>
-      {/* <Row className={cx("list")}>
-        {places.map((place, i) => (
+      <Row className={cx("list")}>
+        {dataRender.map((data, i) => (
           <div className={cx("list-store")}>
             <Row xs={12} key={i}>
-              <PlaceDetails />
+              <PlaceDetails data={data} />
             </Row>
           </div>
         ))}
-      </Row> */}
+      </Row>
     </header>
   );
 }
