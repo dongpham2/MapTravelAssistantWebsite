@@ -10,7 +10,7 @@ export const actionSignin = (user, history, setLoading) => {
     const { data, status } = await AuthService.signin(user);
     console.log("status", status);
     const newData = { ...data, role: "user" };
-    localStorage.setItem("isFanpage", data?.user?.page || false);
+    localStorage.setItem("isFanpage", data?.user?.page ? true : false);
     localStorage.setItem("user", JSON.stringify(data.user));
     if (status === 200) {
       dispatch({
