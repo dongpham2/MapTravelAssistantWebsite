@@ -8,7 +8,9 @@ import config from "../../../../config";
 import { FaStar } from "react-icons/fa";
 const cx = classNames.bind(styles);
 
-export default function PlaceDetails({ data }) {
+export default function PlaceDetails({ data, selected, refProp }) {
+  if (selected)
+    refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   return (
     <div className={cx("wrapper")}>
       <div className={cx("container")}>

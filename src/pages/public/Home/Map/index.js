@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Maps from "./Leaflet/LeafletMap";
 import SearchBox from "./SearchBox/SearchBox";
 
-export default function Map() {
+export default function Map(setChildClick) {
   // const positions = [
   //   [16.059799, 108.209244],
   //   [16.059031, 108.207397],

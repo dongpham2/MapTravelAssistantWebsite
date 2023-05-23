@@ -29,7 +29,7 @@ export default function CardArticle() {
             <img src={images.avt_default} className={cx("img")} />
           )}
           <div className={cx("name")}>
-            {fanpage.fullName}
+            {fanpage.name}
             <div className={cx("time")}>24/05/2023</div>
           </div>
         </div>

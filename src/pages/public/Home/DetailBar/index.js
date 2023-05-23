@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createRef } from "react";
 import classNames from "classnames/bind";
 import styles from "./DetailBar.module.scss";
 import Col from "react-bootstrap/Col";
@@ -7,6 +7,7 @@ import PlaceDetails from "../PlaceDetails";
 import DropDown from "src/component/Input/DropDown/DropDown";
 import { useDispatch } from "react-redux";
 import { actionGetAllFangpage } from "src/redux/actions/fanpage";
+import Loading from "src/component/Loading/Loading";
 const cx = classNames.bind(styles);
 const dataPlaces = [
   {
@@ -38,33 +39,22 @@ const dataRatting = [
   },
 ];
 
-export default function DetailBar() {
+export default function DetailBar(childClicked, isLoading) {
   const [type, setType] = useState("restaurants");
   const [rating, setRating] = useState("");
   const [dataRender, setDataRender] = useState([]);
+  const [elRefs, setElRefs] = useState([]);
   const dispatch = useDispatch();
-  // const places = [
-  //   {
-  //     name: "Cool Place",
-  //     address: "122 Le Duan, Hai Chai, Da Nang",
-  //     firstPrice: "100",
-  //     lastPrice: "10000",
-  //     open: "8:00",
-  //     close: "20:00",
-  //     phone: "0853390932",
-  //     desc: "Welcome to our restaurant, where we aim to delight your senses and satisfy your cravings with our delicious and diverse menu. As you enter, you will be greeted by a warm and inviting atmosphere, with soft lighting, cozy seating arrangements, and tasteful decor that exudes a comfortable and sophisticated vibe. Our friendly staff will be ready to welcome you and guide you through our menu, which features a range of culinary delights from different parts of the world. Whether you are in the mood for a hearty breakfast...",
-  //   },
-  //   {
-  //     name: "Hawoa Food",
-  //     address: "08-10 Hoàng Hoa Thám, Hai Chai, Da Nang",
-  //     firstPrice: "50",
-  //     lastPrice: "200",
-  //     open: "12:00",
-  //     close: "22:00",
-  //     phone: "0356836753",
-  //     desc: "Welcome to our restaurant, where we aim to delight your senses and satisfy your cravings with our delicious and diverse menu. As you enter, you will be greeted by a warm and inviting atmosphere, with soft lighting, cozy seating arrangements, and tasteful decor that exudes a comfortable and sophisticated vibe. Our friendly staff will be ready to welcome you and guide you through our menu, which features a range of culinary delights from different parts of the world. Whether you are in the mood for a hearty breakfast...",
-  //   },
-  // ];
+
+  useEffect(() => {
+    // const refs = Array(dataRender.length)
+    //   .fill()
+    //   .map((_, i) => {
+    //     refs[i] || createRef();
+    //   });
+    // setElRefs(refs);
+  }, [dataRender]);
+
   useEffect(() => {
     dispatch(
       actionGetAllFangpage({
@@ -81,24 +71,34 @@ export default function DetailBar() {
   return (
     <header className={cx("wrapper")}>
       <h3 className={cx("heading")}>Places & Food around you </h3>
-      <div className={cx("type")}>Type</div>
-      <div className={cx("option-place")}>
-        <div className={cx("places")}>
-          <DropDown title="Places" data={dataPlaces} />
-        </div>
-        <div className={cx("ratting")}>
-          <DropDown title="Ratting" data={dataRatting} />
-        </div>
-      </div>
-      <Row className={cx("list")}>
-        {dataRender.map((data, i) => (
-          <div className={cx("list-store")}>
-            <Row xs={12} key={i}>
-              <PlaceDetails data={data} />
-            </Row>
+      {!isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <div className={cx("type")}>Type</div>
+          <div className={cx("option-place")}>
+            <div className={cx("places")}>
+              <DropDown title="Places" data={dataPlaces} />
+            </div>
+            <div className={cx("ratting")}>
+              <DropDown title="Ratting" data={dataRatting} />
+            </div>
           </div>
-        ))}
-      </Row>
+          <Row className={cx("list")}>
+            {dataRender.map((data, i) => (
+              <div className={cx("list-store")}>
+                <Row xs={12} key={i}>
+                  <PlaceDetails
+                    data={data}
+                    selected={Number(childClicked) === i}
+                    refProp={elRefs[i]}
+                  />
+                </Row>
+              </div>
+            ))}
+          </Row>
+        </>
+      )}
     </header>
   );
 }

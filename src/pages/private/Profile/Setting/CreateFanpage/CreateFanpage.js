@@ -299,7 +299,7 @@ export default function CreateFanpage() {
                   </div>
                 </div>
               </div>
-              <div className={cx("services")}>
+              <div classNam e={cx("services")}>
                 <div className={cx("services-desc")}>Type</div>
                 <div className={cx("type-option")}>
                   <DropDown
