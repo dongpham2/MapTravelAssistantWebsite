@@ -20,6 +20,7 @@ export default function PostForm({ setModalPostOpen, label, data }) {
   const id = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")).userID
     : "";
+  console.log(id);
   const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
   const [content, setContent] = useState("");
@@ -58,7 +59,7 @@ export default function PostForm({ setModalPostOpen, label, data }) {
       actionCreatePost({
         userID: id,
         title: content,
-        img: file,
+        img: file.preview,
       })
     );
     console.log(content, file);
