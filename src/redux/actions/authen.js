@@ -23,11 +23,6 @@ export const actionSignin = (user, history, setLoading) => {
       toast.error("Login failed");
       setLoading(false);
     }
-
-    if (status === 401) {
-      toast.error("Login failed");
-      setLoading(false);
-    }
   };
 };
 
