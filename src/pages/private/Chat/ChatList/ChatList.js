@@ -17,6 +17,7 @@ import styles from "./ChatList.module.scss";
 import { ChatContext } from "../context/ChatContext";
 import { useDispatch, useSelector } from "react-redux";
 import httpClient from "src/api/httpClient";
+import images from "src/assets/images";
 
 const cx = classNames.bind(styles);
 export default function ChatList() {
@@ -31,8 +32,7 @@ export default function ChatList() {
   const currentUser = {
     _id: auth.user.userID,
     email: auth.user.email,
-    avatar:
-      "https://uploads.mwp.mprod.getusinfo.com/uploads/sites/54/2022/02/Image-for-Rejoining-Paris-Agreement.jpeg",
+    avatar: auth.user.avatar,
     fullname: auth.user.fullName,
   };
 
@@ -64,7 +64,7 @@ export default function ChatList() {
             [combinedId + ".userInfo"]: {
               _id: user._id,
               fullname: user.fullname,
-              // avatar: user.avatar,
+              avatar: currentUser.avatar ? images.avt_default : user.avatar,
             },
             [combinedId + ".date"]: serverTimestamp(),
           });
@@ -73,7 +73,7 @@ export default function ChatList() {
             [combinedId + ".userInfo"]: {
               _id: user._id,
               fullname: user.fullname,
-              // avatar: user.avatar,
+              avatar: currentUser.avatar ? images.avt_default : user.avatar,
             },
             [combinedId + ".date"]: serverTimestamp(),
           });

@@ -5,6 +5,7 @@ import Content from "./Content";
 import { ChatContextProvider } from "../Chat/context/ChatContext";
 // import ChatList from "../Chat/ChatList/ChatList";
 import OptionFanpage from "src/layout/components/OptionFanpage/OptionFanpage";
+import ChatList from "../Chat/ChatList/ChatList";
 
 const cx = classNames.bind(styles);
 export default function FanPage() {
