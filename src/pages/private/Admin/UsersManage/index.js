@@ -14,7 +14,6 @@ const cx = classNames.bind(styles);
 
 function UsersManage() {
   const listUsers = useSelector((state) => state.listUsers);
-  console.log(listUsers);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);

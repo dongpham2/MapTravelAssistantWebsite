@@ -19,7 +19,6 @@ export default function PostForm({ setModalPostOpen, label, data }) {
   const id = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")).userID
     : "";
-  console.log(id);
   const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
   const [content, setContent] = useState("");
@@ -35,7 +34,6 @@ export default function PostForm({ setModalPostOpen, label, data }) {
       .then(() => {
         getDownloadURL(imageRef)
           .then((file) => {
-            console.log(file);
             setFile({ preview: file, data: "" });
             toast.success("upload successfully!");
           })

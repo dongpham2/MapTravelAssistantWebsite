@@ -47,19 +47,19 @@ export default function ProfileBanner() {
       />
       <div className={cx("user-avatar")}>
         {user.avatar ? (
-          <img className={cx("avatar-img")} src={fanpage.avatar} />
+          <img className={cx("avatar-img")} src={fanpage?.avatar} />
         ) : (
           <img src={images.avt_default} className={cx("avatar-img")} />
         )}
 
         <div className={cx("group-infor")}>
-          <div className={cx("user-name")}>{fanpage.name}</div>
+          <div className={cx("user-name")}>{fanpage?.name}</div>
           {/* <div className={cx("follower")}>ABC restaurent</div> */}
           <div className={cx("start")}>
-            {star &&
+            {/* {star &&
               [...Array(+star)].map((_, index) => (
                 <FaStar key={index} size={30} color="#ffc107" />
-              ))}
+              ))} */}
           </div>
         </div>
       </div>

@@ -37,7 +37,6 @@ export default function Chat() {
     fullname: auth.user.fullname,
   };
   useEffect(() => {
-    console.log(content);
     const unsub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
       doc.exists() && setMessages(doc.data().messages);
     });

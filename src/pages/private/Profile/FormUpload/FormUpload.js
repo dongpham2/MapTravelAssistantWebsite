@@ -110,6 +110,7 @@ export default function FormUpload({ label, data }) {
                   />
                 )}
               </div>
+
               <label className={cx("mark")} htmlFor="file">
                 <input
                   name="file"

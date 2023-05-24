@@ -63,6 +63,7 @@ export default function CreateFanpage() {
   const id = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")).userID
     : "";
+
   const [selectPosition, setSelectPosition] = useState(null);
   const [file, setFile] = useState({
     pre: "",
@@ -92,25 +93,26 @@ export default function CreateFanpage() {
     console.log(formikRef.current.values);
     // const selectValues = { ...selectForm };
     // console.log(selectValues);
-    console.log({
-      userID: id,
-      img: file?.pre,
-      name,
-      description,
-      phone,
-      website,
-      open,
-      close,
-      priceStart,
-      priceEnd,
-      ...selectForm,
-      lat: selectPosition?.lat,
-      lon: selectPosition?.lon,
-    });
+    // console.log({
+    //   userID: id,
+    //   img: file?.pre,
+    //   name,
+    //   description,
+    //   phone,
+    //   website,
+    //   open,
+    //   close,
+    //   priceStart,
+    //   priceEnd,
+    //   ...selectForm,
+    //   lat: selectPosition?.lat,
+    //   lon: selectPosition?.lon,
+    // });
     handleSubmitImages();
     dispatch(
       actionCreateFangpage({
         userID: id,
+        img: file?.pre,
         name,
         description,
         phone,
@@ -136,7 +138,7 @@ export default function CreateFanpage() {
         getDownloadURL(imageRef)
           .then((file) => {
             setFile({ pre: file, data: "" });
-            toast.success("upload successfully!");
+            // toast.success("upload successfully!");
           })
           .catch((error) => {
             console.log(error.message, "error getting url");

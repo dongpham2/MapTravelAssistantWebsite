@@ -5,23 +5,30 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import PlaceDetails from "../PlaceDetails";
 import DropDown from "src/component/Input/DropDown/DropDown";
-import { useDispatch } from "react-redux";
-import { actionGetAllFangpage } from "src/redux/actions/fanpage";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  ACTION_GET_ALL_FANGPAGE,
+  actionGetAllFangpage,
+} from "src/redux/actions/fanpage";
 import Loading from "src/component/Loading/Loading";
 const cx = classNames.bind(styles);
 const dataPlaces = [
   {
     value: 1,
-    name: "Restaurant",
+    name: "All",
   },
   {
     value: 2,
-    name: "Coffee House",
+    name: "restaurant",
   },
   {
     value: 3,
-    name: "Street Food",
+    name: "coffee",
   },
+  // {
+  //   value: 4,
+  //   name: "both",
+  // },
 ];
 
 const dataRatting = [
@@ -39,12 +46,34 @@ const dataRatting = [
   },
 ];
 
-export default function DetailBar(childClicked, isLoading) {
+export default function DetailBar({ childClicked, isLoading }) {
   const [type, setType] = useState("restaurants");
   const [rating, setRating] = useState("");
+  const [fanpagesAvailable, setFanpagesAvailable] = useState([]);
+  const fanpages = useSelector((state) => state.fanpage) || [];
   const [dataRender, setDataRender] = useState([]);
   const [elRefs, setElRefs] = useState([]);
   const dispatch = useDispatch();
+  const handleFilter = (type, nameValue) => {
+    // console.log("fanpagesAvailable", fanpagesAvailable);
+    // console.log("type", nameValue);
+    if (nameValue.toUpperCase() === "ALL") {
+      dispatch({
+        type: ACTION_GET_ALL_FANGPAGE,
+        payload: fanpagesAvailable,
+      });
+      return;
+    } else {
+      const result = fanpagesAvailable.filter(
+        (_elt) => _elt.type.toUpperCase() === nameValue.toUpperCase()
+      );
+      dispatch({
+        type: ACTION_GET_ALL_FANGPAGE,
+        payload: result,
+      });
+    }
+  };
+
   useEffect(() => {
     // const refs = Array(dataRender.length)
     //   .fill()
@@ -55,49 +84,48 @@ export default function DetailBar(childClicked, isLoading) {
   }, [dataRender]);
 
   useEffect(() => {
-    dispatch(
-      actionGetAllFangpage({
-        callBack(data) {
-          if (data.message === "GET SUCCESSFUL") {
-            setDataRender(data.data);
-            // const result = data.data;
-            // console.log(result);
-          }
-        },
-      })
-    );
+    dispatch(actionGetAllFangpage());
+  }, []);
+  useEffect(() => {
+    setFanpagesAvailable(fanpages);
   }, []);
   return (
     <header className={cx("wrapper")}>
       <h3 className={cx("heading")}>Places & Food around you </h3>
-      {!isLoading ? (
+      {/* {!isLoading ? (
         <Loading />
-      ) : (
-        <>
-          <div className={cx("type")}>Type</div>
-          <div className={cx("option-place")}>
-            <div className={cx("places")}>
-              <DropDown title="Places" data={dataPlaces} />
-            </div>
-            <div className={cx("ratting")}>
-              <DropDown title="Ratting" data={dataRatting} />
-            </div>
+      ) : ( */}
+      <>
+        <div className={cx("type")}>Type</div>
+        <div className={cx("option-place")}>
+          <div className={cx("places")}>
+            <DropDown
+              title="Places"
+              data={dataPlaces}
+              onChangeSelect={handleFilter}
+            />
           </div>
-          <Row className={cx("list")}>
-            {dataRender.map((data, i) => (
-              <div className={cx("list-store")}>
-                <Row xs={12} key={i}>
-                  <PlaceDetails
-                    data={data}
-                    selected={Number(childClicked) === i}
-                    refProp={elRefs[i]}
-                  />
-                </Row>
-              </div>
-            ))}
-          </Row>
-        </>
-      )}
+          <div className={cx("ratting")}>
+            <DropDown title="Ratting" data={dataRatting} />
+          </div>
+        </div>
+        <Row className={cx("list")}>
+          {fanpages !== undefined
+            ? fanpages.map((data, i) => (
+                <div className={cx("list-store")}>
+                  <Row xs={12} key={i}>
+                    <PlaceDetails
+                      data={data}
+                      selected={Number(childClicked) === i}
+                      refProp={elRefs[i]}
+                    />
+                  </Row>
+                </div>
+              ))
+            : null}
+        </Row>
+      </>
+      {/* )} */}
     </header>
   );
 }

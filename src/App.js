@@ -13,9 +13,6 @@ import Loading from "./component/Loading/Loading";
 function App() {
   const auth = useSelector((state) => state.auth);
   const role = auth?.user?.role;
-  // if (typeof role === "undefined") {
-  //   return <Loading></Loading>;
-  // }
   return (
     <Router>
       <div className="App">

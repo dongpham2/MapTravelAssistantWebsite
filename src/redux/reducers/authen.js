@@ -6,11 +6,14 @@ import {
   _ACTION_SIGNIN,
   __ACTION_SIGNUP,
 } from "../actions/authen";
-import { ACTION_CREATE_FANGPAGE } from "../actions/fanpage";
+import {
+  ACTION_CREATE_FANGPAGE,
+  ACTION_GET_ALL_FANGPAGE,
+} from "../actions/fanpage";
 
 const initState = {
   auth: {},
-  fanpage: {},
+  fanpage: [],
   post: {},
   // isLoading: false,
   listUsers: {},
@@ -53,6 +56,11 @@ const rootReducer = (state = initState, action) => {
       return {
         ...state,
         listUsers: action.payload,
+      };
+    case ACTION_GET_ALL_FANGPAGE:
+      return {
+        ...state,
+        fanpage: action.payload,
       };
     default:
       return state;

@@ -87,7 +87,6 @@ export default function Review() {
     } else {
       console.log("ok");
     }
-    console.log(auth.user.avatar);
     try {
       await setDoc(doc(db, "comments", currentUser._id), {
         reviewerID: currentUser._id,

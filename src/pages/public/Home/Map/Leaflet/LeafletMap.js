@@ -3,7 +3,7 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import CardMap from "../CardMap/CardMap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionGetAllFangpage } from "src/redux/actions/fanpage";
 import { Row } from "react-bootstrap";
 
@@ -35,6 +35,7 @@ function ResetCenterView(props) {
 
 export default function Maps(props) {
   const { selectPosition, isPosition } = props;
+  const fanpages = useSelector((state) => state.fanpage);
   const locationSelection = [selectPosition?.lat, selectPosition?.lon];
   const [positions, setPositions] = useState([]);
   const [dataRender, setDataRender] = useState([]);
@@ -54,27 +55,27 @@ export default function Maps(props) {
         popupRef.current.options.autoClose = true;
       }
     }, 100);
-
     return () => clearTimeout(timer);
   }, []);
   useEffect(() => {
-    dispatch(
-      actionGetAllFangpage({
-        callBack(data) {
-          if (data.message === "GET SUCCESSFUL") {
-            const result = data.data;
-            // console.log("2", result);
-            const positions = [];
-            const dataRender = [];
-            setDataFanpage(result);
-            result.map((item) => {
-              positions.push([+item?.location?.lat, +item?.location?.lon]);
-            });
-            setPositions(positions);
-          }
-        },
-      })
-    );
+    dispatch(actionGetAllFangpage());
+    // dispatch(
+    //   actionGetAllFangpage({
+    //     callBack(data) {
+    //       if (data.message === "GET SUCCESSFUL") {
+    //         const result = data.data;
+    //         // console.log("2", result);
+    //         const positions = [];
+    //         const dataRender = [];
+    //         setDataFanpage(result);
+    //         result.map((item) => {
+    //           positions.push([+item?.location?.lat, +item?.location?.lon]);
+    //         });
+    //         setPositions(positions);
+    //       }
+    //     },
+    //   })
+    // );
   }, []);
   useEffect(() => {
     const a = document.querySelectorAll(".leaflet-marker-icon");
@@ -112,8 +113,8 @@ export default function Maps(props) {
           </Popup>
         </Marker>
       ) : (
-        positions &&
-        positions.map((location, index) => {
+        fanpages &&
+        fanpages.map((location, index) => {
           return (
             // <div ref>
             <Marker
@@ -126,7 +127,7 @@ export default function Maps(props) {
                 <Row xs={12} key={index}>
                   <CardMap
                     position={locationSelection}
-                    data={dataFanpage[index]}
+                    data={fanpages[index]}
                   />
                 </Row>
               </Popup>
