@@ -9,13 +9,13 @@ import { useSelector } from "react-redux";
 const cx = classNames.bind(styles);
 export default function PostArticle() {
   const [modalPostOpen, setModalPostOpen] = useState(false);
-  const auth = useSelector((state) => state.auth);
-  const user = auth?.user;
+  const fanpage = useSelector((state) => state.fanpage);
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("avatar")}>
-        {user.avatar ? (
-          <img src={user?.avatar} className={cx("img")} />
+        {fanpage.avatar ? (
+          <img src={fanpage?.avatar} className={cx("img")} />
         ) : (
           <img src={images.avt_default} className={cx("img")} />
         )}

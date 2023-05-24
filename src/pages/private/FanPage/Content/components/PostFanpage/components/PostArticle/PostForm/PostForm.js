@@ -16,7 +16,6 @@ const cx = classNames.bind(styles);
 
 export default function PostForm({ setModalPostOpen, label, data }) {
   const fanpage = useSelector((state) => state.fanpage);
-  console.log(fanpage);
   const id = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")).userID
     : "";
@@ -90,7 +89,7 @@ export default function PostForm({ setModalPostOpen, label, data }) {
               <img src={images.avt_default} className={cx("img")} />
             )}
 
-            <div className={cx("name")}>{fanpage.fullName}</div>
+            <div className={cx("name")}>{fanpage.name}</div>
           </div>
         </div>
         {/* content */}
