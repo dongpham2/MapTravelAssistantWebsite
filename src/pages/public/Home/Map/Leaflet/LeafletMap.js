@@ -123,11 +123,12 @@ export default function Maps(props) {
               key={index}
             >
               <Popup autoPan={true}>
-                {dataFanpage.map((data, i) => (
-                  <Row xs={12} key={i}>
-                    <CardMap position={locationSelection} data={data} />
-                  </Row>
-                ))}
+                <Row xs={12} key={index}>
+                  <CardMap
+                    position={locationSelection}
+                    data={dataFanpage[index]}
+                  />
+                </Row>
               </Popup>
             </Marker>
             // </div>
