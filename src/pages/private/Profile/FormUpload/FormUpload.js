@@ -79,7 +79,7 @@ export default function FormUpload({ label, data }) {
           <div className={cx("input-file-img")}>
             <div className={cx("input-file-block")}>
               <div className={cx("preview-img-block")}>
-                {file.preview ? (
+                {/* {file.preview ? (
                   <img
                     className={cx("preview-img")}
                     src={file.preview}
@@ -89,6 +89,21 @@ export default function FormUpload({ label, data }) {
                   <img
                     className={cx("preview-img")}
                     src={images.avt_default}
+                    alt="avatar"
+                  />
+                )} */}
+                {file.preview ? (
+                  <img
+                    className={cx("preview-img")}
+                    src={file.preview}
+                    alt="avatar"
+                  />
+                ) : data ? (
+                  <img className={cx("preview-img")} src={data} alt="avatar" />
+                ) : (
+                  <img
+                    className={cx("preview-img")}
+                    src={images.avatarDefault}
                     alt="avatar"
                   />
                 )}

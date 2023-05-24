@@ -81,8 +81,8 @@ export default function CreateFanpage() {
     type: "",
   });
   // const fanpage = useSelector((state) => state.fanpage);
+  // const [fanpage, setFanpage] = useState(localStorage.getItem("isFanpage"));
   const fanpage = localStorage.getItem("isFanpage");
-
   const dispatch = useDispatch();
 
   // submit data create fanpage
@@ -159,7 +159,7 @@ export default function CreateFanpage() {
   return (
     <div className={cx("wrapper")}>
       <h3 className={cx("heading")}>Your Fanpage</h3>
-      {!fanpage ? (
+      {fanpage === "false" ? (
         <Formik
           innerRef={formikRef}
           initialValues={{
