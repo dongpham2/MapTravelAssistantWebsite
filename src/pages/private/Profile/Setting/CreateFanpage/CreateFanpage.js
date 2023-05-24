@@ -159,7 +159,7 @@ export default function CreateFanpage() {
   return (
     <div className={cx("wrapper")}>
       <h3 className={cx("heading")}>Your Fanpage</h3>
-      {!fanpage ? (
+      {fanpage ? (
         <Formik
           innerRef={formikRef}
           initialValues={{

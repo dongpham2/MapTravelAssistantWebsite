@@ -85,10 +85,12 @@ export default function FormUpload({ label, data }) {
                     src={file.preview}
                     alt="avatar"
                   />
+                ) : data ? (
+                  <img className={cx("preview-img")} src={data} alt="avatar" />
                 ) : (
                   <img
                     className={cx("preview-img")}
-                    src={images.avt_default}
+                    src={images.avatarDefault}
                     alt="avatar"
                   />
                 )}

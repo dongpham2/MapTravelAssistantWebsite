@@ -45,7 +45,6 @@ export default function DetailBar(childClicked, isLoading) {
   const [dataRender, setDataRender] = useState([]);
   const [elRefs, setElRefs] = useState([]);
   const dispatch = useDispatch();
-
   useEffect(() => {
     // const refs = Array(dataRender.length)
     //   .fill()

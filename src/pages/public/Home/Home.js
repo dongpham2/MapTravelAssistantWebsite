@@ -7,10 +7,7 @@ import getPlacesData from "../../../api/googleClientApi";
 
 const cx = classNames.bind(styles);
 export default function Home() {
-  const [places, setPlaces] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [coordinates, setCoordinates] = useState({});
-  const [bounds, setBounds] = useState(null);
   const [childClicked, setChildClicked] = useState(null);
   useEffect(() => {
     setIsLoading(true);
@@ -22,22 +19,10 @@ export default function Home() {
     <header className={cx("wrapper")}>
       {/* {isLoading === true && <Loading />} */}
       <div className={cx("left")}>
-        <DetailBar
-          onChildClick={(child) => {
-            setChildClicked(child);
-          }}
-          isLoading={isLoading}
-        />
+        <DetailBar childClicked={childClicked} isLoading={isLoading} />
       </div>
       <div className={cx("right")}>
-        <Map
-          // setCoordinates={setCoordinates}
-          // coordinates={coordinates}
-          // setBounds={setBounds}
-          onChildClick={(child) => {
-            setChildClicked(child);
-          }}
-        />
+        <Map setChildClicked={setChildClicked} />
       </div>
     </header>
   );

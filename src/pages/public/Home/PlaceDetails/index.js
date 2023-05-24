@@ -9,14 +9,22 @@ import { FaStar } from "react-icons/fa";
 const cx = classNames.bind(styles);
 
 export default function PlaceDetails({ data, selected, refProp }) {
-  if (selected)
-    refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (selected) console.log("dung r");
+  refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   return (
     <div className={cx("wrapper")}>
       <div className={cx("container")}>
         <div className={cx("banner")}>
           <Link to={config.routes.fanpage}>
-            <img src={images.banner_default} alt="" />
+            {data ? (
+              <img
+                src={images.profile_banner}
+                alt="avatar"
+                className={cx("preview-img")}
+              />
+            ) : (
+              <img src={data} alt="avatar" className={cx("preview-img")} />
+            )}
           </Link>
         </div>
         <div className={cx("name")}>{data.name}</div>
