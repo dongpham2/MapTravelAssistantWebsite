@@ -8,9 +8,8 @@ export const _ACTION_LOADING = "_ACTION_LOADING";
 export const actionSignin = (user, history, setLoading) => {
   return async (dispatch) => {
     const { data, status } = await AuthService.signin(user);
-    console.log("status", status);
     const newData = { ...data, role: "user" };
-    localStorage.setItem("isFanpage", data?.user?.page ? true : false);
+    localStorage.setItem("isFanpage", data.user.isPage);
     localStorage.setItem("user", JSON.stringify(data.user));
     if (status === 200) {
       dispatch({
