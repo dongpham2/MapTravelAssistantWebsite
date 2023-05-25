@@ -1,6 +1,6 @@
 .wrapper {
   --left: 15px;
-  width: 525px;
+  width: var(--post-size);
   border-radius: 10px;
   .post-form {
     margin-bottom: 30px;

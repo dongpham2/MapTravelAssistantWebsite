@@ -31,7 +31,8 @@ body {
   --default-layout-horizontal-spacer: 24px;
   --default-layout-sidebar-width: 220px;
   // Size
-  --fanpage-size: 400px;
+  --fanpage-size: 430px;
+  --post-size: 590px;
   // color
   --navbar-color: #4caf50;
   --background-color: #f6f7f8;
@@ -75,6 +76,7 @@ body {
   --margin-0: 50px;
   --margin-top-0: 20px;
   --margin-tb: 30px 0 30px 0;
+  --margin-fanpage: 0 250px;
   // box shadown
   --box-shadown-0: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;

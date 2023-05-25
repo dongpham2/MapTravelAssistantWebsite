@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import httpClient from "src/api/httpClient";
 import { API_CREATEFANPAGE } from "src/config/apis";
+import Loading from "src/component/Loading/Loading";
 
 const cx = classNames.bind(styles);
 
@@ -17,6 +18,7 @@ export default function ProfileFanpage() {
   const { id } = useParams();
   const auth = useSelector((state) => state.auth);
   const [fanpage, setFanpage] = useState("");
+  const [loading, setLoading] = useState(false);
   // console.log("check fanpage", fanpage);
   const parameters = useParams();
   // state controller
@@ -25,54 +27,62 @@ export default function ProfileFanpage() {
   const isCreator = auth.user.page?._id === parameters.id ? true : false;
   // console.log("isCreator", isCreator);
   useEffect(() => {
+    setLoading(true);
     const getFanpage = async () => {
       const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
       setFanpage(res.data.data);
     };
     getFanpage();
+    setLoading(false);
   }, []);
   return (
     <div className={cx("wrapper")}>
-      <Introduction />
-      {/* content */}
-      <div className={cx("content")}>
-        <div className={cx("input-group")}>
-          <span className={cx("icon")}>
-            <ion-icon name="cash-outline"></ion-icon>
-          </span>
-          <div className={cx("detail")}>
-            {fanpage.priceStart} {fanpage.denomina}
+      {!loading ? (
+        <>
+          <Introduction />
+          {/* content */}
+          <div className={cx("content")}>
+            <div className={cx("input-group")}>
+              <span className={cx("icon")}>
+                <ion-icon name="cash-outline"></ion-icon>
+              </span>
+              <div className={cx("detail")}>
+                {fanpage.priceStart} {fanpage.denomina}
+              </div>
+              <span className={cx("dot")}>-</span>
+              <div className={cx("detail")}>
+                {fanpage.priceEnd} {fanpage.denomina}
+              </div>
+            </div>
+            <div className={cx("input-group")}>
+              <span className={cx("icon")}>
+                <ion-icon name="globe-outline"></ion-icon>
+              </span>
+              <div className={cx("detail")}>{fanpage.website} </div>
+            </div>
+            <div className={cx("input-group")}>
+              <span className={cx("icon")}>
+                <ion-icon name="at-outline"></ion-icon>
+              </span>
+              <div className={cx("detail")}>
+                {fanpage.priceStart} {fanpage.open}
+              </div>
+              <span className={cx("dot")}>-</span>
+              <div className={cx("detail")}>
+                {fanpage.priceEnd} {fanpage.close}
+              </div>
+            </div>
+            <div className={cx("input-group")}>
+              <span className={cx("icon")}>
+                <ion-icon name="call-outline"></ion-icon>
+              </span>
+              <div className={cx("detail")}>{fanpage.phone} </div>
+            </div>
           </div>
-          <span className={cx("dot")}>-</span>
-          <div className={cx("detail")}>
-            {fanpage.priceEnd} {fanpage.denomina}
-          </div>
-        </div>
-        <div className={cx("input-group")}>
-          <span className={cx("icon")}>
-            <ion-icon name="globe-outline"></ion-icon>
-          </span>
-          <div className={cx("detail")}>{fanpage.website} </div>
-        </div>
-        <div className={cx("input-group")}>
-          <span className={cx("icon")}>
-            <ion-icon name="at-outline"></ion-icon>
-          </span>
-          <div className={cx("detail")}>
-            {fanpage.priceStart} {fanpage.open}
-          </div>
-          <span className={cx("dot")}>-</span>
-          <div className={cx("detail")}>
-            {fanpage.priceEnd} {fanpage.close}
-          </div>
-        </div>
-        <div className={cx("input-group")}>
-          <span className={cx("icon")}>
-            <ion-icon name="call-outline"></ion-icon>
-          </span>
-          <div className={cx("detail")}>{fanpage.phone} </div>
-        </div>
-      </div>
+        </>
+      ) : (
+        <Loading />
+      )}
     </div>
   );
 }

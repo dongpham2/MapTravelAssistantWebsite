@@ -102,7 +102,7 @@ export default function PlaceDetails({ data, selected, refProp }) {
             ></span>
           </div>
         </div>
-        <Link to={config.routes.posts}>
+        <Link to={`/fanpage/${data._id}`}>
           <Button
             className={cx("btn")}
             secondary

@@ -25,28 +25,26 @@ function UserOptions() {
   };
   return (
     <div className={cx("wrapper")}>
-      <Link to={config.routes.fanpage}>
-        <div className={cx("header")}>
-          <div className={cx("header-left")}>
-            {auth?.user?.avatar ? (
-              <img
-                src={auth?.user?.avatar}
-                alt="Avatar"
-                className={cx("avatar-img", "avatar")}
-              />
-            ) : (
-              <img
-                src={images.avt_default}
-                className={cx("avatar-img", "avatar")}
-                alt=""
-              />
-            )}
-          </div>
-          <div className={cx("header-right")}>
-            <div className={cx("user-name")}>{auth.user.fullName}</div>
-          </div>
+      <div className={cx("header")}>
+        <div className={cx("header-left")}>
+          {auth?.user?.avatar ? (
+            <img
+              src={auth?.user?.avatar}
+              alt="Avatar"
+              className={cx("avatar-img", "avatar")}
+            />
+          ) : (
+            <img
+              src={images.avt_default}
+              className={cx("avatar-img", "avatar")}
+              alt=""
+            />
+          )}
         </div>
-      </Link>
+        <div className={cx("header-right")}>
+          <div className={cx("user-name")}>{auth.user.fullName}</div>
+        </div>
+      </div>
 
       <div className={cx("option")}>
         {/* first item */}
