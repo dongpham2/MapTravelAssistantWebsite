@@ -79,7 +79,7 @@ export default function Review() {
   useEffect(() => {
     const getFanpage = async () => {
       const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
-      console.log("ss", res.data.data._id);
+      // console.log("ss", res.data.data._id);
       setFanpage(res.data.data);
     };
     getFanpage();
@@ -104,10 +104,12 @@ export default function Review() {
     }
   };
   const handleCancel = () => {
-    console.log("pẩm ", parameters);
-    httpClient.get("/users").then((res) => {
-      console.log(res.data[6].page);
-    });
+    // httpClient.get("/users").then((res) => {
+    //   console.log(res.data);
+    //   res.data.map((i) => {
+    //     console.log(i._id);
+    //   });
+    // });
     // console.log("au", auth.user.page?._id);
     return;
   };
@@ -149,80 +151,86 @@ export default function Review() {
     <div className={cx("wrapper")}>
       <div className={cx("content")}>
         <h3>Review</h3>
-        <div className={cx("review")}>
-          <div className={cx("user-infor")}>
-            {auth.user.avatar ? (
-              <img
-                className={cx("avatar-img")}
-                src={auth.user.avatar}
-                alt="avt"
-              />
-            ) : (
-              <img src={images.avt_default} className={cx("avatar-img")} />
-            )}
-          </div>
-          <div className={cx("write-review")}>
-            <div className={cx("stars")}>
-              {[...Array(5)].map((star, i) => {
-                const ratingValue = i + 1;
-                return (
-                  <label>
-                    <input
-                      type="radio"
-                      name="rating"
-                      value={ratingValue}
-                      onClick={() => setRating(ratingValue)}
-                    />
-                    <FaStar
-                      className={cx("start-icon")}
-                      size={30}
-                      color={
-                        ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"
-                      }
-                      onMouseEnter={() => setHover(ratingValue)}
-                      onMouseLeave={() => setHover(null)}
-                    />
-                  </label>
-                );
-              })}
-            </div>
-            <div className={cx("send")}>
-              <div className={cx("input-group")}>
-                {currentReview ? (
-                  <TextEditor
-                    setContentBlog={setContent}
-                    sHidderTools={true}
-                    defaultValueProps={currentReview}
-                  />
-                ) : (
-                  <TextEditor
-                    setContentBlog={setContent}
-                    sHidderTools={true}
-                    // defaultValueProps={currentReview.text}
-                  />
-                )}
-              </div>
-              {/* <input type="text" placeholder="Write your comment..." /> */}
-              {!currentReview ? (
-                <div className={cx("send-button")} onClick={handleSend}>
-                  <ion-icon name="send"></ion-icon>
-                </div>
+        {id == auth.user.page?._id ? null : (
+          <div className={cx("review")}>
+            <div className={cx("user-infor")}>
+              {auth.user.avatar ? (
+                <img
+                  className={cx("avatar-img")}
+                  src={auth.user.avatar}
+                  alt="avt"
+                />
               ) : (
-                <div className={cx("buttons")}>
-                  <button className={cx("save-button")} onClick={handleSave}>
-                    Save
-                  </button>
-                  <button
-                    className={cx("cancel-button")}
-                    onClick={handleCancel}
-                  >
-                    Cancel
-                  </button>
-                </div>
+                <img src={images.avt_default} className={cx("avatar-img")} />
               )}
             </div>
+
+            <div className={cx("write-review")}>
+              <div className={cx("stars")}>
+                {[...Array(5)].map((star, i) => {
+                  const ratingValue = i + 1;
+                  return (
+                    <label>
+                      <input
+                        type="radio"
+                        name="rating"
+                        value={ratingValue}
+                        onClick={() => setRating(ratingValue)}
+                      />
+                      <FaStar
+                        className={cx("start-icon")}
+                        size={30}
+                        color={
+                          ratingValue <= (hover || rating)
+                            ? "#ffc107"
+                            : "#e4e5e9"
+                        }
+                        onMouseEnter={() => setHover(ratingValue)}
+                        onMouseLeave={() => setHover(null)}
+                      />
+                    </label>
+                  );
+                })}
+              </div>
+
+              <div className={cx("send")}>
+                <div className={cx("input-group")}>
+                  {currentReview ? (
+                    <TextEditor
+                      setContentBlog={setContent}
+                      sHidderTools={true}
+                      defaultValueProps={currentReview}
+                    />
+                  ) : (
+                    <TextEditor
+                      setContentBlog={setContent}
+                      sHidderTools={true}
+                      // defaultValueProps={currentReview.text}
+                    />
+                  )}
+                </div>
+                {/* <input type="text" placeholder="Write your comment..." /> */}
+                {!currentReview ? (
+                  <div className={cx("send-button")} onClick={handleSend}>
+                    <ion-icon name="send"></ion-icon>
+                  </div>
+                ) : (
+                  <div className={cx("buttons")}>
+                    <button className={cx("save-button")} onClick={handleSave}>
+                      Save
+                    </button>
+                    <button
+                      className={cx("cancel-button")}
+                      onClick={handleCancel}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
+        )}
         {/* comment */}
         <div className={cx("display-comments")}>
           <div className={cx("line")}></div>

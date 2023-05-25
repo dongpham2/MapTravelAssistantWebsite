@@ -32,7 +32,7 @@ export default function ChatList() {
   const currentUser = {
     _id: auth.user.userID,
     email: auth.user.email,
-    avatar: images.avt_default,
+    avatar: auth.user.avatar == null ? images.avt_default : auth.user.avatar,
     fullname: auth.user.fullName,
   };
 
@@ -43,7 +43,7 @@ export default function ChatList() {
   const handleClose = () => {
     setShowChatList(false);
   };
-  const handleOpenUser = async (user) => {
+  const handleOpenUser = async (user, callback) => {
     //check group chat exist if not create
     const combinedId =
       currentUser._id > user._id
@@ -102,7 +102,9 @@ export default function ChatList() {
     } catch (err) {
       console.log(err);
     }
-    !showchatBox ? setShowChatBox(true) : setShowChatBox(false);
+
+    setShowChatBox(!showchatBox);
+
     // setUser(null);
     // setUsername("")
     dispatch({ type: "CHANGE_USER", payload: user });
@@ -180,7 +182,9 @@ export default function ChatList() {
                   </div>
                 ))}
           </div>
-          {showchatBox && <ChatBox />}
+          {showchatBox && (
+            <ChatBox value={showchatBox} callback={handleOpenUser} />
+          )}
         </div>
       )}
     </div>
