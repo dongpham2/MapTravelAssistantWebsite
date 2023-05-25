@@ -2,13 +2,18 @@ import { toast } from "react-toastify";
 import { adminService } from "src/service/adminService";
 export const ACTION_GETALLUSERS = "ACTION_GETALLUSERS";
 
-export const actionGetAllUsers = (users) => {
+export const actionGetAllUsers = ({ callback, isLoad }) => {
   return async (dispatch) => {
-    const { data, status } = await adminService.getAllUsers(users);
-    dispatch({
-      type: ACTION_GETALLUSERS,
-      payload: data,
-    });
+    // const { data, status } = await adminService.getAllUsers({});
+    // dispatch({
+    //   type: ACTION_GETALLUSERS,
+    //   payload: data,
+    // });
+    const res = await adminService.getAllUsers();
+    if (res.status === 200) {
+      callback(res.data);
+      return res.data;
+    }
   };
 };
 
