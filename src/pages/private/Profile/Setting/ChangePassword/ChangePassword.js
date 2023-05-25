@@ -5,25 +5,39 @@ import styles from "./ChangePassword.module.scss";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Button from "src/component/Button";
+import { useDispatch } from "react-redux";
+import { actionResetPass } from "src/redux/actions/authen";
 
 const cx = classNames.bind(styles);
 export default function ChangePassword() {
   const formikRef = useRef(null);
-
-  const handleSubmit = async () => {};
+  const dispatch = useDispatch();
+  const id = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")).userID
+    : "";
+  const handleSubmit = async () => {
+    dispatch(
+      actionResetPass({
+        data: {
+          userID: id,
+          password: formikRef.current.values.password,
+        },
+      })
+    );
+  };
   return (
     <div className={cx("wrapper")}>
       <h3 className={cx("heading")}>Your Fanpage</h3>
       <Formik
         innerRef={formikRef}
         initialValues={{
-          oldpassword: "",
+          old_password: "",
           password: "",
           passwordConfirm: "",
         }}
         onSubmit={handleSubmit}
         validationSchema={Yup.object({
-          oldpassword: Yup.string().required("This field must have value"),
+          old_password: Yup.string().required("This field must have value"),
           password: Yup.string()
             .min(6, "At least 6 characters!")
             .required("This field must have value!"),
@@ -38,7 +52,7 @@ export default function ChangePassword() {
             <div className={cx("input-block")}>
               <Field
                 className={cx("input-text")}
-                name="old password"
+                name="old_password"
                 type="password"
                 placeholder="Old password"
               />
@@ -75,8 +89,13 @@ export default function ChangePassword() {
               <ErrorMessage name="passwordConfirm" />
             </div>
           </div>
-          <Button primary className={cx("button-form")} type="submit">
-            Login
+          <Button
+            primary
+            className={cx("button-form")}
+            type="submit"
+            onClick={() => handleSubmit()}
+          >
+            ChangePassword
           </Button>
         </Form>
       </Formik>
