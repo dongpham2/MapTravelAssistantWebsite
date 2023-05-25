@@ -25,10 +25,12 @@ import { toast } from "react-toastify";
 import Loading from "src/component/Loading/Loading";
 import images from "src/assets/images";
 import { useParams } from "react-router";
+import { API_CREATEFANPAGE } from "src/config/apis";
 
 const cx = classNames.bind(styles);
 
 export default function Review() {
+  const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const { auth } = useSelector((state) => state);
   const [rating, setRating] = useState(null);
@@ -37,7 +39,7 @@ export default function Review() {
   const [allReview, setAllReview] = useState([]);
   const [currentReview, setCurrentReview] = useState(null);
   const parameters = useParams();
-  const isCreator = auth.user.page?._id === parameters.id ? true : false;
+  const [fanpage, setFanpage] = useState("");
 
   const formatTimestamp = (timestamp) => {
     const dateObj = new Date(timestamp * 1000); // Convert timestamp to milliseconds
@@ -51,12 +53,15 @@ export default function Review() {
     fullname: auth.user.fullName,
     avatar: auth.user.avatar,
   };
-  const pageInf = {
-    pageID: "1111",
-  };
 
   useEffect(() => {
-    const unsub = onSnapshot(doc(db, "reviews", pageInf.pageID), (doc) => {
+    const getFanpage = async () => {
+      const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
+      // console.log("ss", res.data.data._id);
+      setFanpage(res.data.data);
+    };
+    getFanpage();
+    const unsub = onSnapshot(doc(db, "reviews", id), (doc) => {
       !doc.exists() ? setAllReview([]) : setAllReview(doc.data().comments);
       if (doc.exists()) {
         doc.data().comments.map((item) => {
@@ -70,7 +75,15 @@ export default function Review() {
     return () => {
       unsub();
     };
-  }, [pageInf.pageID]);
+  }, [fanpage._id]);
+  useEffect(() => {
+    const getFanpage = async () => {
+      const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
+      console.log("ss", res.data.data._id);
+      setFanpage(res.data.data);
+    };
+    getFanpage();
+  }, []);
   const handleSave = async () => {
     let docs = allReview;
     docs.map((item) => {
@@ -81,7 +94,7 @@ export default function Review() {
       }
     });
     try {
-      await setDoc(doc(db, "reviews", pageInf.pageID), {
+      await setDoc(doc(db, "reviews", fanpage._id), {
         comments: docs,
       });
       toast.success("Review successful");
@@ -105,13 +118,13 @@ export default function Review() {
       return;
     }
     try {
-      const res = await getDoc(doc(db, "reviews", pageInf.pageID));
+      const res = await getDoc(doc(db, "reviews", fanpage._id));
       if (!res.exists()) {
-        setDoc(doc(db, "reviews", pageInf.pageID), {
+        setDoc(doc(db, "reviews", fanpage._id), {
           comments: [],
         });
       }
-      await updateDoc(doc(db, "reviews", pageInf.pageID), {
+      await updateDoc(doc(db, "reviews", fanpage._id), {
         comments: arrayUnion({
           reviewerID: currentUser._id,
           avatar:

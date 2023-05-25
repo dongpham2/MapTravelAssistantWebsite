@@ -18,9 +18,6 @@ export default function ProfileBanner() {
   const user = auth?.user;
   // const fanpage = useSelector((state) => state.fanpage);
   const [star, setStar] = useState(null);
-  const pageInf = {
-    pageID: auth.user.page?._id ? auth.user.page?._id : "1111",
-  };
   const [fanpage, setFanpage] = useState("");
 
   useEffect(() => {
@@ -29,14 +26,15 @@ export default function ProfileBanner() {
   useEffect(() => {
     const getFanpage = async () => {
       const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
-      console.log(res.data.data);
+      // console.log("ss", res.data.data);
       setFanpage(res.data.data);
     };
     getFanpage();
   }, []);
   const getAllReview = async () => {
+    console.log("fff", fanpage._id);
     try {
-      const querySnapshot = await getDoc(doc(db, "reviews", pageInf.pageID));
+      const querySnapshot = await getDoc(doc(db, "reviews", id));
 
       if (querySnapshot.exists()) {
         let docs = [];
