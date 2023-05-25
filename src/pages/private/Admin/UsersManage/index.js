@@ -16,6 +16,7 @@ const cx = classNames.bind(styles);
 function UsersManage() {
   // const listUsers = useSelector((state) => state.listUsers);
   const [listUsers, setListUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
@@ -30,12 +31,14 @@ function UsersManage() {
     // window.location.reload();
   };
   useEffect(() => {
+    setLoading(true);
     dispatch(
       actionGetAllUsers({
         callback(data) {
           if (data) {
             setListUsers(data);
           }
+          setLoading(false);
         },
       })
     );
@@ -43,7 +46,6 @@ function UsersManage() {
 
   return (
     <>
-      {/* {isLoading && <Loading />} */}
       <Modal
         className={cx("modal")}
         show={showModalDelete}
@@ -52,91 +54,102 @@ function UsersManage() {
         }}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Tiếp tục xóa?</Modal.Title>
+          <Modal.Title>Continue to deleted?</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
             rounded
-            secondary
+            small
+            cancel
             onClick={() => {
               setShowModalDelete(false);
             }}
           >
-            Hủy
+            Cancel
           </Button>
           <Button
             primary
+            small
             rounded
             onClick={() => {
               handleDeleteUser();
               setShowModalDelete(false);
             }}
           >
-            Xóa
+            Delete
           </Button>
         </Modal.Body>
       </Modal>
-      <div className={cx("wrapper")}>
-        <AddAccountModal show={showModal} onClose={handleClose} />
-        <div className={cx("header")}>
-          <h2 className={cx("heading")}>Manage User</h2>
-          <div className={cx("search")}>
-            <Input
-              rightIcon={<ion-icon name="search-outline"></ion-icon>}
-              primary
-              placeholder="Search user..."
-            />
+      {!loading ? (
+        <div className={cx("wrapper")}>
+          <AddAccountModal show={showModal} onClose={handleClose} />
+          <div className={cx("header")}>
+            <h2 className={cx("heading")}>Manage User</h2>
+            <div className={cx("search")}>
+              <Input
+                rightIcon={<ion-icon name="search-outline"></ion-icon>}
+                primary
+                placeholder="Search user..."
+              />
+            </div>
+          </div>
+
+          <div className={cx("content")}>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>User ID</th>
+                  <th>Fullname</th>
+                  <th>Email</th>
+                  <th>Fanpage</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {listUsers.length &&
+                  listUsers.map((user, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{user._id}</td>
+                        <td>{user.fullname}</td>
+                        <td>{user.email}</td>
+                        <td>
+                          {/* <ion-icon name="checkmark-outline"></ion-icon> */}
+                          {user.isPage ? (
+                            <ion-icon
+                              name="checkmark-outline"
+                              style={{ color: "green" }}
+                            ></ion-icon>
+                          ) : (
+                            <span style={{ color: "red", marginLeft: "4px" }}>
+                              x
+                            </span>
+                          )}
+                        </td>
+                        <td className={cx("action-column")}>
+                          <span
+                            onClick={() => {
+                              // setIdUserDelete(user.id);
+                              setShowModalDelete(true);
+                              setIsId(user?._id);
+                            }}
+                            className={cx("content-icon")}
+                          >
+                            <ion-icon name="trash-sharp"></ion-icon>
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </Table>
           </div>
         </div>
-
-        <div className={cx("content")}>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>User ID</th>
-                <th>Fullname</th>
-                <th>Email</th>
-                <th>Fanpage</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {listUsers.length &&
-                listUsers.map((user, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{user._id}</td>
-                      <td>{user.fullname}</td>
-                      <td>{user.email}</td>
-                      <td>
-                        {/* <ion-icon name="checkmark-outline"></ion-icon> */}
-                        {user.isPage ? (
-                          <ion-icon name="checkmark-outline"></ion-icon>
-                        ) : (
-                          "false"
-                        )}
-                      </td>
-                      <td className={cx("action-column")}>
-                        <span
-                          onClick={() => {
-                            // setIdUserDelete(user.id);
-                            setShowModalDelete(true);
-                            setIsId(user?._id);
-                          }}
-                          className={cx("content-icon")}
-                        >
-                          <ion-icon name="trash-sharp"></ion-icon>
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </Table>
-        </div>
-      </div>
+      ) : (
+        <Loading />
+      )}
     </>
   );
 }
