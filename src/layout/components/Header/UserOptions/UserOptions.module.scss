@@ -59,6 +59,8 @@
 
 .option {
   .option-list {
+    color: var(--black-color);
+    cursor: pointer;
     :hover {
       background-color: #fafafa;
       border-radius: 10px;

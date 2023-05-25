@@ -49,6 +49,7 @@ const dataRatting = [
 export default function DetailBar({ childClicked, isLoading }) {
   const [type, setType] = useState("restaurants");
   const [rating, setRating] = useState("");
+  const [loading, setLoading] = useState(false);
   const [fanpagesAvailable, setFanpagesAvailable] = useState([]);
   const fanpages = useSelector((state) => state.fanpage) || [];
   const [dataRender, setDataRender] = useState([]);
@@ -84,48 +85,52 @@ export default function DetailBar({ childClicked, isLoading }) {
   }, [dataRender]);
 
   useEffect(() => {
+    setLoading(true);
     dispatch(actionGetAllFangpage());
+    setLoading(false);
   }, []);
   useEffect(() => {
+    setLoading(true);
     setFanpagesAvailable(fanpages);
+    setLoading(false);
   }, []);
   return (
     <header className={cx("wrapper")}>
-      <h3 className={cx("heading")}>Places & Food around you </h3>
-      {/* {!isLoading ? (
+      {!loading ? (
+        <>
+          <h3 className={cx("heading")}>Places & Food around you </h3>
+          <div className={cx("type")}>Type</div>
+          <div className={cx("option-place")}>
+            <div className={cx("places")}>
+              <DropDown
+                title="Places"
+                data={dataPlaces}
+                onChangeSelect={handleFilter}
+              />
+            </div>
+            <div className={cx("ratting")}>
+              <DropDown title="Ratting" data={dataRatting} />
+            </div>
+          </div>
+          <Row className={cx("list")}>
+            {fanpages !== undefined
+              ? fanpages.map((data, i) => (
+                  <div className={cx("list-store")}>
+                    <Row xs={12} key={i}>
+                      <PlaceDetails
+                        data={data}
+                        selected={Number(childClicked) === i}
+                        refProp={elRefs[i]}
+                      />
+                    </Row>
+                  </div>
+                ))
+              : null}
+          </Row>
+        </>
+      ) : (
         <Loading />
-      ) : ( */}
-      <>
-        <div className={cx("type")}>Type</div>
-        <div className={cx("option-place")}>
-          <div className={cx("places")}>
-            <DropDown
-              title="Places"
-              data={dataPlaces}
-              onChangeSelect={handleFilter}
-            />
-          </div>
-          <div className={cx("ratting")}>
-            <DropDown title="Ratting" data={dataRatting} />
-          </div>
-        </div>
-        <Row className={cx("list")}>
-          {fanpages !== undefined
-            ? fanpages.map((data, i) => (
-                <div className={cx("list-store")}>
-                  <Row xs={12} key={i}>
-                    <PlaceDetails
-                      data={data}
-                      selected={Number(childClicked) === i}
-                      refProp={elRefs[i]}
-                    />
-                  </Row>
-                </div>
-              ))
-            : null}
-        </Row>
-      </>
-      {/* )} */}
+      )}
     </header>
   );
 }
