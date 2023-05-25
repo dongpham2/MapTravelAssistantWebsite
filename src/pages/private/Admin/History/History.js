@@ -28,6 +28,7 @@ import {
   CLink,
 } from "@coreui/react";
 import { Link } from "react-router-dom";
+import Loading from "src/component/Loading/Loading";
 const cx = classNames.bind(styles);
 
 function History() {
@@ -35,6 +36,7 @@ function History() {
   // const [listPages, setListPages] = useState([]);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [isId, setIsId] = useState(null);
   const [idUserDelete, setIdUserDelete] = useState(null);
@@ -54,6 +56,7 @@ function History() {
     dispatch(actionDeleteUsers(isId));
   };
   useEffect(() => {
+    setLoading(true);
     dispatch(
       actionGetAllFangpage({
         // callBack(data) {
@@ -63,6 +66,7 @@ function History() {
         // },
       })
     );
+    setLoading(false);
   }, []);
   const handleEdit = () => {
     console.log(isPublic);
@@ -87,7 +91,6 @@ function History() {
   };
   return (
     <>
-      {/* {isLoading && <Loading />} */}
       <Modal
         className={cx("modal")}
         show={showModalDelete}
@@ -96,85 +99,126 @@ function History() {
         }}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Tiếp tục xóa?</Modal.Title>
+          <Modal.Title>Continue to deleted?</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
             rounded
-            secondary
+            small
+            cancel
             onClick={() => {
               setShowModalDelete(false);
             }}
           >
-            Hủy
+            Cancel
           </Button>
           <Button
             primary
+            small
             rounded
             onClick={() => {
               handleDeleteUser();
               setShowModalDelete(false);
             }}
           >
-            Xóa
+            Delete
           </Button>
         </Modal.Body>
       </Modal>
-      <div className={cx("wrapper")}>
-        {/* <AddAccountModal show={showModal} onClose={handleClose} /> */}
-        <div className={cx("header")}>
-          <h2 className={cx("heading")}>Manage Page</h2>
-          <div className={cx("search")}>
-            <Input
-              rightIcon={<ion-icon name="search-outline"></ion-icon>}
-              primary
-              placeholder="Search user..."
-            />
+      {!loading ? (
+        <div className={cx("wrapper")}>
+          {/* <AddAccountModal show={showModal} onClose={handleClose} /> */}
+          <div className={cx("header")}>
+            <h2 className={cx("heading")}>Manage Page</h2>
+            <div className={cx("search")}>
+              <Input
+                rightIcon={<ion-icon name="search-outline"></ion-icon>}
+                primary
+                placeholder="Search user..."
+              />
+            </div>
           </div>
-        </div>
 
-        <div className={cx("content")}>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Page ID</th>
-                <th>Name</th>
-                <th>Website</th>
-                <th>Phone</th>
-                <th>Address</th>
-                <th>Lat</th>
-                <th>Lon</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {fanpages.length &&
-                fanpages.map((page, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{page._id}</td>
-                      <td>{page.name}</td>
-                      <td>{page.website ? page.website : "-"}</td>
-                      <td>{page.phone}</td>
-                      <td>{page.address}</td>
-                      <td>
-                        <CInput
-                          readOnly={true}
-                          value={page.location.lat ? page.location.lat : "-"}
-                        />
-                      </td>
-                      <td>
-                        <CInput
-                          readOnly={true}
-                          value={page.location.lon ? page.location.lon : "-"}
-                        />
-                      </td>
-                      {page.isPublic ? <td>Active</td> : <td>Not Active</td>}
-                      <td>
-                        <img
+          <div className={cx("content")}>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Page ID</th>
+                  <th>Name</th>
+                  <th>Website</th>
+                  <th>Phone</th>
+                  <th>Address</th>
+                  <th>Lat</th>
+                  <th>Lon</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {fanpages.length &&
+                  fanpages.map((page, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{page._id}</td>
+                        <td>{page.name}</td>
+                        <td>{page.website ? page.website : "-"}</td>
+                        <td>{page.phone}</td>
+                        <td>{page.address}</td>
+                        <td>
+                          <CInput
+                            readOnly={true}
+                            value={page.location.lat ? page.location.lat : "-"}
+                          />
+                        </td>
+                        <td>
+                          <CInput
+                            readOnly={true}
+                            value={page.location.lon ? page.location.lon : "-"}
+                          />
+                        </td>
+                        {page.isPublic ? (
+                          <td style={{ color: "green" }}>
+                            <ion-icon name="checkmark-outline"></ion-icon>
+                          </td>
+                        ) : (
+                          <td style={{ color: "red" }}>x</td>
+                        )}
+
+                        <td>
+                          <span
+                            style={{ color: "#FF8C00" }}
+                            onClick={(event) => {
+                              event.preventDefault();
+                              // handleEdit(page._id);
+                              setVisible(true);
+                              setState((preState) => ({
+                                name: page.name,
+                                id: page._id,
+                                lat: page.location.lat
+                                  ? page.location.lat
+                                  : "-",
+                                lon: page.location.lon
+                                  ? page.location.lon
+                                  : "-",
+                                isPublic: page.isPublic,
+                              }));
+                            }}
+                          >
+                            <ion-icon name="create-outline"></ion-icon>
+                          </span>
+                          <span
+                            style={{ color: "black" }}
+                            onClick={(event) => {
+                              event.preventDefault();
+                              // handleEdit(page._id);
+                              setShowModalDelete(true);
+                            }}
+                          >
+                            <ion-icon name="trash-outline"></ion-icon>
+                          </span>
+                          {/* <img
                           style={{ cursor: "pointer" }}
                           src={ICON_EDIT}
                           alt=""
@@ -190,10 +234,10 @@ function History() {
                               isPublic: page.isPublic,
                             }));
                           }}
-                        />
-                      </td>
+                        /> */}
+                        </td>
 
-                      {/* <td className={cx("action-column")}>
+                        {/* <td className={cx("action-column")}>
                         <span
                           onClick={() => {
                             // setIdUserDelete(user.id);
@@ -205,16 +249,28 @@ function History() {
                           <ion-icon name="trash-sharp"></ion-icon>
                         </span>
                       </td> */}
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </Table>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </Table>
+          </div>
         </div>
-      </div>
+      ) : (
+        <Loading />
+      )}
+
+      {/* Modal Fix fanpage */}
       <CModal visible={visible} onClose={() => setVisible(false)}>
         <CModalHeader>
-          <CModalTitle>Edit Page</CModalTitle>
+          <CModalTitle
+            style={{
+              fontSize: "25px",
+              marginLeft: "180px",
+            }}
+          >
+            Edit Page
+          </CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CRow className={cx("form mb-3")}>
@@ -257,12 +313,12 @@ function History() {
           {/* <CLink /> */}
         </CModalBody>
         <CModalFooter>
-          <CButton color="secondary" onClick={() => setVisible(false)}>
+          <Button cancel small onClick={() => setVisible(false)}>
             Close
-          </CButton>
-          <CButton color="primary" onClick={() => handleEdit()}>
+          </Button>
+          <Button primary small onClick={() => handleEdit()}>
             Save changes
-          </CButton>
+          </Button>
         </CModalFooter>
       </CModal>
     </>
