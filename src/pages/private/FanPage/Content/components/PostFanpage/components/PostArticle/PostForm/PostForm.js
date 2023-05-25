@@ -15,8 +15,7 @@ import { actionCreatePost } from "src/redux/actions/post";
 const cx = classNames.bind(styles);
 
 export default function PostForm({ setModalPostOpen, label, data }) {
-  const auth = useSelector((state) => state.auth);
-  const user = auth?.user;
+  const fanpage = useSelector((state) => state.fanpage);
   const id = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")).userID
     : "";
@@ -35,7 +34,6 @@ export default function PostForm({ setModalPostOpen, label, data }) {
       .then(() => {
         getDownloadURL(imageRef)
           .then((file) => {
-            console.log(file);
             setFile({ preview: file, data: "" });
             toast.success("upload successfully!");
           })
@@ -58,7 +56,7 @@ export default function PostForm({ setModalPostOpen, label, data }) {
       actionCreatePost({
         userID: id,
         title: content,
-        img: file,
+        img: file.preview,
       })
     );
     console.log(content, file);
@@ -83,13 +81,13 @@ export default function PostForm({ setModalPostOpen, label, data }) {
             </div>
           </div>
           <div className={cx("header-infor")}>
-            {user.avatar ? (
+            {fanpage.avatar ? (
               <img src={images.avt} className={cx("img")} />
             ) : (
               <img src={images.avt_default} className={cx("img")} />
             )}
 
-            <div className={cx("name")}>{user.fullName}</div>
+            <div className={cx("name")}>{fanpage.name}</div>
           </div>
         </div>
         {/* content */}

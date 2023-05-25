@@ -32,7 +32,6 @@ export default function FormUpload({ label, data }) {
     };
     setFile(img);
     setVisibleControls(true);
-    console.log("2");
   };
 
   const handleSubmit = async (e) => {
@@ -80,20 +79,38 @@ export default function FormUpload({ label, data }) {
           <div className={cx("input-file-img")}>
             <div className={cx("input-file-block")}>
               <div className={cx("preview-img-block")}>
+                {/* {file.preview ? (
+                  <img
+                    className={cx("preview-img")}
+                    src={file.preview}
+                    alt="avatar"
+                  />
+                ) : data ? (
+                  <img className={cx("preview-img")} src={data} alt="avatar" />
+                ) : (
+                  <img
+                    className={cx("preview-img")}
+                    src={images.avatarDefault}
+                    alt="avatar"
+                  />
+                )} */}
                 {file.preview ? (
                   <img
                     className={cx("preview-img")}
                     src={file.preview}
                     alt="avatar"
                   />
+                ) : data ? (
+                  <img className={cx("preview-img")} src={data} alt="avatar" />
                 ) : (
                   <img
                     className={cx("preview-img")}
-                    src={images.avt_default}
+                    src={images.avatarDefault}
                     alt="avatar"
                   />
                 )}
               </div>
+
               <label className={cx("mark")} htmlFor="file">
                 <input
                   name="file"
@@ -114,6 +131,9 @@ export default function FormUpload({ label, data }) {
             <div className={cx("btn")}>
               {visibleControls ? (
                 <div className={cx("controls")}>
+                  <Button rounded type="submit" saveInput small>
+                    Save
+                  </Button>
                   <Button
                     type="button"
                     cancel
@@ -128,10 +148,6 @@ export default function FormUpload({ label, data }) {
                     }}
                   >
                     Cancel
-                  </Button>
-
-                  <Button rounded type="submit" saveInput small>
-                    Save
                   </Button>
                 </div>
               ) : (

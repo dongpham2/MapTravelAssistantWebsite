@@ -1,5 +1,4 @@
 import { toast } from "react-toastify";
-import Loading from "src/component/Loading/Loading";
 import { AuthService } from "src/service/authService";
 
 export const _ACTION_SIGNIN = "_ACTION_SIGNIN";
@@ -8,9 +7,8 @@ export const _ACTION_LOADING = "_ACTION_LOADING";
 export const actionSignin = (user, history, setLoading) => {
   return async (dispatch) => {
     const { data, status } = await AuthService.signin(user);
-    console.log("status", status);
     const newData = { ...data, role: "user" };
-    localStorage.setItem("isFanpage", data?.user?.page || false);
+    localStorage.setItem("isFanpage", data.user.isPage);
     localStorage.setItem("user", JSON.stringify(data.user));
     if (status === 200) {
       dispatch({
@@ -21,12 +19,6 @@ export const actionSignin = (user, history, setLoading) => {
       setLoading(false);
     } else {
       toast.error("Login failed");
-      setLoading(false);
-    }
-
-    if (status === 401) {
-      toast.error("Login failed");
-      setLoading(false);
     }
   };
 };

@@ -63,12 +63,13 @@ export default function CreateFanpage() {
   const id = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")).userID
     : "";
+
   const [selectPosition, setSelectPosition] = useState(null);
   const [file, setFile] = useState({
     pre: "",
     data: "",
   });
-
+  const [loading, setLoading] = useState(false);
   const formikRef = useRef(null);
   const messageRef = useRef(null);
   const [lat, setLat] = useState();
@@ -80,18 +81,12 @@ export default function CreateFanpage() {
     denomina: "",
     type: "",
   });
-  // const fanpage = useSelector((state) => state.fanpage);
+  const [searchText, setSearchText] = useState("");
   const fanpage = localStorage.getItem("isFanpage");
-
   const dispatch = useDispatch();
-
-  // submit data create fanpage
   const handleCreatePage = () => {
     const { name, phone, website, priceStart, priceEnd } =
       formikRef.current.values;
-    console.log(formikRef.current.values);
-    // const selectValues = { ...selectForm };
-    // console.log(selectValues);
     console.log({
       userID: id,
       img: file?.pre,
@@ -106,11 +101,14 @@ export default function CreateFanpage() {
       ...selectForm,
       lat: selectPosition?.lat,
       lon: selectPosition?.lon,
+      address: searchText,
     });
     handleSubmitImages();
+    setLoading(true);
     dispatch(
       actionCreateFangpage({
         userID: id,
+        img: file?.pre,
         name,
         description,
         phone,
@@ -122,6 +120,7 @@ export default function CreateFanpage() {
         ...selectForm,
         lat: selectPosition?.lat,
         lon: selectPosition?.lon,
+        address: searchText,
       })
     );
   };
@@ -136,7 +135,7 @@ export default function CreateFanpage() {
         getDownloadURL(imageRef)
           .then((file) => {
             setFile({ pre: file, data: "" });
-            toast.success("upload successfully!");
+            // toast.success("upload successfully!");
           })
           .catch((error) => {
             console.log(error.message, "error getting url");
@@ -159,7 +158,7 @@ export default function CreateFanpage() {
   return (
     <div className={cx("wrapper")}>
       <h3 className={cx("heading")}>Your Fanpage</h3>
-      {true ? (
+      {fanpage === "false" ? (
         <Formik
           innerRef={formikRef}
           initialValues={{
@@ -196,7 +195,12 @@ export default function CreateFanpage() {
               .min(0, "Not negative prices"),
           })}
         >
-          <Form autocomplete="off">
+          <Form
+            autocomplete="off"
+            onKeyDown={(e) => {
+              e.key === "Enter" && e.preventDefault();
+            }}
+          >
             <div className={cx("form-group")}>
               <div className={cx("input-block")}>
                 <div className={cx("input-desc")}>(*) Upload your banner</div>
@@ -294,7 +298,7 @@ export default function CreateFanpage() {
                   </div>
                 </div>
               </div>
-              <div className={cx("services")}>
+              <div classNam e={cx("services")}>
                 <div className={cx("services-desc")}>Type</div>
                 <div className={cx("type-option")}>
                   <DropDown
@@ -354,6 +358,8 @@ export default function CreateFanpage() {
             <div>
               <div>
                 <SearchBox
+                  searchText={searchText}
+                  setSearchText={setSearchText}
                   selectPosition={selectPosition}
                   setSelectPosition={setSelectPosition}
                 />

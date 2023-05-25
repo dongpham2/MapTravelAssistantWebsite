@@ -4,8 +4,9 @@ import classNames from "classnames/bind";
 import styles from "./ProfileBanner.module.scss";
 import { FaStar } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { collection, getDoc, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "src/service/Firebase/firebase";
+import { logDOM } from "@testing-library/react";
 
 const cx = classNames.bind(styles);
 
@@ -14,25 +15,30 @@ export default function ProfileBanner() {
   const user = auth?.user;
   const fanpage = useSelector((state) => state.fanpage);
   const [star, setStar] = useState(null);
+  const pageInf = {
+    pageID: auth.user.page?._id ? auth.user.page?._id : "1111",
+  };
 
   useEffect(() => {
-    // getAllReview();
+    getAllReview();
   }, []);
   const getAllReview = async () => {
     try {
-      const query = await getDocs(collection(db, "comments"));
-      const docs = [];
+      const querySnapshot = await getDoc(doc(db, "reviews", pageInf.pageID));
 
-      query.forEach((item) => {
-        docs.push(item.data().stars);
-      });
+      if (querySnapshot.exists()) {
+        let docs = [];
+        querySnapshot.data().comments.map((item) => {
+          docs.push({ reviewerID: item.reviewerID, ...item });
+        });
 
-      let sum = 0;
-      docs.forEach((item) => {
-        sum += item;
-      });
-      let rate = (sum / docs.length).toFixed(0);
-      setStar(rate);
+        let sum = 0;
+        docs.forEach((item) => {
+          sum += item.stars;
+        });
+        let rate = (sum / docs.length).toFixed(0);
+        setStar(rate);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -47,13 +53,13 @@ export default function ProfileBanner() {
       />
       <div className={cx("user-avatar")}>
         {user.avatar ? (
-          <img className={cx("avatar-img")} src={fanpage.avatar} />
+          <img className={cx("avatar-img")} src={fanpage?.avatar} />
         ) : (
           <img src={images.avt_default} className={cx("avatar-img")} />
         )}
 
         <div className={cx("group-infor")}>
-          <div className={cx("user-name")}>{fanpage.name}</div>
+          <div className={cx("user-name")}>{fanpage?.name}</div>
           {/* <div className={cx("follower")}>ABC restaurent</div> */}
           <div className={cx("start")}>
             {star &&

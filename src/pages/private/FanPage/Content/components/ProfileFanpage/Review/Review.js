@@ -24,18 +24,20 @@ import { db, storage } from "src/service/Firebase/firebase";
 import { toast } from "react-toastify";
 import Loading from "src/component/Loading/Loading";
 import images from "src/assets/images";
+import { useParams } from "react-router";
 
 const cx = classNames.bind(styles);
 
-export default function Review(props) {
+export default function Review() {
   const [loading, setLoading] = useState(false);
   const { auth } = useSelector((state) => state);
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const [content, setContent] = useState("");
-  // const [data, setData] = useState([]);
   const [allReview, setAllReview] = useState([]);
   const [currentReview, setCurrentReview] = useState(null);
+  const parameters = useParams();
+  const isCreator = auth.user.page?._id === parameters.id ? true : false;
 
   const formatTimestamp = (timestamp) => {
     const dateObj = new Date(timestamp * 1000); // Convert timestamp to milliseconds
@@ -49,50 +51,26 @@ export default function Review(props) {
     fullname: auth.user.fullName,
     avatar: auth.user.avatar,
   };
-  const pageID = "1111";
+  const pageInf = {
+    pageID: "1111",
+  };
 
   useEffect(() => {
-    // let docs = [];
-    const unsub = onSnapshot(doc(db, "reviews", pageID), (doc) => {
-      doc.exists() && setAllReview(doc.data().comments);
-      doc.data().comments.map((item) => {
-        if (currentUser._id === item.reviewerID) {
-          setCurrentReview(item.text);
-          setRating(item.stars);
-        }
-      });
-    });
-    return () => {
-      unsub();
-    };
-  }, [pageID]);
-
-  const getCurrentReview = async () => {
-    try {
-      const querySnapshot = await getDoc(doc(db, "reviews", pageID));
-
-      if (querySnapshot.exists()) {
-        let docs = [];
-        querySnapshot.data().comments.map((item) => {
-          docs.push({ reviewerID: item.reviewerID, ...item });
-        });
-
-        console.log(docs);
-        setAllReview(docs);
-        console.log("ava", allReview);
-        docs.map((item) => {
+    const unsub = onSnapshot(doc(db, "reviews", pageInf.pageID), (doc) => {
+      !doc.exists() ? setAllReview([]) : setAllReview(doc.data().comments);
+      if (doc.exists()) {
+        doc.data().comments.map((item) => {
           if (currentUser._id === item.reviewerID) {
             setCurrentReview(item.text);
             setRating(item.stars);
           }
         });
-      } else {
-        console.log("No such document!");
       }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    });
+    return () => {
+      unsub();
+    };
+  }, [pageInf.pageID]);
   const handleSave = async () => {
     let docs = allReview;
     docs.map((item) => {
@@ -103,10 +81,9 @@ export default function Review(props) {
       }
     });
     try {
-      await setDoc(doc(db, "reviews", pageID), {
+      await setDoc(doc(db, "reviews", pageInf.pageID), {
         comments: docs,
       });
-
       toast.success("Review successful");
       // window.location.reload();
     } catch (err) {
@@ -114,7 +91,11 @@ export default function Review(props) {
     }
   };
   const handleCancel = () => {
-    console.log("au", auth.user);
+    console.log("pẩm ", parameters);
+    httpClient.get("/users").then((res) => {
+      console.log(res.data[6].page);
+    });
+    // console.log("au", auth.user.page?._id);
     return;
   };
   const handleSend = async () => {
@@ -123,9 +104,14 @@ export default function Review(props) {
       window.alert("You have not commented or not rated yet");
       return;
     }
-    console.log(auth.user.avatar);
     try {
-      await updateDoc(doc(db, "reviews", pageID), {
+      const res = await getDoc(doc(db, "reviews", pageInf.pageID));
+      if (!res.exists()) {
+        setDoc(doc(db, "reviews", pageInf.pageID), {
+          comments: [],
+        });
+      }
+      await updateDoc(doc(db, "reviews", pageInf.pageID), {
         comments: arrayUnion({
           reviewerID: currentUser._id,
           avatar:
@@ -140,7 +126,7 @@ export default function Review(props) {
       });
 
       toast.success("Review successful");
-      window.location.reload();
+      // window.location.reload();
     } catch (err) {
       console.log(err);
     }
@@ -244,7 +230,7 @@ export default function Review(props) {
                       })}
                     </div>
                     <div className={cx("time-review")}>
-                      {/* {formatTimestamp(doc.date.seconds)} */}
+                      {formatTimestamp(doc.date.seconds)}
                     </div>
                   </div>
                   <div

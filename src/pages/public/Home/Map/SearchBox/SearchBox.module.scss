@@ -1,0 +1,30 @@
+.wrapper {
+  .content {
+    display: flex;
+
+    .search-input {
+      width: 100%;
+      border-radius: 20px;
+      height: 45px;
+      border-bottom: 1px solid #e8ebed;
+      &::placeholder {
+        color: var(--text-color);
+        opacity: 0.9;
+      }
+      .MuiInputBase-input {
+        font-size: 20px;
+      }
+    }
+    .search-btn {
+      position: relative;
+      top: 2px;
+      right: 20px;
+      font-size: 20px;
+    }
+  }
+  .list-search {
+    // width: 100%;
+    max-height: 150px;
+    overflow-y: scroll;
+  }
+}

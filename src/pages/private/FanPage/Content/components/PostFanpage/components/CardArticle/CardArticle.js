@@ -8,8 +8,8 @@ import { useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 export default function CardArticle() {
-  const auth = useSelector((state) => state.auth);
-  const user = auth?.user;
+  const fanpage = useSelector((state) => state.fanpage);
+
   const [visibleShareOptions, setVisibleUserOptions] = useState(false);
   const [visibleCardOptions, setVisibleCardOptions] = useState(false);
   const handleOpenShareOptions = () => {
@@ -23,13 +23,13 @@ export default function CardArticle() {
     <div className={cx("wrapper")}>
       <div className={cx("heading")}>
         <div className={cx("header-infor")}>
-          {user.avatar ? (
-            <img src={user.avatar} className={cx("img")} />
+          {fanpage.avatar ? (
+            <img src={fanpage.avatar} className={cx("img")} />
           ) : (
             <img src={images.avt_default} className={cx("img")} />
           )}
           <div className={cx("name")}>
-            {user.fullName}
+            {fanpage.name}
             <div className={cx("time")}>24/05/2023</div>
           </div>
         </div>
@@ -56,7 +56,7 @@ export default function CardArticle() {
       </div>
 
       <div className={cx("reaction")}>
-        {/* <div className={cx("amount-user")}>
+        {/* <div className={cx("amount-fanpage")}>
           <span className={cx("icon")}>
             <ion-icon name="star-outline"></ion-icon>
           </span>
