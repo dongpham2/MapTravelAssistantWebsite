@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./PlaceDetails.module.scss";
 import images from "../../../../assets/images";
@@ -7,12 +7,43 @@ import { Link } from "react-router-dom";
 import config from "../../../../config";
 import { FaStar } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { auth, db } from "src/service/Firebase/firebase";
 const cx = classNames.bind(styles);
 
 export default function PlaceDetails({ data, selected, refProp }) {
   if (selected)
     refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   const fanpage = useSelector((state) => state.fanpage);
+  // const [stars, setStars] = useState([]);
+  // const pageInf = {
+  //   pageID: "1111",
+  // };
+
+  // useEffect(() => {
+  //   getAllReview();
+  // }, []);
+  // const getAllReview = async () => {
+  //   try {
+  //     let docs = [];
+  //     const query = await getDocs(collection(db, "reviews"));
+  //     query.forEach((item) => {
+  //       let sum = 0;
+
+  //       item.data().comments.map((i) => {
+  //         sum += i.stars;
+  //       });
+  //       docs.push({ id: item.id, star: sum });
+
+  //       // console.log("aa", item.data().comments);
+  //     });
+  //     // console.log(docs);
+  //     setStars(docs);
+  //     console.log(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
   return (
     <div className={cx("wrapper")}>
       <div className={cx("container")}>
@@ -32,9 +63,11 @@ export default function PlaceDetails({ data, selected, refProp }) {
         <div className={cx("name")}>{data.name}</div>
         <div className={cx("desc-card")}>
           <div className={cx("title")}>
-            {[...Array(5)].map((stars, index) => {
-              return <FaStar size={25} color="#ffc107" />;
-            })}
+            {/* {data._id === stars.id
+              ? stars.map((stars, index) => {
+                  return <FaStar size={25} color="#ffc107" />;
+                })
+              : null} */}
           </div>
         </div>
         <div className={cx("desc-card")}>

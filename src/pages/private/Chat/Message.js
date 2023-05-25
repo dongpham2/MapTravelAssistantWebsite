@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import styles from "./ChatBox.module.scss";
 import { ChatContext } from "./context/ChatContext";
 import { useSelector } from "react-redux";
+import images from "src/assets/images";
 
 const cx = classNames.bind(styles);
 
@@ -30,8 +31,7 @@ export default function Message({ message }) {
   const currentUser = {
     _id: auth.user.userID,
     email: auth.user.email,
-    avatar:
-      "https://static.nationalgeographic.co.uk/files/styles/image_3200/public/webbdeepfield.jpg?w=1600&h=900",
+    avatar: auth.user.avatar == null ? images.avt_default : auth.user.avatar,
     fullname: auth.user.fullname,
   };
   useEffect(() => {

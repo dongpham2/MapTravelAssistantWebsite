@@ -6,31 +6,40 @@ import TextEditor from "src/component/EditorText/EditorText";
 import { useDispatch, useSelector } from "react-redux";
 import httpClient from "src/api/httpClient";
 import {
+  FieldValue,
   Timestamp,
+  arrayRemove,
+  arrayUnion,
   collection,
   doc,
   getDoc,
   getDocs,
+  onSnapshot,
   serverTimestamp,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
+import { getDatabase, ref, set } from "firebase/database";
 import { db, storage } from "src/service/Firebase/firebase";
 import { toast } from "react-toastify";
 import Loading from "src/component/Loading/Loading";
 import images from "src/assets/images";
+import { useParams } from "react-router";
+import { API_CREATEFANPAGE } from "src/config/apis";
 
 const cx = classNames.bind(styles);
 
 export default function Review() {
+  const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const { auth } = useSelector((state) => state);
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const [content, setContent] = useState("");
-  // const [data, setData] = useState([]);
   const [allReview, setAllReview] = useState([]);
   const [currentReview, setCurrentReview] = useState(null);
+  const parameters = useParams();
+  const [fanpage, setFanpage] = useState("");
 
   const formatTimestamp = (timestamp) => {
     const dateObj = new Date(timestamp * 1000); // Convert timestamp to milliseconds
@@ -46,75 +55,94 @@ export default function Review() {
   };
 
   useEffect(() => {
-    // console.log("aav", auth.user);
-    getCurrentReview();
-    getAllReview();
-  }, []);
-  const getCurrentReview = async () => {
-    try {
-      const querySnapshot = await getDoc(doc(db, "comments", currentUser._id));
-
-      if (querySnapshot.exists()) {
-        setCurrentReview(querySnapshot.data().text);
-        setRating(querySnapshot.data().stars);
-      } else {
-        console.log("No such document!");
+    const getFanpage = async () => {
+      const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
+      // console.log("ss", res.data.data._id);
+      setFanpage(res.data.data);
+    };
+    getFanpage();
+    const unsub = onSnapshot(doc(db, "reviews", id), (doc) => {
+      !doc.exists() ? setAllReview([]) : setAllReview(doc.data().comments);
+      if (doc.exists()) {
+        doc.data().comments.map((item) => {
+          if (currentUser._id === item.reviewerID) {
+            setCurrentReview(item.text);
+            setRating(item.stars);
+          }
+        });
       }
+    });
+    return () => {
+      unsub();
+    };
+  }, [fanpage._id]);
+  useEffect(() => {
+    const getFanpage = async () => {
+      const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
+      console.log("ss", res.data.data._id);
+      setFanpage(res.data.data);
+    };
+    getFanpage();
+  }, []);
+  const handleSave = async () => {
+    let docs = allReview;
+    docs.map((item) => {
+      if (currentUser._id === item.reviewerID) {
+        item.text = !content ? currentReview : content;
+        item.stars = rating;
+        item.date = Timestamp.now();
+      }
+    });
+    try {
+      await setDoc(doc(db, "reviews", fanpage._id), {
+        comments: docs,
+      });
+      toast.success("Review successful");
+      // window.location.reload();
     } catch (err) {
       console.log(err);
     }
   };
-  const handleSave = async () => {
-    await updateDoc(doc(db, "comments", currentUser._id), {
-      reviewerID: currentUser._id,
-      avatar:
-        currentUser.avatar == null ? images.avt_default : currentUser.avatar,
-      fullname: currentUser.fullname,
-      text: content,
-      stars: rating,
-      date: Timestamp.now(),
-    });
-    toast.success("Review successful");
-
-    window.location.reload();
-  };
   const handleCancel = () => {
+    console.log("pẩm ", parameters);
+    httpClient.get("/users").then((res) => {
+      console.log(res.data[6].page);
+    });
+    // console.log("au", auth.user.page?._id);
     return;
   };
   const handleSend = async () => {
-    if (auth.user.avatar == null) {
-      console.log("av null");
-    } else {
-      console.log("ok");
+    // console.log(allReview);
+    if (content === "" || rating == null) {
+      window.alert("You have not commented or not rated yet");
+      return;
     }
     try {
-      await setDoc(doc(db, "comments", currentUser._id), {
-        reviewerID: currentUser._id,
-        avatar:
-          currentUser.avatar == null ? images.avt_default : currentUser.avatar,
-        fullname: currentUser.fullname,
-        text: content,
-        stars: rating,
-        date: Timestamp.now(),
+      const res = await getDoc(doc(db, "reviews", fanpage._id));
+      if (!res.exists()) {
+        setDoc(doc(db, "reviews", fanpage._id), {
+          comments: [],
+        });
+      }
+      await updateDoc(doc(db, "reviews", fanpage._id), {
+        comments: arrayUnion({
+          reviewerID: currentUser._id,
+          avatar:
+            currentUser.avatar == null
+              ? images.avt_default
+              : currentUser.avatar,
+          fullname: currentUser.fullname,
+          text: content,
+          stars: rating,
+          date: Timestamp.now(),
+        }),
       });
 
       toast.success("Review successful");
-      window.location.reload();
+      // window.location.reload();
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const getAllReview = async () => {
-    setLoading(true);
-
-    const query = await getDocs(collection(db, "comments"));
-    const docs = [];
-    query.forEach((item) => {
-      docs.push({ reviewerID: item.reviewerID, ...item.data() });
-    });
-    setAllReview(docs);
-    setLoading(false);
   };
 
   return (

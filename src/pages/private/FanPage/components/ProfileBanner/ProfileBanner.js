@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import styles from "./ProfileBanner.module.scss";
 import { FaStar } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { collection, getDoc, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "src/service/Firebase/firebase";
 import httpClient from "src/api/httpClient";
 import { API_CREATEFANPAGE } from "src/config/apis";
@@ -26,26 +26,29 @@ export default function ProfileBanner() {
   useEffect(() => {
     const getFanpage = async () => {
       const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
-      console.log(res.data.data);
+      // console.log("ss", res.data.data);
       setFanpage(res.data.data);
     };
     getFanpage();
   }, []);
   const getAllReview = async () => {
+    console.log("fff", fanpage._id);
     try {
-      const query = await getDocs(collection(db, "comments"));
-      const docs = [];
+      const querySnapshot = await getDoc(doc(db, "reviews", id));
 
-      query.forEach((item) => {
-        docs.push(item.data().stars);
-      });
+      if (querySnapshot.exists()) {
+        let docs = [];
+        querySnapshot.data().comments.map((item) => {
+          docs.push({ reviewerID: item.reviewerID, ...item });
+        });
 
-      let sum = 0;
-      docs.forEach((item) => {
-        sum += item;
-      });
-      let rate = (sum / docs.length).toFixed(0);
-      setStar(rate);
+        let sum = 0;
+        docs.forEach((item) => {
+          sum += item.stars;
+        });
+        let rate = (sum / docs.length).toFixed(0);
+        setStar(rate);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -69,10 +72,10 @@ export default function ProfileBanner() {
           <div className={cx("user-name")}>{fanpage?.name}</div>
           {/* <div className={cx("follower")}>ABC restaurent</div> */}
           <div className={cx("start")}>
-            {/* {star &&
+            {star &&
               [...Array(+star)].map((_, index) => (
                 <FaStar key={index} size={30} color="#ffc107" />
-              ))} */}
+              ))}
           </div>
         </div>
       </div>
