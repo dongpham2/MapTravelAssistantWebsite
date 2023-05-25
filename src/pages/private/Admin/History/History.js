@@ -31,8 +31,8 @@ import { Link } from "react-router-dom";
 const cx = classNames.bind(styles);
 
 function History() {
-  // const listUsers = useSelector((state) => state.listUsers);
-  const [listPages, setListPages] = useState([]);
+  const fanpages = useSelector((state) => state.fanpage);
+  // const [listPages, setListPages] = useState([]);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
@@ -56,11 +56,11 @@ function History() {
   useEffect(() => {
     dispatch(
       actionGetAllFangpage({
-        callBack(data) {
-          if (data.message === "GET SUCCESSFUL") {
-            setListPages(data.data);
-          }
-        },
+        // callBack(data) {
+        //   if (data.message === "GET SUCCESSFUL") {
+        //     setListPages(data.data);
+        //   }
+        // },
       })
     );
   }, []);
@@ -77,7 +77,7 @@ function History() {
       })
     );
     setVisible(false);
-    window.location.reload();
+    // window.location.reload();
   };
   const handleOnChange = (field, value) => {
     setState((prevState) => ({
@@ -150,8 +150,8 @@ function History() {
               </tr>
             </thead>
             <tbody>
-              {listPages.length &&
-                listPages.map((page, index) => {
+              {fanpages.length &&
+                fanpages.map((page, index) => {
                   return (
                     <tr key={index}>
                       <td>{index + 1}</td>

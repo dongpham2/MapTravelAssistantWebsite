@@ -53,3 +53,14 @@ export const LogoutAction = () => {
     });
   };
 };
+
+export const actionResetPass = ({ data }) => {
+  return async (dispatch) => {
+    const res = await AuthService.resetPassword(data);
+    if (res.status === 200) {
+      toast.success("Reset password success!");
+    } else {
+      toast.error("Fail to reset password");
+    }
+  };
+};

@@ -26,4 +26,7 @@ export const AuthService = {
   getAllUsers(users) {
     return httpClient.get(API_GETALLUSER);
   },
+  resetPassword(data) {
+    return httpClient.post(`${API_GETALLUSER}/password/reset`, data);
+  },
 };
