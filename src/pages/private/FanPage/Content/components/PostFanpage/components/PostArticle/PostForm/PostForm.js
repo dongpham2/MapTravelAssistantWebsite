@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./PostForm.module.scss";
 import classNames from "classnames/bind";
 import images from "src/assets/images";
@@ -11,14 +11,19 @@ import { toast } from "react-toastify";
 import { storage } from "src/service/Firebase/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreatePost } from "src/redux/actions/post";
+import httpClient from "src/api/httpClient";
+import { API_CREATEFANPAGE } from "src/config/apis";
+import { useParams } from "react-router";
 
 const cx = classNames.bind(styles);
 
 export default function PostForm({ setModalPostOpen, label, data }) {
-  const fanpage = useSelector((state) => state.fanpage);
-  const id = localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user")).userID
-    : "";
+  // const fanpage = useSelector((state) => state.fanpage);
+  const [fanpage, setFanpage] = useState("");
+  // const id = localStorage.getItem("user")
+  //   ? JSON.parse(localStorage.getItem("user")).userID
+  //   : "";
+  const { id } = useParams();
   const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
   const [content, setContent] = useState("");
@@ -28,6 +33,7 @@ export default function PostForm({ setModalPostOpen, label, data }) {
     preview: "",
     data: "",
   });
+
   const handleSubmitImages = async (e) => {
     const imageRef = ref(storage, `images/${file.data + v4()}`);
     uploadBytes(imageRef, file.data)
@@ -64,6 +70,14 @@ export default function PostForm({ setModalPostOpen, label, data }) {
   const handleSetFile = (file) => {
     setFile(file);
   };
+  useEffect(() => {
+    console.log(id);
+    const getFanpage = async () => {
+      const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
+      setFanpage(res.data.data);
+    };
+    getFanpage();
+  }, []);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("overlay")}></div>
@@ -82,9 +96,9 @@ export default function PostForm({ setModalPostOpen, label, data }) {
           </div>
           <div className={cx("header-infor")}>
             {fanpage.avatar ? (
-              <img src={images.avt} className={cx("img")} />
+              <img src={images.avt} className={cx("img")} alt="" />
             ) : (
-              <img src={images.avt_default} className={cx("img")} />
+              <img src={images.avt_default} className={cx("img")} alt="" />
             )}
 
             <div className={cx("name")}>{fanpage.name}</div>

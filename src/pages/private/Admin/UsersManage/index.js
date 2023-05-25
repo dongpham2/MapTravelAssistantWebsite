@@ -26,7 +26,10 @@ function UsersManage() {
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
-  const handleDeleteUser = () => {};
+  const handleDeleteUser = () => {
+    dispatch(actionDeleteUsers(isId));
+    // window.location.reload();
+  };
   useEffect(() => {
     setLoading(true);
     dispatch(

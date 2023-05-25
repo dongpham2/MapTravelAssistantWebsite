@@ -6,17 +6,30 @@ import { FaStar } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { collection, getDoc, getDocs } from "firebase/firestore";
 import { db } from "src/service/Firebase/firebase";
+import httpClient from "src/api/httpClient";
+import { API_CREATEFANPAGE } from "src/config/apis";
+import { useParams } from "react-router";
 
 const cx = classNames.bind(styles);
 
 export default function ProfileBanner() {
+  const { id } = useParams();
   const auth = useSelector((state) => state.auth);
   const user = auth?.user;
-  const fanpage = useSelector((state) => state.fanpage);
+  // const fanpage = useSelector((state) => state.fanpage);
   const [star, setStar] = useState(null);
+  const [fanpage, setFanpage] = useState("");
 
   useEffect(() => {
     getAllReview();
+  }, []);
+  useEffect(() => {
+    const getFanpage = async () => {
+      const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
+      console.log(res.data.data);
+      setFanpage(res.data.data);
+    };
+    getFanpage();
   }, []);
   const getAllReview = async () => {
     try {
@@ -47,9 +60,9 @@ export default function ProfileBanner() {
       />
       <div className={cx("user-avatar")}>
         {user.avatar ? (
-          <img className={cx("avatar-img")} src={fanpage?.avatar} />
+          <img className={cx("avatar-img")} src={fanpage?.avatar} alt="" />
         ) : (
-          <img src={images.avt_default} className={cx("avatar-img")} />
+          <img src={images.avt_default} className={cx("avatar-img")} alt="" />
         )}
 
         <div className={cx("group-infor")}>

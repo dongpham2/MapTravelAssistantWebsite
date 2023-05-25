@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./CardArticle.module.scss";
 import images from "src/assets/images";
 import ShareOptions from "./ShareOptions/ShareOptions";
 import CardOptions from "./CardOptions/CardOptions";
 import { useSelector } from "react-redux";
+import httpClient from "src/api/httpClient";
+import { API_CREATEFANPAGE } from "src/config/apis";
+import { useParams } from "react-router";
 
 const cx = classNames.bind(styles);
 export default function CardArticle() {
-  const fanpage = useSelector((state) => state.fanpage);
+  // const fanpage = useSelector((state) => state.fanpage);
+  const [fanpage, setFanpage] = useState("");
+  const { id } = useParams();
 
   const [visibleShareOptions, setVisibleUserOptions] = useState(false);
   const [visibleCardOptions, setVisibleCardOptions] = useState(false);
@@ -19,14 +24,21 @@ export default function CardArticle() {
   const handleOpenCardOptions = () => {
     setVisibleCardOptions(!visibleCardOptions);
   };
+  useEffect(() => {
+    const getFanpage = async () => {
+      const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
+      setFanpage(res.data.data);
+    };
+    getFanpage();
+  }, []);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("heading")}>
         <div className={cx("header-infor")}>
           {fanpage.avatar ? (
-            <img src={fanpage.avatar} className={cx("img")} />
+            <img src={fanpage.avatar} className={cx("img")} alt="" />
           ) : (
-            <img src={images.avt_default} className={cx("img")} />
+            <img src={images.avt_default} className={cx("img")} alt="" />
           )}
           <div className={cx("name")}>
             {fanpage.name}
