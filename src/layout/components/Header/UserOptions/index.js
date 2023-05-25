@@ -10,8 +10,15 @@ import { LogoutAction } from "src/redux/actions/authen";
 const cx = classNames.bind(styles);
 function UserOptions() {
   const { auth } = useSelector((state) => state);
+  const isPage = localStorage.getItem("isFanpage");
+  const id = auth.user?.page?._id;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const handlePage = () => {
+    isPage === "false"
+      ? navigate("/setting/createFanpage")
+      : navigate(`/fanpage/${id}`);
+  };
   const handleLogout = () => {
     dispatch(LogoutAction());
     navigate("/accounts");
@@ -31,6 +38,7 @@ function UserOptions() {
               <img
                 src={images.avt_default}
                 className={cx("avatar-img", "avatar")}
+                alt=""
               />
             )}
           </div>
@@ -43,14 +51,14 @@ function UserOptions() {
       <div className={cx("option")}>
         {/* first item */}
         <ul className={cx("option-list")}>
-          <Link to={config.routes.fanpage} className={cx("option-item-link")}>
+          <div className={cx("option-item-link")} onClick={() => handlePage()}>
             <li className={cx("option-item")}>
               <div className={cx("option-icon")}>
                 <ion-icon name="logo-mastodon"></ion-icon>
               </div>
               <div className={cx("option-name")}>Fanpage</div>
             </li>
-          </Link>
+          </div>
         </ul>
 
         <ul className={cx("option-list")}>

@@ -14,6 +14,7 @@ import { API_CREATEFANPAGE } from "src/config/apis";
 const cx = classNames.bind(styles);
 
 export default function ProfileFanpage() {
+  const { id } = useParams();
   const auth = useSelector((state) => state.auth);
   const [fanpage, setFanpage] = useState("");
   // console.log("check fanpage", fanpage);
@@ -23,7 +24,13 @@ export default function ProfileFanpage() {
   const [hover, setHover] = useState(null);
   const isCreator = auth.user.page?._id === parameters.id ? true : false;
   // console.log("isCreator", isCreator);
-
+  useEffect(() => {
+    const getFanpage = async () => {
+      const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
+      setFanpage(res.data.data);
+    };
+    getFanpage();
+  }, []);
   return (
     <div className={cx("wrapper")}>
       <Introduction />

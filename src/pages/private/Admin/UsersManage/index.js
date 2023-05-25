@@ -27,7 +27,7 @@ function UsersManage() {
 
   const handleDeleteUser = () => {
     dispatch(actionDeleteUsers(isId));
-    window.location.reload();
+    // window.location.reload();
   };
   useEffect(() => {
     dispatch(

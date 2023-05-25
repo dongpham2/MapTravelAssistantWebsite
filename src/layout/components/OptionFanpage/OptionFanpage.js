@@ -43,13 +43,13 @@ export default function OptionFanpage() {
   const handleShowChat = () => {
     setShowChat(!showChat);
   };
-  useEffect(() => {
-    const getFanpage = async () => {
-      const res = await httpClient.get(`${API_CREATEFANPAGE}/${parameters.id}`);
-      console.log("res", res.data);
-    };
-    getFanpage();
-  }, []);
+  // useEffect(() => {
+  //   const getFanpage = async () => {
+  //     const res = await httpClient.get(`${API_CREATEFANPAGE}/${parameters.id}`);
+  //     console.log("res", res.data);
+  //   };
+  //   getFanpage();
+  // }, []);
   const renderOptions = () => {
     // const roleMenu = option.role.some((item) => item === role);
     // if (option) {
