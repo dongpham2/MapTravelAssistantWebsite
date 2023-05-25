@@ -18,8 +18,9 @@ const params = {
 
 const cx = classNames.bind(styles);
 export default function SearchBox(props) {
-  const { selectPosition, setSelectPosition } = props;
-  const [searchText, setSearchText] = useState("");
+  const { selectPosition, setSelectPosition, searchText, setSearchText } =
+    props;
+  // const [searchText, setSearchText] = useState("");
   const [listPlace, setListPlace] = useState([]);
 
   return (

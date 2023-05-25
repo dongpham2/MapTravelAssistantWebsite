@@ -9,12 +9,13 @@ import AddAccountModal from "./AddAccountModal/AddAccountModal";
 import Input from "src/component/Input/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { actionDeleteUsers, actionGetAllUsers } from "src/redux/actions/admin";
+import Loading from "src/component/Loading/Loading";
 
 const cx = classNames.bind(styles);
 
 function UsersManage() {
-  const listUsers = useSelector((state) => state.listUsers);
-  console.log(listUsers);
+  // const listUsers = useSelector((state) => state.listUsers);
+  const [listUsers, setListUsers] = useState([]);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
@@ -26,9 +27,18 @@ function UsersManage() {
 
   const handleDeleteUser = () => {
     dispatch(actionDeleteUsers(isId));
+    window.location.reload();
   };
   useEffect(() => {
-    dispatch(actionGetAllUsers());
+    dispatch(
+      actionGetAllUsers({
+        callback(data) {
+          if (data) {
+            setListUsers(data);
+          }
+        },
+      })
+    );
   }, []);
 
   return (
@@ -70,16 +80,6 @@ function UsersManage() {
         <AddAccountModal show={showModal} onClose={handleClose} />
         <div className={cx("header")}>
           <h2 className={cx("heading")}>Manage User</h2>
-          {/* <div className={cx("header-options")}>
-            <Button
-              onClick={handleShow}
-              leftIcon={<ion-icon name="add-sharp"></ion-icon>}
-              primary
-              rounded
-            >
-              Add Account
-            </Button>
-          </div> */}
           <div className={cx("search")}>
             <Input
               rightIcon={<ion-icon name="search-outline"></ion-icon>}
@@ -94,10 +94,10 @@ function UsersManage() {
             <thead>
               <tr>
                 <th>No</th>
+                <th>User ID</th>
                 <th>Fullname</th>
                 <th>Email</th>
                 <th>Fanpage</th>
-                <th>Phone Number</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -107,12 +107,17 @@ function UsersManage() {
                   return (
                     <tr key={index}>
                       <td>{index + 1}</td>
+                      <td>{user._id}</td>
                       <td>{user.fullname}</td>
                       <td>{user.email}</td>
                       <td>
-                        <ion-icon name="checkmark-outline"></ion-icon>
+                        {/* <ion-icon name="checkmark-outline"></ion-icon> */}
+                        {user.isPage ? (
+                          <ion-icon name="checkmark-outline"></ion-icon>
+                        ) : (
+                          "false"
+                        )}
                       </td>
-                      <td>0853390931</td>
                       <td className={cx("action-column")}>
                         <span
                           onClick={() => {

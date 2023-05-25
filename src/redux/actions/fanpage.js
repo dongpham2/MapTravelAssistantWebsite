@@ -36,3 +36,28 @@ export const actionGetAllFangpage = ({ callBack }) => {
     }
   };
 };
+
+export const actionGetDetailFangpage = ({ id, callBack }) => {
+  return async (dispatch) => {
+    try {
+      const res = await fanpageService.getDetailFanpage(id);
+      if (res.status === 200) {
+        callBack(res.data);
+        return res.data;
+      }
+    } catch (error) {}
+  };
+};
+
+export const actionEditFangpage = ({ id, data, callBack }) => {
+  return async (dispatch) => {
+    const res = await fanpageService.editFanpage(id, data);
+    if (res.status === 201) {
+      callBack(res.data);
+      toast.success("Update success!");
+      return res.data;
+    } else {
+      toast.error("Fail to update!");
+    }
+  };
+};
