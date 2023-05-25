@@ -8,4 +8,10 @@ export const fanpageService = {
   getAllFanpage() {
     return httpClient.get(API_CREATEFANPAGE);
   },
+  getDetailFanpage(id) {
+    return httpClient.get(`${API_CREATEFANPAGE}/${id}`);
+  },
+  editFanpage(id, data) {
+    return httpClient.patch(`${API_CREATEFANPAGE}/${id}`, data);
+  },
 };

@@ -81,33 +81,28 @@ export default function CreateFanpage() {
     denomina: "",
     type: "",
   });
-  // const fanpage = useSelector((state) => state.fanpage);
-  // const [fanpage, setFanpage] = useState(localStorage.getItem("isFanpage"));
+  const [searchText, setSearchText] = useState("");
   const fanpage = localStorage.getItem("isFanpage");
   const dispatch = useDispatch();
-
-  // submit data create fanpage
   const handleCreatePage = () => {
     const { name, phone, website, priceStart, priceEnd } =
       formikRef.current.values;
-    console.log(formikRef.current.values);
-    // const selectValues = { ...selectForm };
-    // console.log(selectValues);
-    // console.log({
-    //   userID: id,
-    //   img: file?.pre,
-    //   name,
-    //   description,
-    //   phone,
-    //   website,
-    //   open,
-    //   close,
-    //   priceStart,
-    //   priceEnd,
-    //   ...selectForm,
-    //   lat: selectPosition?.lat,
-    //   lon: selectPosition?.lon,
-    // });
+    console.log({
+      userID: id,
+      img: file?.pre,
+      name,
+      description,
+      phone,
+      website,
+      open,
+      close,
+      priceStart,
+      priceEnd,
+      ...selectForm,
+      lat: selectPosition?.lat,
+      lon: selectPosition?.lon,
+      address: searchText,
+    });
     handleSubmitImages();
     setLoading(true);
     dispatch(
@@ -125,6 +120,7 @@ export default function CreateFanpage() {
         ...selectForm,
         lat: selectPosition?.lat,
         lon: selectPosition?.lon,
+        address: searchText,
       })
     );
   };
@@ -362,6 +358,8 @@ export default function CreateFanpage() {
             <div>
               <div>
                 <SearchBox
+                  searchText={searchText}
+                  setSearchText={setSearchText}
                   selectPosition={selectPosition}
                   setSelectPosition={setSelectPosition}
                 />
