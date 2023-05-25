@@ -1,16 +1,19 @@
 .wrapper {
-    width: 580px;
+  --left: 15px;
+  width: 525px;
+  border-radius: 10px;
+  .post-form {
+    margin-bottom: 30px;
     border-radius: 10px;
-    .post-form {
-        margin-bottom: 30px;
-        border-radius: 10px;
-        border: 1px solid #ccc;
-        box-shadow: var(--box-shadown-1);
-        background-color: var(--white-color);
-    }
-    .post-article {
-            padding: 10px 10px;
-        border-radius: 10px;
-        background-color: var(--white-color);
-    }
+    margin-left: var(--left);
+    border: 1px solid #ccc;
+    box-shadow: var(--box-shadown-1);
+    background-color: var(--white-color);
+  }
+  .post-article {
+    padding: 5px 5px;
+    margin-left: var(--left);
+    border-radius: 10px;
+    background-color: var(--white-color);
+  }
 }

@@ -65,13 +65,11 @@ export default function PostForm({ setModalPostOpen, label, data }) {
         img: file.preview,
       })
     );
-    console.log(content, file);
   };
   const handleSetFile = (file) => {
     setFile(file);
   };
   useEffect(() => {
-    console.log(id);
     const getFanpage = async () => {
       const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
       setFanpage(res.data.data);

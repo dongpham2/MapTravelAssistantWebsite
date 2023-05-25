@@ -29,7 +29,7 @@ export const publicRoutes = [
   //   component: ForgotPassword,
   //   layout: null,
   // },
-  { path: config.routes.fanpage, component: FanPage, layout: FanpageLayout },
+
   {
     path: config.routes.changePassword,
     component: ChangePassword,
@@ -44,7 +44,7 @@ export const publicRoutes = [
 
 export const privateRoutes = [
   { path: config.routes.profile, component: Profile, layout: SettingLayout },
-
+  { path: config.routes.fanpage, component: FanPage, layout: FanpageLayout },
   { path: config.routes.posts, component: Posts, layout: FanpageLayout },
   { path: config.routes.photos, component: Photos, layout: FanpageLayout },
   { path: config.routes.videos, component: VideosPage, layout: FanpageLayout },
