@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import httpClient from "src/api/httpClient";
 import { API_CREATEFANPAGE } from "src/config/apis";
+import ChatList from "src/pages/private/Chat/ChatList/ChatList";
 
 const cx = classNames.bind(styles);
 
@@ -85,7 +86,7 @@ export default function OptionFanpage() {
           >
             Message
           </Button>
-          {/* {showChat ? : ""} */}
+          {showChat && <ChatList />}
           {/* <ChatList /> */}
         </ul>
       ) : (

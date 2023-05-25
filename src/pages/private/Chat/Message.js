@@ -50,6 +50,8 @@ export default function Message({ message }) {
           src={
             message.senderId === currentUser._id
               ? currentUser.avatar
+              : data.user.avatar == null
+              ? images.avt_default
               : data.user.avatar
           }
           alt=""
