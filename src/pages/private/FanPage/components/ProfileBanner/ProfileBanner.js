@@ -56,11 +56,24 @@ export default function ProfileBanner() {
 
   return (
     <div className={cx("wrapper")}>
-      <img
+      {fanpage?.img ? (
+        <img
+          className={cx("background")}
+          src={fanpage.img}
+          alt="background-profile"
+        />
+      ) : (
+        <img
+          className={cx("background")}
+          src={images.profile_banner}
+          alt="background-profile"
+        />
+      )}
+      {/* <img
         className={cx("background")}
         src={images.profile_banner}
         alt="background-profile"
-      />
+      /> */}
       <div className={cx("user-avatar")}>
         {user.avatar ? (
           <img className={cx("avatar-img")} src={fanpage?.avatar} alt="" />

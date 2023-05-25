@@ -52,16 +52,16 @@ const cx = classNames.bind(styles);
 
 export default function Fanage() {
   const auth = useSelector((state) => state.auth);
-  const fanpage = useSelector((state) => state.fanpage);
-
-  console.log(fanpage);
+  // const fanpage = useSelector((state) => state.fanpage);
+  const fanpage = auth.user.page;
+  console.log(fanpage.description);
   const [file, setFile] = useState({
-    preview: "",
+    preview: fanpage.img,
     data: "",
   });
   const [open, setOpen] = useState(fanpage.open);
   const [close, setClose] = useState(fanpage.close);
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(fanpage.description);
   const [selectForm, setSelectForm] = useState({
     denomina: "",
   });
@@ -164,6 +164,7 @@ export default function Fanage() {
               <div className={cx("services-price")}>
                 <div className={cx("services-input")}>
                   <Input
+                    value={fanpage.priceStart}
                     className={cx("input-prices")}
                     primary
                     placeholder="Prices"
@@ -172,6 +173,7 @@ export default function Fanage() {
                 <span className={cx("price-dot")}>-</span>
                 <div className={cx("services-input")}>
                   <Input
+                    value={fanpage.priceEnd}
                     className={cx("input-prices")}
                     primary
                     placeholder="Prices"

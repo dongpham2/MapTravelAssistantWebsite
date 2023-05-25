@@ -84,57 +84,79 @@ export default function CreateFanpage() {
   const [searchText, setSearchText] = useState("");
   const fanpage = localStorage.getItem("isFanpage");
   const dispatch = useDispatch();
-  const handleCreatePage = () => {
-    const { name, phone, website, priceStart, priceEnd } =
-      formikRef.current.values;
-    console.log({
-      userID: id,
-      img: file?.pre,
-      name,
-      description,
-      phone,
-      website,
-      open,
-      close,
-      priceStart,
-      priceEnd,
-      ...selectForm,
-      lat: selectPosition?.lat,
-      lon: selectPosition?.lon,
-      address: searchText,
-    });
+  const handleCreatePage = async () => {
     handleSubmitImages();
-    setLoading(true);
-    dispatch(
-      actionCreateFangpage({
-        userID: id,
-        img: file?.pre,
-        name,
-        description,
-        phone,
-        website,
-        open,
-        close,
-        priceStart,
-        priceEnd,
-        ...selectForm,
-        lat: selectPosition?.lat,
-        lon: selectPosition?.lon,
-        address: searchText,
-      })
-    );
+    // const { name, phone, website, priceStart, priceEnd } =
+    //   formikRef.current.values;
+    // console.log({
+    //   userID: id,
+    //   img: file?.pre,
+    //   name,
+    //   description,
+    //   phone,
+    //   website,
+    //   open,
+    //   close,
+    //   priceStart,
+    //   priceEnd,
+    //   ...selectForm,
+    //   lat: selectPosition?.lat,
+    //   lon: selectPosition?.lon,
+    //   address: searchText,
+    // });
+
+    // setLoading(true);
+    // dispatch(
+    //   actionCreateFangpage({
+    //     userID: id,
+    //     img: file?.pre,
+    //     name,
+    //     description,
+    //     phone,
+    //     website,
+    //     open,
+    //     close,
+    //     priceStart,
+    //     priceEnd,
+    //     ...selectForm,
+    //     lat: selectPosition?.lat,
+    //     lon: selectPosition?.lon,
+    //     address: searchText,
+    //   })
+    // );
   };
   const handleSetFile = (file) => {
     setFile(file);
   };
 
   const handleSubmitImages = async (e) => {
+    const { name, phone, website, priceStart, priceEnd } =
+      formikRef.current.values;
     const imageRef = ref(storage, `images/${file.data + v4()}`);
     uploadBytes(imageRef, file.data)
       .then(() => {
         getDownloadURL(imageRef)
           .then((file) => {
-            setFile({ pre: file, data: "" });
+            // setFile({ pre: file, data: "" });
+            setLoading(true);
+            dispatch(
+              actionCreateFangpage({
+                userID: id,
+                img: file,
+                name,
+                description,
+                phone,
+                website,
+                open,
+                close,
+                priceStart,
+                priceEnd,
+                ...selectForm,
+                lat: selectPosition?.lat,
+                lon: selectPosition?.lon,
+                address: searchText,
+              })
+            );
             // toast.success("upload successfully!");
           })
           .catch((error) => {
@@ -146,6 +168,7 @@ export default function CreateFanpage() {
         console.log(error.message);
         toast.error("failed to upload");
       });
+    setLoading(false);
     // setVisibleControls(false);
   };
 

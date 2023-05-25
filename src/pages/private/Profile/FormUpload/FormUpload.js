@@ -10,14 +10,14 @@ import { v4 } from "uuid";
 import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
-export default function FormUpload({ label, data }) {
+export default function FormUpload({ label, data, file, setFile }) {
   const [imagesCurrent, setImagesCurrent] = useState();
   // const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
-  const [file, setFile] = useState({
-    preview: "",
-    data: "",
-  });
+  // const [file, setFile] = useState({
+  //   preview: "",
+  //   data: "",
+  // });
 
   // useEffect(() => {
   //   return () => {
@@ -94,7 +94,7 @@ export default function FormUpload({ label, data }) {
                     alt="avatar"
                   />
                 )} */}
-                {file.preview ? (
+                {file && file.preview ? (
                   <img
                     className={cx("preview-img")}
                     src={file.preview}

@@ -49,14 +49,14 @@ export default function PlaceDetails({ data, selected, refProp }) {
       <div className={cx("container")}>
         <div className={cx("banner")}>
           <Link to={`/fanpage/${data._id}`}>
-            {data ? (
+            {!data.img ? (
               <img
                 src={images.profile_banner}
                 alt="avatar"
                 className={cx("preview-img")}
               />
             ) : (
-              <img src={data} alt="avatar" className={cx("preview-img")} />
+              <img src={data.img} alt="avatar" className={cx("preview-img")} />
             )}
           </Link>
         </div>

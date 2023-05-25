@@ -17,12 +17,15 @@ export default function Header() {
   const id = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")).userID
     : "";
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : {};
   const auth = useSelector((state) => state.auth);
   const fanpages = useSelector((state) => state.fanpage);
   const [fanpagesAvailable, setFanpagesAvailable] = useState([]);
   const [fanpage, setFanpage] = useState("");
   const dispatch = useDispatch();
-  const user = auth?.user;
+  // const user = auth?.user;
   const [isVisibleUserOptions, setIsVisibleUserOptions] = useState(false);
   const toggleUserOptions = () => {
     setIsVisibleUserOptions(!isVisibleUserOptions);
@@ -83,11 +86,7 @@ export default function Header() {
             }}
           >
             {user.avatar ? (
-              <img
-                className={cx("avatar-img")}
-                src={auth.user.avatar}
-                alt="avt"
-              />
+              <img className={cx("avatar-img")} src={user.avatar} alt="avt" />
             ) : (
               <img
                 src={images.avt_default}
