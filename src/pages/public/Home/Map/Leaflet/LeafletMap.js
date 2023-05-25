@@ -118,7 +118,7 @@ export default function Maps(props) {
           return (
             // <div ref>
             <Marker
-              position={location}
+              position={location ? location : []}
               icon={markerIc}
               ref={markerRef}
               key={index}

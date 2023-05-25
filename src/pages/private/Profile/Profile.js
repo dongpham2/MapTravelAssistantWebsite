@@ -20,6 +20,7 @@ export default function Profile() {
   const id = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")).userID
     : "";
+  const [file, setFile] = useState({ preview: "", data: "" });
   const [state, setState] = useState({
     data: {},
     fullName: "",
@@ -60,7 +61,7 @@ export default function Profile() {
         id,
         data: {
           fullname: fullName,
-          avatar,
+          avatar: file?.preview,
           birth,
           gender,
         },
@@ -71,7 +72,7 @@ export default function Profile() {
         },
       })
     );
-    // console.log(state);
+    // console.log(state, file);
   };
   return (
     <div className={cx("wrapper")}>
@@ -126,7 +127,12 @@ export default function Profile() {
           />
         </CRow>
         {isLoading === true && <Loading />}
-        <FormUpload data={avatar} label="Avatar" />
+        <FormUpload
+          data={avatar}
+          label="Avatar"
+          file={file}
+          setFile={setFile}
+        />
         <CRow className={cx("form mb-5")}>
           <label className={cx("form--label")}>Gender</label>
           <CInput
