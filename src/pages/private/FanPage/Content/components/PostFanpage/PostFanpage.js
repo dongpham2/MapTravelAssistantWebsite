@@ -13,12 +13,12 @@ export default function PostFanpage() {
   const auth = useSelector((state) => state.auth);
   const parameters = useParams();
   const isCreator = auth.user.page?._id === parameters.id ? true : false;
-  console.log("isCreator", isCreator);
+  // console.log("isCreator", isCreator);
 
   useEffect(() => {
     const getFanpage = async () => {
       const res = await httpClient.get(`${API_CREATEFANPAGE}/${parameters.id}`);
-      console.log("res", res.data);
+      // console.log("res", res.data);
     };
     getFanpage();
   }, []);

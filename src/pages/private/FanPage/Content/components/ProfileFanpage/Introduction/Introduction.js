@@ -16,13 +16,14 @@ export default function Bio() {
   const isCreator = auth.user.page?._id === parameters.id ? true : false;
   const [isBio, setIsBio] = useState(false);
   const [content, setContent] = useState("");
+
   const handleBioChange = () => {
     setIsBio(!isBio);
   };
   useEffect(() => {
     const getFanpage = async () => {
       const res = await httpClient.get(`${API_CREATEFANPAGE}/${parameters.id}`);
-      console.log("res", res.data);
+      // console.log("res", res.data);
     };
     getFanpage();
   }, []);
