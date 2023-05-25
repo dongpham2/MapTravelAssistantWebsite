@@ -6,15 +6,27 @@ import Button from "../../../../component/Button";
 import { Link } from "react-router-dom";
 import config from "../../../../config";
 import { FaStar } from "react-icons/fa";
+import { useSelector } from "react-redux";
 const cx = classNames.bind(styles);
 
-export default function PlaceDetails({ data }) {
+export default function PlaceDetails({ data, selected, refProp }) {
+  if (selected)
+    refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const fanpage = useSelector((state) => state.fanpage);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("container")}>
         <div className={cx("banner")}>
-          <Link to={config.routes.fanpage}>
-            <img src={images.banner_default} alt="" />
+          <Link to={`/fanpage/${data._id}`}>
+            {data ? (
+              <img
+                src={images.profile_banner}
+                alt="avatar"
+                className={cx("preview-img")}
+              />
+            ) : (
+              <img src={data} alt="avatar" className={cx("preview-img")} />
+            )}
           </Link>
         </div>
         <div className={cx("name")}>{data.name}</div>
@@ -32,7 +44,8 @@ export default function PlaceDetails({ data }) {
         <div className={cx("desc-card")}>
           <div className={cx("title")}>Price:</div>
           <div className={cx("price-amount")}>
-            {data.priceStart}$ - {data.priceEnd}$
+            {data.priceStart} {data.denomina} - {data.priceEnd}
+            {data.denomina}
           </div>
         </div>
         <div className={cx("desc-card")}>
@@ -48,7 +61,12 @@ export default function PlaceDetails({ data }) {
         <div className={cx("desc-card")}>
           <div className={cx("description-detail")}>
             <span className={cx("title")}>Description: </span>
-            {data.description}
+            <span
+              className={cx("desc")}
+              dangerouslySetInnerHTML={{
+                __html: data.description,
+              }}
+            ></span>
           </div>
         </div>
         <Link to={config.routes.posts}>

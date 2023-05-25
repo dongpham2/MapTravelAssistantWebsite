@@ -2,18 +2,21 @@ import { toast } from "react-toastify";
 import { AuthService } from "src/service/authService";
 
 export const _ACTION_SIGNIN = "_ACTION_SIGNIN";
+export const _ACTION_LOADING = "_ACTION_LOADING";
 
-export const actionSignin = (user, history) => {
+export const actionSignin = (user, history, setLoading) => {
   return async (dispatch) => {
     const { data, status } = await AuthService.signin(user);
     const newData = { ...data, role: "user" };
+    localStorage.setItem("isFanpage", data.user.isPage);
+    localStorage.setItem("user", JSON.stringify(data.user));
     if (status === 200) {
       dispatch({
         type: _ACTION_SIGNIN,
         payload: data,
       });
       redirect(newData.role, history);
-      toast.success("login successful");
+      setLoading(false);
     } else {
       toast.error("Login failed");
     }
@@ -24,7 +27,6 @@ export const __ACTION_SIGNUP = "__ACTION_SIGNUP";
 export const actionSignup = (user) => {
   return async (dispatch) => {
     const { data, status } = await AuthService.signup(user);
-    console.log(data, status);
     if (status === 201) {
       dispatch({
         type: __ACTION_SIGNUP,
@@ -38,7 +40,7 @@ export const actionSignup = (user) => {
 };
 
 const redirect = (role, history) => {
-  if (role === "admin") history("/admin");
+  if (role === "admin") history("/admin/userManage");
   else history("/");
 };
 
@@ -49,5 +51,16 @@ export const LogoutAction = () => {
     dispatch({
       type: ACTION_LOGOUT,
     });
+  };
+};
+
+export const actionResetPass = ({ data }) => {
+  return async (dispatch) => {
+    const res = await AuthService.resetPassword(data);
+    if (res.status === 200) {
+      toast.success("Reset password success!");
+    } else {
+      toast.error("Fail to reset password");
+    }
   };
 };

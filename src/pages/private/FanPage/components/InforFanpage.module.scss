@@ -1,8 +1,13 @@
 .wrapper {
-    width: 100%;
-     background-color: #fff ;
-     margin-bottom: 20px;
-   .container {
-        margin: 0 230px;
-   }
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 20px;
+  .container {
+    margin: 0 230px;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .wrapper {
+  }
 }

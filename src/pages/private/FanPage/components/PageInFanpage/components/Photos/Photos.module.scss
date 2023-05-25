@@ -1,0 +1,12 @@
+.wrapper {
+    margin: 0 260px;
+    padding: 10px;
+    height: 100%;
+    background-color: var(--white-color);
+    border-radius: 10px;
+    .photo {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+       
+    }
+}

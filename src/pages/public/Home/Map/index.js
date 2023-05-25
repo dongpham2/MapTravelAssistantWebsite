@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Maps from "./Leaflet/LeafletMap";
 import SearchBox from "./SearchBox/SearchBox";
 
-export default function Map() {
+export default function Map({ setChildClicked }) {
   // const positions = [
   //   [16.059799, 108.209244],
   //   [16.059031, 108.207397],
@@ -10,13 +10,18 @@ export default function Map() {
   // const position = [16.054407, 108.202164];
 
   const [selectPosition, setSelectPosition] = useState(null);
+  console.log(setChildClicked);
   return (
     <div>
-      <SearchBox
+      {/* <SearchBox
         selectPosition={selectPosition}
         setSelectPosition={setSelectPosition}
+      /> */}
+      <Maps
+        selectPosition={selectPosition}
+        isPosition={true}
+        onChildClick={(child) => setChildClicked(child)}
       />
-      <Maps selectPosition={selectPosition} />
       {/* <SearchBox /> */}
       {/* <MapContainer center={position} zoom={15} scrollWheelZoom={true}>
         <TileLayer

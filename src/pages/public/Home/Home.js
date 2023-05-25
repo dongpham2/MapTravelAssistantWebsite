@@ -4,31 +4,25 @@ import classNames from "classnames/bind";
 import styles from "./Home.module.scss";
 import DetailBar from "./DetailBar";
 import getPlacesData from "../../../api/googleClientApi";
-import Loading from "src/component/Loading/Loading";
-import CardMap from "./Map/CardMap/CardMap";
 
 const cx = classNames.bind(styles);
 export default function Home() {
-  const [places, setPlaces] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [coordinates, setCoordinates] = useState({});
-  const [bounds, setBounds] = useState(null);
+  const [childClicked, setChildClicked] = useState(null);
   useEffect(() => {
+    setIsLoading(true);
     getPlacesData();
+    setIsLoading(false);
   }, []);
 
   return (
     <header className={cx("wrapper")}>
       {/* {isLoading === true && <Loading />} */}
       <div className={cx("left")}>
-        <DetailBar />
+        <DetailBar childClicked={childClicked} isLoading={isLoading} />
       </div>
       <div className={cx("right")}>
-        <Map
-        // setCoordinates={setCoordinates}
-        // coordinates={coordinates}
-        // setBounds={setBounds}
-        />
+        <Map setChildClicked={setChildClicked} />
       </div>
     </header>
   );

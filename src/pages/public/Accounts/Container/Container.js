@@ -5,6 +5,7 @@ import styles from "./Container.module.scss";
 import { Link } from "react-router-dom";
 import images from "../../../../assets/images";
 import RegisterForm from "../RegisterForm/RegisterForm";
+import ForgotPassword from "../ForgotPassword/ForgotPassword";
 
 const cx = classNames.bind(styles);
 
@@ -26,11 +27,13 @@ export default function Container() {
           </Link>
         </div>
         {/* have account  */}
+
         <div className={cx("content")}>
           <div className={cx("form-option")}>
             {form ? (
               <div className={cx("have-account")}>
                 <RegisterForm />
+
                 <span className={cx("have-question")}>
                   Do you have an account?
                 </span>
@@ -46,6 +49,9 @@ export default function Container() {
             ) : (
               <div className={cx("have-account")}>
                 <Loginform />
+                <div className={cx("forgot-password")}>
+                  <span>Forgot password?</span>
+                </div>
                 <span>Don’t have an account? </span>
                 <span
                   className={cx("change-form-btn")}

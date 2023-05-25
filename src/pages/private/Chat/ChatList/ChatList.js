@@ -11,29 +11,29 @@ import {
   updateDoc,
   serverTimestamp,
 } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "src/service/Firebase/firebase";
 import ChatBox from "../ChatBox";
 import styles from "./ChatList.module.scss";
 import { ChatContext } from "../context/ChatContext";
-// import {AuthContext} from "../context/Authcontext"
+import { useDispatch, useSelector } from "react-redux";
+import httpClient from "src/api/httpClient";
+import images from "src/assets/images";
 
 const cx = classNames.bind(styles);
 export default function ChatList() {
+  const { auth } = useSelector((state) => state);
   const [showChatList, setShowChatList] = useState(true);
-  const [showchatBox, setShowChatBox] = useState(false);
-
+  // const [showchatBox, setShowChatBox] = useState(false);
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [err, setErr] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
   const { dispatch } = useContext(ChatContext);
 
   const currentUser = {
-    uid: "IrzDfxSJZQO1cn4zDd1zZCh6DZ42",
-    email: "han1@gmail.com",
-    photoURL:
-      "https://uploads.mwp.mprod.getusinfo.com/uploads/sites/54/2022/02/Image-for-Rejoining-Paris-Agreement.jpeg",
-    displayName: "Han1",
+    _id: auth.user.userID,
+    email: auth.user.email,
+    avatar: auth.user.avatar,
+    fullname: auth.user.fullName,
   };
 
   useEffect(() => {
@@ -44,77 +44,88 @@ export default function ChatList() {
     setShowChatList(false);
   };
   const handleOpenUser = async (user) => {
-    setSelectedUser(user);
+    // console.log("select", user._id);
+    // console.log("current", currentUser._id);
     //check group chat exist if not create
     const combinedId =
-      currentUser.uid > user.uid
-        ? currentUser.uid + user.uid
-        : user.uid + currentUser.uid;
+      currentUser._id > user._id
+        ? currentUser._id + user._id
+        : user._id + currentUser._id;
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
+      console.log(res);
       if (!res.exists()) {
         await setDoc(doc(db, "chats", combinedId), { messages: [] });
-        console.log("aa");
         //create user chats
-        const res = await getDoc(doc(db, "userChats", currentUser.uid));
-        const res2 = await getDoc(doc(db, "userChats", user.uid));
+        const res = await getDoc(doc(db, "userChats", currentUser._id));
+        const res2 = await getDoc(doc(db, "userChats", user._id));
         if (!res.exists()) {
-          await setDoc(doc(db, "userChats", currentUser.uid), {
+          await setDoc(doc(db, "userChats", currentUser._id), {
             [combinedId + ".userInfo"]: {
-              uid: user.uid,
-              displayName: user.displayName,
-              photoURL: user.photoURL,
+              _id: user._id,
+              fullname: user.fullname,
+              avatar: currentUser.avatar ? images.avt_default : user.avatar,
             },
             [combinedId + ".date"]: serverTimestamp(),
           });
-          console.log("cc");
         } else {
-          await updateDoc(doc(db, "userChats", currentUser.uid), {
+          await updateDoc(doc(db, "userChats", currentUser._id), {
             [combinedId + ".userInfo"]: {
-              uid: user.uid,
-              displayName: user.displayName,
-              photoURL: user.photoURL,
+              _id: user._id,
+              fullname: user.fullname,
+              avatar: currentUser.avatar ? images.avt_default : user.avatar,
             },
             [combinedId + ".date"]: serverTimestamp(),
           });
-          console.log("cc11");
         }
         //create user chats
         if (!res2.exists()) {
-          await setDoc(doc(db, "userChats", user.uid), {
+          await setDoc(doc(db, "userChats", user._id), {
             [combinedId + ".userInfo"]: {
-              uid: currentUser.uid,
-              displayName: currentUser.displayName,
-              photoURL: currentUser.photoURL,
+              _id: currentUser._id,
+              fullname: currentUser.fullname,
+              // avatar: currentUser.avatar,
             },
             [combinedId + ".date"]: serverTimestamp(),
           });
-          console.log("dd");
         } else {
-          await updateDoc(doc(db, "userChats", user.uid), {
+          await updateDoc(doc(db, "userChats", user._id), {
             [combinedId + ".userInfo"]: {
-              uid: currentUser.uid,
-              displayName: currentUser.displayName,
-              photoURL: currentUser.photoURL,
+              _id: currentUser._id,
+              fullname: currentUser.fullname,
+              // avatar: currentUser.avatar,
             },
             [combinedId + ".date"]: serverTimestamp(),
           });
-          console.log("dd22");
         }
       }
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
     // setUser(null);
     // setUsername("")
     dispatch({ type: "CHANGE_USER", payload: user });
   };
 
   const getAllDocuments = async () => {
-    const querySnapshot = await getDocs(collection(db, "users"));
-    const docs = [];
-    querySnapshot.forEach((doc) => {
-      docs.push({ email: doc.email, ...doc.data() });
-    });
-    setUsers(docs); //console.log(user)
+    httpClient
+      .get("/users")
+      .then((res) => {
+        const person = res.data;
+        person.shift();
+        setUsers(person);
+      })
+      .catch((error) => console.log(error));
+    // users.map((item) => {
+    //   console.log(item.role);
+    // });
+
+    // const querySnapshot = await getDocs(collection(db, "users"));
+    // const docs = [];
+    // querySnapshot.forEach((doc) => {
+    //   docs.push({ email: doc.email, ...doc.data() });
+    // });
+    // setUsers(docs); //console.log(user)
   };
 
   const handleSearch = async (event) => {
@@ -125,7 +136,7 @@ export default function ChatList() {
     } else {
       let docs = [];
       users.forEach((doc) => {
-        if (doc.displayName.toLowerCase().includes(inputUser) === true) {
+        if (doc.fullname.toLowerCase().includes(inputUser) === true) {
           docs.push({ email: doc.email, ...doc });
         }
       });
@@ -136,38 +147,35 @@ export default function ChatList() {
       }
     }
   };
-  // const handleKey = (e) =>{
-  //     e.code === "Enter" && handleSearch();
-  // }
   return (
-    <div className={styles.wrapper}>
+    <div className={cx("wrapper")}>
       {showChatList && (
-        <div className={styles.chatlist}>
+        <div className={cx("chatlist")}>
           {/* Seacrh & Close */}
-          <div className={styles.head}>
+          <div className={cx("head")}>
             <input
               type="text"
               placeholder="Find a user..."
               onChange={handleSearch}
               // value={username}
             />
-            <div className={styles.close} onClick={handleClose}>
+            <div className={cx("close")} onClick={handleClose}>
               Close
             </div>
           </div>
           {/* User Info */}
-          <div className={styles.userInfo}>
+          <div className={cx("userInfo")}>
             {err && <span>User not found</span>}
             {!users
               ? null
               : users.map((doc) => (
                   <div
-                    key={doc.email}
-                    className={styles.userChatInfo}
+                    // key={doc.email}
+                    className={cx("userChatInfo")}
                     onClick={() => handleOpenUser(doc)}
                   >
-                    <img src={doc.photoURL} alt="" />
-                    <span>{doc.displayName}</span>
+                    <img src={doc.avatar} alt="" />
+                    <span>{doc.fullname}</span>
                   </div>
                 ))}
           </div>

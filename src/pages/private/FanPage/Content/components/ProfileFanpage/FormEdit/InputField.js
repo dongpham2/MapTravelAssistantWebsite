@@ -6,11 +6,21 @@ import Button from "src/component/Button";
 import { Col } from "react-bootstrap";
 
 const cx = classNames.bind(styles);
-export default function InputField({ isLabel, label, icon, type, value }) {
+export default function InputField({
+  isLabel,
+  label,
+  icon,
+  type,
+  value,
+  isRepair,
+}) {
   const [inputValue, setInputValue] = useState(value);
   const [visibleUpdate, setVisibleUpdate] = useState(false);
   const inputRef = useRef(null);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className={cx("wrapper")}>
       {!isLabel ? (
@@ -39,43 +49,51 @@ export default function InputField({ isLabel, label, icon, type, value }) {
               disabled
             />
           </div>
-          <Col className={cx("form-group-right")} md={{ offset: 1 }}>
-            {visibleUpdate ? (
-              <div className={cx("btn")}>
-                <Button rounded type="submit" saveInput small>
-                  Save
-                </Button>
+          {!isRepair ? (
+            <Col className={cx("form-group-right")} md={{ offset: 1 }}>
+              {visibleUpdate ? (
+                <div className={cx("btn")}>
+                  <Button
+                    rounded
+                    type="submit"
+                    saveInput
+                    small
+                    onClick={handleSubmit}
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    rounded
+                    cancel
+                    small
+                    onClick={() => {
+                      setVisibleUpdate(false);
+                      setInputValue(value);
+                      inputRef.current.disabled = true;
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              ) : (
                 <Button
+                  type="button"
+                  edit
                   rounded
-                  cancel
                   small
                   onClick={() => {
-                    setVisibleUpdate(false);
-                    setInputValue(value);
-                    inputRef.current.disabled = true;
-                    console.log(inputRef.current.disabled);
+                    setVisibleUpdate(true);
+                    inputRef.current.disabled = false;
+                    inputRef.current.focus();
                   }}
                 >
-                  Cancel
+                  Edit
                 </Button>
-              </div>
-            ) : (
-              <Button
-                type="button"
-                edit
-                rounded
-                small
-                onClick={() => {
-                  setVisibleUpdate(true);
-                  inputRef.current.disabled = false;
-                  inputRef.current.focus();
-                  console.log(inputRef.current.disabled);
-                }}
-              >
-                Edit
-              </Button>
-            )}
-          </Col>
+              )}
+            </Col>
+          ) : (
+            ""
+          )}
         </div>
       )}
     </div>

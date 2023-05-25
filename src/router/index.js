@@ -18,6 +18,8 @@ import SidebarLayout from "src/layout/SidebarLayout";
 import UsersManage from "src/pages/private/Admin/UsersManage";
 import Notice from "src/pages/private/Admin/Notice/Notice";
 import History from "src/pages/private/Admin/History/History";
+import Statitical from "src/pages/private/Admin/Statitical/Statitical";
+import SettingAdmin from "src/pages/private/Admin/SettingAdmin/SettingAdmin";
 
 export const publicRoutes = [
   { path: config.routes.home, component: Home },
@@ -42,7 +44,6 @@ export const publicRoutes = [
 
 export const privateRoutes = [
   { path: config.routes.profile, component: Profile, layout: SettingLayout },
-
   { path: config.routes.fanpage, component: FanPage, layout: FanpageLayout },
   { path: config.routes.posts, component: Posts, layout: FanpageLayout },
   { path: config.routes.photos, component: Photos, layout: FanpageLayout },
@@ -59,13 +60,23 @@ export const privateRoutes = [
 
 export const adminRouter = [
   {
-    path: config.routes.usersManagement,
+    path: config.routes.admin,
     component: UsersManage,
     layout: SidebarLayout,
   },
   {
     path: config.routes.history,
     component: History,
+    layout: SidebarLayout,
+  },
+  {
+    path: config.routes.statitic,
+    component: Statitical,
+    layout: SidebarLayout,
+  },
+  {
+    path: config.routes.settingAdmin,
+    component: SettingAdmin,
     layout: SidebarLayout,
   },
 ];

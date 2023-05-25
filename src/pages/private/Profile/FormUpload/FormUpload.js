@@ -4,25 +4,26 @@ import classNames from "classnames/bind";
 import { Col, Row } from "react-bootstrap";
 import images from "src/assets/images";
 import Button from "src/component/Button";
-import { storage } from "../../Chat/firebase";
+import { storage } from "src/service/Firebase/firebase";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
 export default function FormUpload({ label, data }) {
-  const inputRef = useRef(null);
+  const [imagesCurrent, setImagesCurrent] = useState();
+  // const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
   const [file, setFile] = useState({
     preview: "",
     data: "",
   });
 
-  useEffect(() => {
-    return () => {
-      file && URL.revokeObjectURL(file);
-    };
-  }, [file]);
+  // useEffect(() => {
+  //   return () => {
+  //     file && URL.revokeObjectURL(file);
+  //   };
+  // }, [file]);
 
   const handleChangeFile = async (e) => {
     const img = {
@@ -41,7 +42,7 @@ export default function FormUpload({ label, data }) {
         getDownloadURL(imageRef)
           .then((file) => {
             console.log(file);
-            setFile(file);
+            setFile({ preview: file, data: "" });
             toast.success("upload successfully!");
           })
           .catch((error) => {
@@ -53,8 +54,20 @@ export default function FormUpload({ label, data }) {
         console.log(error.message);
         toast.error("failed to upload");
       });
+
     setVisibleControls(false);
   };
+
+  // const handleChangeImage = (e) => {
+  //   const file = e.target.files[0];
+  //   setFileName(file.name);
+  //   let storeRef = firebase.storage().ref(buses/${file.name});
+  //   storeRef.put(file).then((e) => {
+  //     storeRef.getDownloadURL().then(async (url, e) => {
+  //       setUrlImage(url);
+  //     });
+  //   });
+  // };
 
   return (
     <div className={cx("wrapper")}>
@@ -66,6 +79,21 @@ export default function FormUpload({ label, data }) {
           <div className={cx("input-file-img")}>
             <div className={cx("input-file-block")}>
               <div className={cx("preview-img-block")}>
+                {/* {file.preview ? (
+                  <img
+                    className={cx("preview-img")}
+                    src={file.preview}
+                    alt="avatar"
+                  />
+                ) : data ? (
+                  <img className={cx("preview-img")} src={data} alt="avatar" />
+                ) : (
+                  <img
+                    className={cx("preview-img")}
+                    src={images.avatarDefault}
+                    alt="avatar"
+                  />
+                )} */}
                 {file.preview ? (
                   <img
                     className={cx("preview-img")}
@@ -77,16 +105,17 @@ export default function FormUpload({ label, data }) {
                 ) : (
                   <img
                     className={cx("preview-img")}
-                    src={images.avt_default}
+                    src={images.avatarDefault}
                     alt="avatar"
                   />
                 )}
               </div>
+
               <label className={cx("mark")} htmlFor="file">
                 <input
                   name="file"
                   id="file"
-                  ref={inputRef}
+                  // ref={inputRef}
                   className={cx("input", "input-file")}
                   type="file"
                   onChange={handleChangeFile}
@@ -102,6 +131,9 @@ export default function FormUpload({ label, data }) {
             <div className={cx("btn")}>
               {visibleControls ? (
                 <div className={cx("controls")}>
+                  <Button rounded type="submit" saveInput small>
+                    Save
+                  </Button>
                   <Button
                     type="button"
                     cancel
@@ -116,10 +148,6 @@ export default function FormUpload({ label, data }) {
                     }}
                   >
                     Cancel
-                  </Button>
-
-                  <Button rounded type="submit" saveInput small>
-                    Save
                   </Button>
                 </div>
               ) : (

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import classNames from "classnames/bind";
+import styles from "./SearchBox.module.scss";
 import { OutlinedInput } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ButtonBase from "@material-ui/core/ButtonBase";
@@ -14,29 +16,29 @@ const params = {
   addressdetails: "addressdetails",
 };
 
+const cx = classNames.bind(styles);
 export default function SearchBox(props) {
-  const { selectPosition, setSelectPosition } = props;
-  const [searchText, setSearchText] = useState("");
+  const { selectPosition, setSelectPosition, searchText, setSearchText } =
+    props;
+  // const [searchText, setSearchText] = useState("");
   const [listPlace, setListPlace] = useState([]);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <div style={{ display: "flex" }}>
-        <div style={{ flex: 1 }}>
-          <OutlinedInput
-            style={{ width: "100%" }}
-            value={searchText}
-            onChange={(event) => {
-              setSearchText(event.target.value);
-            }}
-          />
-        </div>
-        <div
-          style={{ display: "flex", alignItems: "center", padding: "0px 20px" }}
-        >
+    <div className={cx("wrapper")}>
+      <div className={cx("content")}>
+        <OutlinedInput
+          value={searchText}
+          onChange={(event) => {
+            setSearchText(event.target.value);
+          }}
+          className={cx("search-input")}
+          placeholder="Search..."
+          style={{ fontSize: "15px" }}
+        />
+        <div className={cx("search-btn")}>
           <ButtonBase
             variant="contained"
-            color="primary"
+            className={cx("search-btn")}
             onClick={() => {
               // Search
               const params = {
@@ -58,33 +60,34 @@ export default function SearchBox(props) {
                 .catch((err) => console.log("err: ", err));
             }}
           >
-            Search
+            <ion-icon name="search-outline"></ion-icon>
           </ButtonBase>
         </div>
       </div>
-      <div>
+      <div className={cx("list-search")}>
         <List component="nav" aria-label="main mailbox folders">
-          {listPlace.map((item) => {
-            return (
-              <div key={item?.place_id}>
-                <ListItem
-                  button
-                  onClick={() => {
-                    setSelectPosition(item);
-                  }}
-                >
-                  <ListItemIcon>
-                    <img
-                      src={icon}
-                      alt="Placeholder"
-                      style={{ width: 38, height: 38 }}
-                    />
-                  </ListItemIcon>
-                  <ListItemText primary={item?.display_name} />
-                </ListItem>
-                <Divider />
-              </div>
-            );
+          {listPlace.map((item, index) => {
+            if (index < 50)
+              return (
+                <div key={item?.place_id}>
+                  <ListItem
+                    button
+                    onClick={() => {
+                      setSelectPosition(item);
+                    }}
+                  >
+                    <ListItemIcon>
+                      <img
+                        src={icon}
+                        alt="Placeholder"
+                        style={{ width: 38, height: 38 }}
+                      />
+                    </ListItemIcon>
+                    <ListItemText primary={item?.display_name} />
+                  </ListItem>
+                  <Divider />
+                </div>
+              );
           })}
         </List>
       </div>

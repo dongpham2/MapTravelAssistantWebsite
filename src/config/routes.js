@@ -4,7 +4,7 @@ const routes = {
   accounts: "/accounts",
   forgotPassword: "/forgotPassword",
   // fanpage
-  fanpage: "/fanpage", // Chỗ này truyền /:id nhưng chưa có authen nên để tạm là fanpage
+  fanpage: "/fanpage/:id",
   photos: "/fanpage/photos",
   videos: "/fanpage/videos",
   more: "/fanpage/more",
@@ -18,6 +18,8 @@ const routes = {
   admin: "/admin/userManage",
   notice: "/admin/notification",
   history: "/admin/history",
+  statitic: "/admin/statitic",
+  settingAdmin: "/admin/setting",
   // chatbox:"/chatbox",
 };
 

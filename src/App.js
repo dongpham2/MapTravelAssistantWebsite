@@ -13,9 +13,6 @@ import Loading from "./component/Loading/Loading";
 function App() {
   const auth = useSelector((state) => state.auth);
   const role = auth?.user?.role;
-  // if (typeof role === "undefined") {
-  //   return <Loading></Loading>;
-  // }
   return (
     <Router>
       <div className="App">
@@ -51,7 +48,7 @@ function App() {
           <Route
             element={
               <ProtectedRoute
-                redirectPath={config.routes.home}
+                redirectPath={config.routes.admin}
                 isAllowed={role ? role === "admin" : false}
               ></ProtectedRoute>
             }

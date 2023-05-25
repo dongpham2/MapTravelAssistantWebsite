@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "./OptionFanpage.module.scss";
 import { NavLink } from "react-router-dom";
 import config from "../../../config";
 import Button from "../../../component/Button";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router";
+import httpClient from "src/api/httpClient";
+import { API_CREATEFANPAGE } from "src/config/apis";
 
 const cx = classNames.bind(styles);
 
@@ -31,10 +35,26 @@ const NavOptions = [
 ];
 
 export default function OptionFanpage() {
+  const auth = useSelector((state) => state.auth);
+  const parameters = useParams();
+  const isCreator = auth.user.page?._id === parameters.id ? true : false;
+
+  const [showChat, setShowChat] = useState(false);
+  const handleShowChat = () => {
+    setShowChat(!showChat);
+  };
+  // useEffect(() => {
+  //   const getFanpage = async () => {
+  //     const res = await httpClient.get(`${API_CREATEFANPAGE}/${parameters.id}`);
+  //     console.log("res", res.data);
+  //   };
+  //   getFanpage();
+  // }, []);
   const renderOptions = () => {
     // const roleMenu = option.role.some((item) => item === role);
     // if (option) {
     // }
+
     return NavOptions.map((option, index) => {
       return (
         <li key={index}>
@@ -52,18 +72,25 @@ export default function OptionFanpage() {
       );
     });
   };
+
   return (
     <div className={cx("wrapper")}>
       <ul className={cx("navbar-list")}>{renderOptions()}</ul>
-      <ul className={cx("navbar-option")}>
-        <div className={cx("dot-option")}>...</div>
-        <Button
-          primary
-          leftIcon={<ion-icon name="chatbox-ellipses-outline"></ion-icon>}
-        >
-          Message
-        </Button>
-      </ul>
+      {!isCreator ? (
+        <ul className={cx("navbar-option")}>
+          <Button
+            primary
+            leftIcon={<ion-icon name="chatbox-ellipses-outline"></ion-icon>}
+            onClick={handleShowChat}
+          >
+            Message
+          </Button>
+          {/* {showChat ? : ""} */}
+          {/* <ChatList /> */}
+        </ul>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

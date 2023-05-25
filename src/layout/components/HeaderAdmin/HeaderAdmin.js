@@ -19,21 +19,6 @@ export default function HeaderAdmin() {
       <div className={cx("left")}>
         <img className={cx("logo")} src={images.logoM} alt="Logo" />
       </div>
-      <div className={cx("right")}>
-        <div className={cx("notifi")}>
-          <ion-icon name="notifications-outline"></ion-icon>
-        </div>
-
-        {isVisibleUserOptions ? <UserOptions /> : ""}
-        <div
-          className={cx("avatar")}
-          onClick={() => {
-            toggleUserOptions();
-          }}
-        >
-          <img className={cx("avatar-img")} src={images.avt} alt="avt" />
-        </div>
-      </div>
     </header>
   );
 }
