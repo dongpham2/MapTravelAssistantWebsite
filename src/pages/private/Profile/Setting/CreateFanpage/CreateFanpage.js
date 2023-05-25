@@ -69,7 +69,7 @@ export default function CreateFanpage() {
     pre: "",
     data: "",
   });
-
+  const [loading, setLoading] = useState(false);
   const formikRef = useRef(null);
   const messageRef = useRef(null);
   const [lat, setLat] = useState();
@@ -109,6 +109,7 @@ export default function CreateFanpage() {
     //   lon: selectPosition?.lon,
     // });
     handleSubmitImages();
+    setLoading(true);
     dispatch(
       actionCreateFangpage({
         userID: id,

@@ -1,5 +1,4 @@
 import { toast } from "react-toastify";
-import Loading from "src/component/Loading/Loading";
 import { AuthService } from "src/service/authService";
 
 export const _ACTION_SIGNIN = "_ACTION_SIGNIN";
@@ -20,7 +19,6 @@ export const actionSignin = (user, history, setLoading) => {
       setLoading(false);
     } else {
       toast.error("Login failed");
-      setLoading(false);
     }
   };
 };

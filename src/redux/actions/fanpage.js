@@ -4,15 +4,17 @@ export const ACTION_CREATE_FANGPAGE = "ACTION_CREATE_FANGPAGE";
 export const ACTION_GET_ALL_FANGPAGE = "ACTION_GET_ALL_FANGPAGE";
 // export const ACTION
 
-export const actionCreateFangpage = (data) => {
+export const actionCreateFangpage = (data, setLoading) => {
   return async (dispatch) => {
-    const res = await fanpageService.createFanpage(data);
+    const res = await fanpageService.createFanpage(data, setLoading);
+
     if (res.status === 201) {
       dispatch({
         type: ACTION_CREATE_FANGPAGE,
         payload: [data],
       });
       toast.success("Create succesfull!");
+      setLoading(false);
     } else {
       toast.error("Fail to create");
     }

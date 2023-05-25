@@ -52,7 +52,6 @@ const cx = classNames.bind(styles);
 
 export default function Fanage() {
   const auth = useSelector((state) => state.auth);
-  console.log(auth);
   const fanpage = useSelector((state) => state.fanpage);
 
   console.log(fanpage);
@@ -77,7 +76,6 @@ export default function Fanage() {
   };
   return (
     <div className={cx("wrapper")}>
-      <h3 className={cx("heading")}>Your Fanpage</h3>
       <div className={cx("form-group")}>
         <div className={cx("input-block")}>
           <div className={cx("input-desc")}>(*) Upload your banner</div>

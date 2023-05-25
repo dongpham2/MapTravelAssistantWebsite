@@ -63,10 +63,10 @@ export default function SearchBox(props) {
           </ButtonBase>
         </div>
       </div>
-      <div>
+      <div className={cx("list-search")}>
         <List component="nav" aria-label="main mailbox folders">
           {listPlace.map((item, index) => {
-            if (index < 2)
+            if (index < 50)
               return (
                 <div key={item?.place_id}>
                   <ListItem
