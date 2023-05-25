@@ -9,12 +9,18 @@ import config from "../../../config";
 import UserOptions from "./UserOptions";
 import { useDispatch, useSelector } from "react-redux";
 import { ACTION_GET_ALL_FANGPAGE } from "src/redux/actions/fanpage";
+import httpClient from "src/api/httpClient";
+import { API_CREATEFANPAGE } from "src/config/apis";
 
 const cx = classNames.bind(styles);
 export default function Header() {
+  const id = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")).userID
+    : "";
   const auth = useSelector((state) => state.auth);
   const fanpages = useSelector((state) => state.fanpage);
   const [fanpagesAvailable, setFanpagesAvailable] = useState([]);
+  const [fanpage, setFanpage] = useState("");
   const dispatch = useDispatch();
   const user = auth?.user;
   const [isVisibleUserOptions, setIsVisibleUserOptions] = useState(false);
@@ -41,7 +47,13 @@ export default function Header() {
   useEffect(() => {
     setFanpagesAvailable(fanpages);
   }, []);
-
+  useEffect(() => {
+    const getFanpage = async () => {
+      const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
+      setFanpage(res.data.data);
+    };
+    getFanpage();
+  }, []);
   return (
     <header className={cx("wrapper")}>
       <div className={cx("left")}>
@@ -77,7 +89,11 @@ export default function Header() {
                 alt="avt"
               />
             ) : (
-              <img src={images.avt_default} className={cx("avatar-img")} />
+              <img
+                src={images.avt_default}
+                className={cx("avatar-img")}
+                alt=""
+              />
             )}
           </div>
         ) : (
