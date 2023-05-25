@@ -32,7 +32,8 @@ export default function ChatList() {
   const currentUser = {
     _id: auth.user.userID,
     email: auth.user.email,
-    avatar: auth.user.avatar,
+    avatar:
+      "https://scontent.fdad3-4.fna.fbcdn.net/v/t39.30808-6/348696161_563839929247320_6160618745433511601_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=kTm_6-G-0AYAX9jvYk8&_nc_ht=scontent.fdad3-4.fna&oh=00_AfCbrVIlD2j_fvWTprLoMTA-RC0XUYQBwp_NHSESqXqgBw&oe=647101A3",
     fullname: auth.user.fullName,
   };
 
@@ -44,8 +45,6 @@ export default function ChatList() {
     setShowChatList(false);
   };
   const handleOpenUser = async (user) => {
-    // console.log("select", user._id);
-    // console.log("current", currentUser._id);
     //check group chat exist if not create
     const combinedId =
       currentUser._id > user._id
@@ -53,7 +52,7 @@ export default function ChatList() {
         : user._id + currentUser._id;
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
-      console.log(res);
+      // console.log(res);
       if (!res.exists()) {
         await setDoc(doc(db, "chats", combinedId), { messages: [] });
         //create user chats
@@ -73,7 +72,7 @@ export default function ChatList() {
             [combinedId + ".userInfo"]: {
               _id: user._id,
               fullname: user.fullname,
-              avatar: currentUser.avatar ? images.avt_default : user.avatar,
+              avatar: user.avatar ? images.avt_default : user.avatar,
             },
             [combinedId + ".date"]: serverTimestamp(),
           });
@@ -84,7 +83,9 @@ export default function ChatList() {
             [combinedId + ".userInfo"]: {
               _id: currentUser._id,
               fullname: currentUser.fullname,
-              // avatar: currentUser.avatar,
+              avatar: currentUser.avatar
+                ? images.avt_default
+                : currentUser.avatar,
             },
             [combinedId + ".date"]: serverTimestamp(),
           });
@@ -174,7 +175,10 @@ export default function ChatList() {
                     className={cx("userChatInfo")}
                     onClick={() => handleOpenUser(doc)}
                   >
-                    <img src={doc.avatar} alt="" />
+                    <img
+                      src={doc.avatar == null ? images.avt_default : doc.avatar}
+                      alt=""
+                    />
                     <span>{doc.fullname}</span>
                   </div>
                 ))}

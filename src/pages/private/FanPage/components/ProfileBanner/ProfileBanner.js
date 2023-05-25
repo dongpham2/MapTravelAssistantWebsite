@@ -16,7 +16,7 @@ export default function ProfileBanner() {
   const [star, setStar] = useState(null);
 
   useEffect(() => {
-    getAllReview();
+    // getAllReview();
   }, []);
   const getAllReview = async () => {
     try {

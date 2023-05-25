@@ -8,8 +8,7 @@ export const ChatContextProvider = ({ children }) => {
   const currentUser = {
     _id: auth.user.userID,
     email: auth.user.email,
-    avatar:
-      "https://uploads.mwp.mprod.getusinfo.com/uploads/sites/54/2022/02/Image-for-Rejoining-Paris-Agreement.jpeg",
+    avatar: auth.user.avatar,
     fullname: auth.user.fullname,
   };
   const INITIAL_STATE = {

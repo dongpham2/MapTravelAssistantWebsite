@@ -6,15 +6,20 @@ import TextEditor from "src/component/EditorText/EditorText";
 import { useDispatch, useSelector } from "react-redux";
 import httpClient from "src/api/httpClient";
 import {
+  FieldValue,
   Timestamp,
+  arrayRemove,
+  arrayUnion,
   collection,
   doc,
   getDoc,
   getDocs,
+  onSnapshot,
   serverTimestamp,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
+import { getDatabase, ref, set } from "firebase/database";
 import { db, storage } from "src/service/Firebase/firebase";
 import { toast } from "react-toastify";
 import Loading from "src/component/Loading/Loading";
@@ -22,7 +27,7 @@ import images from "src/assets/images";
 
 const cx = classNames.bind(styles);
 
-export default function Review() {
+export default function Review(props) {
   const [loading, setLoading] = useState(false);
   const { auth } = useSelector((state) => state);
   const [rating, setRating] = useState(null);
@@ -44,19 +49,43 @@ export default function Review() {
     fullname: auth.user.fullName,
     avatar: auth.user.avatar,
   };
+  const pageID = "1111";
 
   useEffect(() => {
-    // console.log("aav", auth.user);
-    getCurrentReview();
-    getAllReview();
-  }, []);
+    // let docs = [];
+    const unsub = onSnapshot(doc(db, "reviews", pageID), (doc) => {
+      doc.exists() && setAllReview(doc.data().comments);
+      doc.data().comments.map((item) => {
+        if (currentUser._id === item.reviewerID) {
+          setCurrentReview(item.text);
+          setRating(item.stars);
+        }
+      });
+    });
+    return () => {
+      unsub();
+    };
+  }, [pageID]);
+
   const getCurrentReview = async () => {
     try {
-      const querySnapshot = await getDoc(doc(db, "comments", currentUser._id));
+      const querySnapshot = await getDoc(doc(db, "reviews", pageID));
 
       if (querySnapshot.exists()) {
-        setCurrentReview(querySnapshot.data().text);
-        setRating(querySnapshot.data().stars);
+        let docs = [];
+        querySnapshot.data().comments.map((item) => {
+          docs.push({ reviewerID: item.reviewerID, ...item });
+        });
+
+        console.log(docs);
+        setAllReview(docs);
+        console.log("ava", allReview);
+        docs.map((item) => {
+          if (currentUser._id === item.reviewerID) {
+            setCurrentReview(item.text);
+            setRating(item.stars);
+          }
+        });
       } else {
         console.log("No such document!");
       }
@@ -65,38 +94,49 @@ export default function Review() {
     }
   };
   const handleSave = async () => {
-    await updateDoc(doc(db, "comments", currentUser._id), {
-      reviewerID: currentUser._id,
-      avatar:
-        currentUser.avatar == null ? images.avt_default : currentUser.avatar,
-      fullname: currentUser.fullname,
-      text: content,
-      stars: rating,
-      date: Timestamp.now(),
+    let docs = allReview;
+    docs.map((item) => {
+      if (currentUser._id === item.reviewerID) {
+        item.text = !content ? currentReview : content;
+        item.stars = rating;
+        item.date = Timestamp.now();
+      }
     });
-    toast.success("Review successful");
+    try {
+      await setDoc(doc(db, "reviews", pageID), {
+        comments: docs,
+      });
 
-    window.location.reload();
+      toast.success("Review successful");
+      // window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
   };
   const handleCancel = () => {
+    console.log("au", auth.user);
     return;
   };
   const handleSend = async () => {
-    if (auth.user.avatar == null) {
-      console.log("av null");
-    } else {
-      console.log("ok");
+    // console.log(allReview);
+    if (content === "" || rating == null) {
+      window.alert("You have not commented or not rated yet");
+      return;
     }
     console.log(auth.user.avatar);
     try {
-      await setDoc(doc(db, "comments", currentUser._id), {
-        reviewerID: currentUser._id,
-        avatar:
-          currentUser.avatar == null ? images.avt_default : currentUser.avatar,
-        fullname: currentUser.fullname,
-        text: content,
-        stars: rating,
-        date: Timestamp.now(),
+      await updateDoc(doc(db, "reviews", pageID), {
+        comments: arrayUnion({
+          reviewerID: currentUser._id,
+          avatar:
+            currentUser.avatar == null
+              ? images.avt_default
+              : currentUser.avatar,
+          fullname: currentUser.fullname,
+          text: content,
+          stars: rating,
+          date: Timestamp.now(),
+        }),
       });
 
       toast.success("Review successful");
@@ -104,18 +144,6 @@ export default function Review() {
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const getAllReview = async () => {
-    setLoading(true);
-
-    const query = await getDocs(collection(db, "comments"));
-    const docs = [];
-    query.forEach((item) => {
-      docs.push({ reviewerID: item.reviewerID, ...item.data() });
-    });
-    setAllReview(docs);
-    setLoading(false);
   };
 
   return (
@@ -216,7 +244,7 @@ export default function Review() {
                       })}
                     </div>
                     <div className={cx("time-review")}>
-                      {formatTimestamp(doc.date.seconds)}
+                      {/* {formatTimestamp(doc.date.seconds)} */}
                     </div>
                   </div>
                   <div

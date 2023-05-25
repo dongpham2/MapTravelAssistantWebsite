@@ -17,6 +17,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Message from "./Message";
 import TextEditor from "src/component/EditorText/EditorText";
 import { useDispatch, useSelector } from "react-redux";
+import images from "src/assets/images";
 
 const cx = classNames.bind(styles);
 export default function Chat() {
@@ -37,7 +38,7 @@ export default function Chat() {
     fullname: auth.user.fullname,
   };
   useEffect(() => {
-    console.log(content);
+    // console.log(content);s
     const unsub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
       doc.exists() && setMessages(doc.data().messages);
     });
@@ -47,12 +48,13 @@ export default function Chat() {
   }, [data.chatId]);
 
   const handleSend = async () => {
-    console.log(content);
-    if (content === "") return;
+    // console.log(content);
+
     if (img) {
       // console.log("a1", content);
       const storageRef = ref(storage, uuid());
       const uploadTask = uploadBytesResumable(storageRef, img);
+      // console.log("task", uploadTask);
       uploadTask.on(
         (error) => {},
         () => {
@@ -70,6 +72,7 @@ export default function Chat() {
         }
       );
     } else {
+      if (content === "" && img == null) return;
       // console.log("b1", content);
       await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
@@ -79,7 +82,6 @@ export default function Chat() {
           date: Timestamp.now(),
         }),
       });
-      // console.log("b2", content);
     }
 
     // await updateDoc(doc(db, "userchats", currentUser.uid), {
@@ -105,7 +107,12 @@ export default function Chat() {
         {/* Chat Infor */}
         <div className={cx("user-infor")}>
           <div className={cx("user")}>
-            <img src={data.user?.avatar} alt="" />
+            <img
+              src={
+                data.user.avatar == null ? images.avt_default : data.user?.data
+              }
+              alt=""
+            />
             <span>{data.user?.fullname}</span>
           </div>
           <div className={cx("chat-icons")}>
