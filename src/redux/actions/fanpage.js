@@ -10,7 +10,7 @@ export const actionCreateFangpage = (data) => {
     if (res.status === 201) {
       dispatch({
         type: ACTION_CREATE_FANGPAGE,
-        payload: data,
+        payload: [data],
       });
       toast.success("Create succesfull!");
     } else {
@@ -19,20 +19,25 @@ export const actionCreateFangpage = (data) => {
   };
 };
 
-export const actionGetAllFangpage = ({ callBack }) => {
+export const actionGetAllFangpage = () => {
   return async (dispatch) => {
     try {
       const res = await fanpageService.getAllFanpage();
       if (res.status === 200) {
-        // dispatch({
-        //   type: ACTION_GET_ALL_FANGPAGE,
-        // });
-        callBack(res.data);
-        // toast.success("Get All success!");
-        return res.data;
+        const newArray = res.data.data.map((_elt) => {
+          return {
+            ..._elt,
+            lat: _elt?.location?.lat,
+            lon: _elt?.location?.lon,
+          };
+        });
+        dispatch({
+          type: ACTION_GET_ALL_FANGPAGE,
+          payload: newArray,
+        });
       }
     } catch (error) {
-      // toast.error("Fail to get");
+      toast.error("Fail to get");
     }
   };
 };

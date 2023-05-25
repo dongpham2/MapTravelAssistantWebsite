@@ -12,7 +12,6 @@ const cx = classNames.bind(styles);
 
 export default function RegisterForm() {
   const status = useSelector((state) => state);
-  console.log(status);
   const dispatch = useDispatch();
   const formikRef = useRef(null);
   // const messageRef = useRef(null);

@@ -147,11 +147,11 @@ export default function Profile() {
             }}
           />
         </CRow>
-        <CRow className={cx("justify-content-center mb-5")}>
+        <CRow className={cx("btn")}>
           <CCol xs={"auto"}>
-            <button className={cx("form--btn-update")} onClick={handleUpdate}>
+            <Button primary onClick={handleUpdate}>
               Update
-            </button>
+            </Button>
           </CCol>
         </CRow>
       </div>

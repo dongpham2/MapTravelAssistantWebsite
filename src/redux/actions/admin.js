@@ -22,7 +22,6 @@ export const actionDeleteUsers = (id) => {
     const users = getState()["listUsers"];
     const { data, status } = await adminService.deleteUsers(id);
     if (status === 200) {
-      console.log("users", users);
       const newData = users.filter((user) => user._id !== id);
       dispatch({
         type: ACTION_GETALLUSERS,

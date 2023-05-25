@@ -63,6 +63,7 @@ export default function CreateFanpage() {
   const id = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")).userID
     : "";
+
   const [selectPosition, setSelectPosition] = useState(null);
   const [file, setFile] = useState({
     pre: "",
@@ -106,6 +107,7 @@ export default function CreateFanpage() {
     dispatch(
       actionCreateFangpage({
         userID: id,
+        img: file?.pre,
         name,
         description,
         phone,
@@ -132,7 +134,7 @@ export default function CreateFanpage() {
         getDownloadURL(imageRef)
           .then((file) => {
             setFile({ pre: file, data: "" });
-            toast.success("upload successfully!");
+            // toast.success("upload successfully!");
           })
           .catch((error) => {
             console.log(error.message, "error getting url");

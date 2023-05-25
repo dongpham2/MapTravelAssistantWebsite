@@ -16,11 +16,9 @@ const cx = classNames.bind(styles);
 
 export default function PostForm({ setModalPostOpen, label, data }) {
   const fanpage = useSelector((state) => state.fanpage);
-  console.log(fanpage);
   const id = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")).userID
     : "";
-  console.log(id);
   const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
   const [content, setContent] = useState("");
@@ -36,7 +34,6 @@ export default function PostForm({ setModalPostOpen, label, data }) {
       .then(() => {
         getDownloadURL(imageRef)
           .then((file) => {
-            console.log(file);
             setFile({ preview: file, data: "" });
             toast.success("upload successfully!");
           })
@@ -90,7 +87,7 @@ export default function PostForm({ setModalPostOpen, label, data }) {
               <img src={images.avt_default} className={cx("img")} />
             )}
 
-            <div className={cx("name")}>{fanpage.fullName}</div>
+            <div className={cx("name")}>{fanpage.name}</div>
           </div>
         </div>
         {/* content */}

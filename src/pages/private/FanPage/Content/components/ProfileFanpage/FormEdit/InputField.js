@@ -20,7 +20,6 @@ export default function InputField({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputValue);
   };
   return (
     <div className={cx("wrapper")}>

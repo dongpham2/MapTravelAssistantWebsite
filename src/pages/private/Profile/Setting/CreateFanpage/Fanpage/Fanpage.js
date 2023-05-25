@@ -51,7 +51,11 @@ const typeStore = [
 const cx = classNames.bind(styles);
 
 export default function Fanage() {
+  const auth = useSelector((state) => state.auth);
+  console.log(auth);
   const fanpage = useSelector((state) => state.fanpage);
+
+  console.log(fanpage);
   const [file, setFile] = useState({
     preview: "",
     data: "",
