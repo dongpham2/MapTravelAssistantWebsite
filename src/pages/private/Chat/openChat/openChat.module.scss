@@ -1,12 +1,12 @@
 .wrapper {
-  display: flex;
+  // display: flex;
   // margin-left: 10px;
   position: fixed;
   bottom: 0px;
   margin-bottom: 0px;
   right: 5px;
-  font-size: 35px;
   .icon {
+    font-size: 35px;
     cursor: pointer;
   }
 }
