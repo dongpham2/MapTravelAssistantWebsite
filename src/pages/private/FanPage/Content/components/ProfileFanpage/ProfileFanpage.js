@@ -27,13 +27,13 @@ export default function ProfileFanpage() {
   const isCreator = auth.user.page?._id === parameters.id ? true : false;
   // console.log("isCreator", isCreator);
   useEffect(() => {
-    setLoading(true);
     const getFanpage = async () => {
+      setLoading(true);
       const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
       setFanpage(res.data.data);
+      setLoading(false);
     };
     getFanpage();
-    setLoading(false);
   }, []);
   return (
     <div className={cx("wrapper")}>

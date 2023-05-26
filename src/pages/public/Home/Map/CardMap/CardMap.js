@@ -24,7 +24,7 @@ export default function CardMap(props) {
       </div>
       <div className={cx("star")}>
         {[...Array(5)].map((stars, index) => {
-          return <FaStar size={15} color="#ffc107" />;
+          return <FaStar size={16} color="#ffc107" />;
         })}
       </div>
     </div>
