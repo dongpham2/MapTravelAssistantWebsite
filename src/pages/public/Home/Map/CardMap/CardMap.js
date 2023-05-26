@@ -8,18 +8,19 @@ import { useSelector } from "react-redux";
 const cx = classNames.bind(styles);
 export default function CardMap(props) {
   const { position, data } = props;
+  console.log("data", data);
   return (
     <div className={cx("wrapper")}>
       <h3 className={cx("title")}>{data.name}</h3>
       <div className={cx("photo")}>
-        {data ? (
+        {!data.img ? (
           <img
             src={images.profile_banner}
             alt="avatar"
             className={cx("img-banner")}
           />
         ) : (
-          <img src={data} alt="avatar" className={cx("img-banner")} />
+          <img src={data.img} alt="avatar" className={cx("img-banner")} />
         )}
       </div>
       <div className={cx("star")}>

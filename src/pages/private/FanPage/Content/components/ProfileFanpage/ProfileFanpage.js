@@ -15,12 +15,12 @@ import Loading from "src/component/Loading/Loading";
 const cx = classNames.bind(styles);
 
 export default function ProfileFanpage() {
-  const { id } = useParams();
-  const auth = useSelector((state) => state.auth);
   const [fanpage, setFanpage] = useState("");
   const [loading, setLoading] = useState(false);
-  // console.log("check fanpage", fanpage);
+  const { id } = useParams();
+  const auth = useSelector((state) => state.auth);
   const parameters = useParams();
+  // console.log("check fanpage", fanpage);
   // state controller
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);

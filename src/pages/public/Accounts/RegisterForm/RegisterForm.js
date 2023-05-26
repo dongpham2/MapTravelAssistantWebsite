@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import classNames from "classnames/bind";
@@ -7,12 +7,14 @@ import Button from "../../../../component/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { actionSignup } from "src/redux/actions/authen";
 import { toast } from "react-toastify";
+import Loading from "src/component/Loading/Loading";
 
 const cx = classNames.bind(styles);
 
 export default function RegisterForm() {
   const status = useSelector((state) => state);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const formikRef = useRef(null);
   // const messageRef = useRef(null);
   const toastifyOptions = {
@@ -26,107 +28,113 @@ export default function RegisterForm() {
     theme: "light",
   };
   const handleSubmit = () => {
+    setLoading(true);
     const { fullname, email, password } = formikRef.current.values;
     dispatch(actionSignup({ fullname, email, password }));
+    setLoading(false);
   };
   return (
     <div className={cx("wrapper")}>
-      <Formik
-        innerRef={formikRef}
-        initialValues={{
-          fullname: "",
-          email: "",
-          password: "",
-          passwordConfirm: "",
-        }}
-        onSubmit={() => {
-          handleSubmit();
-        }}
-        validationSchema={Yup.object({
-          fullname: Yup.string()
-            .min(2, "Too Short!")
-            .max(50, "Too Long!")
-            .required("This field must have value!"),
-          email: Yup.string()
-            .email("Invalid email")
-            .required("This field must have value!"),
-          password: Yup.string()
-            .min(6, "At least 6 characters!")
-            .required("This field must have value!"),
-          passwordConfirm: Yup.string()
-            .oneOf([Yup.ref("password"), null], "Password did not match!")
-            .required("This field must have value!"),
-        })}
-      >
-        <Form>
-          {/* Name */}
-          <div className={cx("form-group")}>
-            <div className={cx("input-block")}>
-              <Field
-                className={cx("input-text")}
-                name="fullname"
-                type="fullname"
-                placeholder="Fullname"
-              />
+      {!loading ? (
+        <Formik
+          innerRef={formikRef}
+          initialValues={{
+            fullname: "",
+            email: "",
+            password: "",
+            passwordConfirm: "",
+          }}
+          onSubmit={() => {
+            handleSubmit();
+          }}
+          validationSchema={Yup.object({
+            fullname: Yup.string()
+              .min(2, "Too Short!")
+              .max(50, "Too Long!")
+              .required("This field must have value!"),
+            email: Yup.string()
+              .email("Invalid email")
+              .required("This field must have value!"),
+            password: Yup.string()
+              .min(6, "At least 6 characters!")
+              .required("This field must have value!"),
+            passwordConfirm: Yup.string()
+              .oneOf([Yup.ref("password"), null], "Password did not match!")
+              .required("This field must have value!"),
+          })}
+        >
+          <Form>
+            {/* Name */}
+            <div className={cx("form-group")}>
+              <div className={cx("input-block")}>
+                <Field
+                  className={cx("input-text")}
+                  name="fullname"
+                  type="fullname"
+                  placeholder="Fullname"
+                />
+              </div>
+              <div className={cx("error-message")}>
+                <ErrorMessage name="fullname" />
+              </div>
             </div>
-            <div className={cx("error-message")}>
-              <ErrorMessage name="fullname" />
+            {/* Email */}
+            <div className={cx("form-group")}>
+              <div className={cx("input-block")}>
+                <Field
+                  className={cx("input-text")}
+                  name="email"
+                  type="email"
+                  placeholder="Email Address"
+                />
+              </div>
+              <div className={cx("error-message")}>
+                <ErrorMessage name="email" />
+              </div>
             </div>
-          </div>
-          {/* Email */}
-          <div className={cx("form-group")}>
-            <div className={cx("input-block")}>
-              <Field
-                className={cx("input-text")}
-                name="email"
-                type="email"
-                placeholder="Email Address"
-              />
+            {/* password */}
+            <div className={cx("form-group")}>
+              <div className={cx("input-block")}>
+                <Field
+                  className={cx("input-text")}
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                />
+              </div>
+              <div className={cx("error-message")}>
+                <ErrorMessage name="password" />
+              </div>
             </div>
-            <div className={cx("error-message")}>
-              <ErrorMessage name="email" />
+            {/* Confirm password */}
+            <div className={cx("form-group")}>
+              <div className={cx("input-block")}>
+                <Field
+                  className={cx("input-text")}
+                  name="passwordConfirm"
+                  type="password"
+                  placeholder="Retype password"
+                />
+              </div>
+              <div className={cx("error-message")}>
+                <ErrorMessage name="passwordConfirm" />
+              </div>
             </div>
-          </div>
-          {/* password */}
-          <div className={cx("form-group")}>
-            <div className={cx("input-block")}>
-              <Field
-                className={cx("input-text")}
-                name="password"
-                type="password"
-                placeholder="Password"
-              />
-            </div>
-            <div className={cx("error-message")}>
-              <ErrorMessage name="password" />
-            </div>
-          </div>
-          {/* Confirm password */}
-          <div className={cx("form-group")}>
-            <div className={cx("input-block")}>
-              <Field
-                className={cx("input-text")}
-                name="passwordConfirm"
-                type="password"
-                placeholder="Retype password"
-              />
-            </div>
-            <div className={cx("error-message")}>
-              <ErrorMessage name="passwordConfirm" />
-            </div>
-          </div>
-          <Button
-            primary
-            className={cx("button-form")}
-            onSubmit={() => {
-              handleSubmit();
-            }}
-            type="submit"
-          >
-            Sign Up
-          </Button>
-        </Form>
-      </Formik>
+            <Button
+              primary
+              className={cx("button-form")}
+              onSubmit={() => {
+                handleSubmit();
+              }}
+              type="submit"
+            >
+              Sign Up
+            </Button>
+          </Form>
+        </Formik>
+      ) : (
+        <Loading />
+      )}
     </div>
   );
 }

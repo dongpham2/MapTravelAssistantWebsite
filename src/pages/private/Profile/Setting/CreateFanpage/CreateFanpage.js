@@ -21,6 +21,7 @@ import { v4 } from "uuid";
 import { toast } from "react-toastify";
 import FormUpload from "../../FormUpload/FormUpload";
 import { storage } from "src/service/Firebase/firebase";
+import Loading from "src/component/Loading/Loading";
 const cx = classNames.bind(styles);
 const pricesValue = [
   {
@@ -85,7 +86,9 @@ export default function CreateFanpage() {
   const fanpage = localStorage.getItem("isFanpage");
   const dispatch = useDispatch();
   const handleCreatePage = async () => {
+    setLoading(true);
     handleSubmitImages();
+    setLoading(false);
     // const { name, phone, website, priceStart, priceEnd } =
     //   formikRef.current.values;
     // console.log({
@@ -157,6 +160,7 @@ export default function CreateFanpage() {
                 address: searchText,
               })
             );
+            setLoading(false);
             // toast.success("upload successfully!");
           })
           .catch((error) => {
@@ -179,228 +183,238 @@ export default function CreateFanpage() {
   };
 
   return (
-    <div className={cx("wrapper")}>
-      <h3 className={cx("heading")}>Your Fanpage</h3>
-      {fanpage === "false" ? (
-        <Formik
-          innerRef={formikRef}
-          initialValues={{
-            name: "",
-            phone: "",
-            website: "",
-            priceStart: "",
-            priceEnd: "",
-          }}
-          onSubmit={handleCreatePage}
-          validationSchema={Yup.object({
-            name: Yup.string()
-              .min(2, "Too Short!")
-              .max(50, "Too Long!")
-              .required("This field must have value"),
-            phone: Yup.number()
-              .typeError("That doesn't look like a phone number")
-              .positive("A phone number can't start with a minus")
-              .integer("A phone number can't include a decimal point")
-              .min(9)
-              .required("Please enter your phone number"),
-            website: Yup.string().matches(
-              /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-              "Enter correct url!"
-            ),
-            // .required("Please enter website"),
-            priceStart: Yup.number()
-              .required("Enter Prices")
-              .max(1000000000, "To big")
-              .min(0, "Not negative prices"),
-            priceEnd: Yup.number()
-              .required("Enter Prices")
-              .max(1000000000, "To big")
-              .min(0, "Not negative prices"),
-          })}
-        >
-          <Form
-            autocomplete="off"
-            onKeyDown={(e) => {
-              e.key === "Enter" && e.preventDefault();
-            }}
-          >
-            <div className={cx("form-group")}>
-              <div className={cx("input-block")}>
-                <div className={cx("input-desc")}>(*) Upload your banner</div>
-                <FormUploadBanner setFile={handleSetFile} file={file} />
-              </div>
-            </div>
-            <div className={cx("form-group")}>
-              <div className={cx("input-block")}>
-                <div className={cx("input-desc")}>(*) Upload your avatar</div>
-                <FormUpload />
-              </div>
-            </div>
-            <div className={cx("form-group")}>
-              <div className={cx("input-block")}>
-                <div className={cx("input-desc")}>
-                  (*) Your Page is where people go to learn more about you. Make
-                  sure yours has all the information they may need.
-                </div>
-                <Field
-                  className={cx("input-text")}
-                  name="name"
-                  type="name"
-                  placeholder="Page name"
-                />
-                <div className={cx("error-message")}>
-                  <ErrorMessage name="name" />
-                </div>
-              </div>
-            </div>
-            <div className={cx("form-group")}>
-              <div className={cx("input-block")}>
-                <div className={cx("input-desc")}>
-                  (*) Use the name of your business, brand or organization, or a
-                  name that helps explain your Page.
-                </div>
-                <div className={cx("text-desc")}>
-                  <TextEditor
-                    setContentBlog={setDescription}
-                    sHidderTools={true}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className={cx("form-create")}>
-              <div className={cx("form-group")}>
-                <div className={cx("input-block")}>
-                  <Field
-                    className={cx("input-text")}
-                    name="phone"
-                    type="phone"
-                    placeholder="Phone"
-                  />
-                  <div className={cx("error-message")}>
-                    <ErrorMessage name="phone" />
+    <>
+      {!loading ? (
+        <div className={cx("wrapper")}>
+          <h3 className={cx("heading")}>Your Fanpage</h3>
+          {fanpage === "false" ? (
+            <Formik
+              innerRef={formikRef}
+              initialValues={{
+                name: "",
+                phone: "",
+                website: "",
+                priceStart: "",
+                priceEnd: "",
+              }}
+              onSubmit={handleCreatePage}
+              validationSchema={Yup.object({
+                name: Yup.string()
+                  .min(2, "Too Short!")
+                  .max(50, "Too Long!")
+                  .required("This field must have value"),
+                phone: Yup.number()
+                  .typeError("That doesn't look like a phone number")
+                  .positive("A phone number can't start with a minus")
+                  .integer("A phone number can't include a decimal point")
+                  .min(9)
+                  .required("Please enter your phone number"),
+                website: Yup.string().matches(
+                  /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+                  "Enter correct url!"
+                ),
+                // .required("Please enter website"),
+                priceStart: Yup.number()
+                  .required("Enter Prices")
+                  .max(1000000000, "To big")
+                  .min(0, "Not negative prices"),
+                priceEnd: Yup.number()
+                  .required("Enter Prices")
+                  .max(1000000000, "To big")
+                  .min(0, "Not negative prices"),
+              })}
+            >
+              <Form
+                autocomplete="off"
+                onKeyDown={(e) => {
+                  e.key === "Enter" && e.preventDefault();
+                }}
+              >
+                <div className={cx("form-group")}>
+                  <div className={cx("input-block")}>
+                    <div className={cx("input-desc")}>
+                      (*) Upload your banner
+                    </div>
+                    <FormUploadBanner setFile={handleSetFile} file={file} />
                   </div>
                 </div>
-              </div>
-              <div className={cx("form-group")}>
-                <div className={cx("input-block")}>
-                  <Field
-                    className={cx("input-text")}
-                    name="website"
-                    type="website"
-                    placeholder="Your website"
-                  />
-                  <div className={cx("error-message")}>
-                    <ErrorMessage name="website" />
+                <div className={cx("form-group")}>
+                  <div className={cx("input-block")}>
+                    <div className={cx("input-desc")}>
+                      (*) Upload your avatar
+                    </div>
+                    <FormUpload />
                   </div>
                 </div>
-              </div>
-            </div>
+                <div className={cx("form-group")}>
+                  <div className={cx("input-block")}>
+                    <div className={cx("input-desc")}>
+                      (*) Your Page is where people go to learn more about you.
+                      Make sure yours has all the information they may need.
+                    </div>
+                    <Field
+                      className={cx("input-text")}
+                      name="name"
+                      type="name"
+                      placeholder="Page name"
+                    />
+                    <div className={cx("error-message")}>
+                      <ErrorMessage name="name" />
+                    </div>
+                  </div>
+                </div>
+                <div className={cx("form-group")}>
+                  <div className={cx("input-block")}>
+                    <div className={cx("input-desc")}>
+                      (*) Use the name of your business, brand or organization,
+                      or a name that helps explain your Page.
+                    </div>
+                    <div className={cx("text-desc")}>
+                      <TextEditor
+                        setContentBlog={setDescription}
+                        sHidderTools={true}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className={cx("form-create")}>
+                  <div className={cx("form-group")}>
+                    <div className={cx("input-block")}>
+                      <Field
+                        className={cx("input-text")}
+                        name="phone"
+                        type="phone"
+                        placeholder="Phone"
+                      />
+                      <div className={cx("error-message")}>
+                        <ErrorMessage name="phone" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className={cx("form-group")}>
+                    <div className={cx("input-block")}>
+                      <Field
+                        className={cx("input-text")}
+                        name="website"
+                        type="website"
+                        placeholder="Your website"
+                      />
+                      <div className={cx("error-message")}>
+                        <ErrorMessage name="website" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-            <div className={cx("form-create")}>
-              <div className={cx("services")}>
-                <div className={cx("services-desc")}>Time Open</div>
-                <div className={cx("services-time")}>
-                  <div className={cx("time")}>
-                    Open
-                    <input
-                      type="time"
-                      value={open}
-                      className={cx("input-time")}
-                      onChange={(e) => setOpen(e.target.value)}
-                    />
-                  </div>
-                  <span className={cx("time")}>-</span>
-                  <div className={cx("time")}>
-                    Close
-                    <input
-                      type="time"
-                      value={close}
-                      className={cx("input-time")}
-                      onChange={(e) => setClose(e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div classNam e={cx("services")}>
-                <div className={cx("services-desc")}>Type</div>
-                <div className={cx("type-option")}>
-                  <DropDown
-                    onChangeSelect={(value, name) =>
-                      handleChangeSelect(value, name, "type")
-                    }
-                    title="Type"
-                    data={typeStore}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className={cx("services")}>
-              <div className={cx("services-desc")}>Services Price</div>
-              <Row>
-                <Col>
-                  <div className={cx("services-price")}>
-                    <div className={cx("services-field")}>
-                      <Field
-                        className={cx("input-prices")}
-                        name="priceStart"
-                        type="priceStart"
-                        placeholder="Prices"
-                      />
-                      <div className={cx("error-message")}>
-                        <ErrorMessage name="priceStart" />
+                <div className={cx("form-create")}>
+                  <div className={cx("services")}>
+                    <div className={cx("services-desc")}>Time Open</div>
+                    <div className={cx("services-time")}>
+                      <div className={cx("time")}>
+                        Open
+                        <input
+                          type="time"
+                          value={open}
+                          className={cx("input-time")}
+                          onChange={(e) => setOpen(e.target.value)}
+                        />
+                      </div>
+                      <span className={cx("time")}>-</span>
+                      <div className={cx("time")}>
+                        Close
+                        <input
+                          type="time"
+                          value={close}
+                          className={cx("input-time")}
+                          onChange={(e) => setClose(e.target.value)}
+                        />
                       </div>
                     </div>
-                    <span className={cx("price-dot")}>-</span>
-                    <div className={cx("services-field")}>
-                      <Field
-                        className={cx("input-prices")}
-                        name="priceEnd"
-                        type="priceEnd"
-                        placeholder="Prices"
-                      />
-                      <div className={cx("error-message")}>
-                        <ErrorMessage name="priceEnd" />
-                      </div>
-                    </div>
-                    <DropDown
-                      onChangeSelect={(value, name) =>
-                        handleChangeSelect(value, name, "denomina")
-                      }
-                      title="Denomina"
-                      data={pricesValue}
-                      className={cx("prices-option")}
-                    />
                   </div>
-                </Col>
-              </Row>
-            </div>
-            {/* <div className={cx("location")}>
+                  <div classNam e={cx("services")}>
+                    <div className={cx("services-desc")}>Type</div>
+                    <div className={cx("type-option")}>
+                      <DropDown
+                        onChangeSelect={(value, name) =>
+                          handleChangeSelect(value, name, "type")
+                        }
+                        title="Type"
+                        data={typeStore}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className={cx("services")}>
+                  <div className={cx("services-desc")}>Services Price</div>
+                  <Row>
+                    <Col>
+                      <div className={cx("services-price")}>
+                        <div className={cx("services-field")}>
+                          <Field
+                            className={cx("input-prices")}
+                            name="priceStart"
+                            type="priceStart"
+                            placeholder="Prices"
+                          />
+                          <div className={cx("error-message")}>
+                            <ErrorMessage name="priceStart" />
+                          </div>
+                        </div>
+                        <span className={cx("price-dot")}>-</span>
+                        <div className={cx("services-field")}>
+                          <Field
+                            className={cx("input-prices")}
+                            name="priceEnd"
+                            type="priceEnd"
+                            placeholder="Prices"
+                          />
+                          <div className={cx("error-message")}>
+                            <ErrorMessage name="priceEnd" />
+                          </div>
+                        </div>
+                        <DropDown
+                          onChangeSelect={(value, name) =>
+                            handleChangeSelect(value, name, "denomina")
+                          }
+                          title="Denomina"
+                          data={pricesValue}
+                          className={cx("prices-option")}
+                        />
+                      </div>
+                    </Col>
+                  </Row>
+                </div>
+                {/* <div className={cx("location")}>
               <div className={cx("address")}>Pin Your Location</div>
               <Map />
             </div> */}
-            <div>
-              <div>
-                <SearchBox
-                  searchText={searchText}
-                  setSearchText={setSearchText}
-                  selectPosition={selectPosition}
-                  setSelectPosition={setSelectPosition}
-                />
-              </div>
-              <div style={{ height: "500px", overflow: "hidden" }}>
-                <Map selectPosition={selectPosition} isPosition={false} />
-              </div>
-            </div>
-            <div className={cx("btn")}>
-              <Button primary type="submit">
-                Create
-              </Button>
-            </div>
-          </Form>
-        </Formik>
+                <div>
+                  <div>
+                    <SearchBox
+                      searchText={searchText}
+                      setSearchText={setSearchText}
+                      selectPosition={selectPosition}
+                      setSelectPosition={setSelectPosition}
+                    />
+                  </div>
+                  <div style={{ height: "500px", overflow: "hidden" }}>
+                    <Map selectPosition={selectPosition} isPosition={false} />
+                  </div>
+                </div>
+                <div className={cx("btn")}>
+                  <Button primary type="submit">
+                    Create
+                  </Button>
+                </div>
+              </Form>
+            </Formik>
+          ) : (
+            <Fanage />
+          )}
+        </div>
       ) : (
-        <Fanage />
+        <Loading />
       )}
-    </div>
+    </>
   );
 }

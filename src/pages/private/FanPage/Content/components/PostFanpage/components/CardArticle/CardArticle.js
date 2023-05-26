@@ -14,9 +14,12 @@ export default function CardArticle() {
   // const fanpage = useSelector((state) => state.fanpage);
   const [fanpage, setFanpage] = useState("");
   const { id } = useParams();
-
+  const auth = useSelector((state) => state.auth);
+  const parameters = useParams();
+  const isCreator = auth.user.page?._id === parameters.id ? true : false;
   const [visibleShareOptions, setVisibleUserOptions] = useState(false);
   const [visibleCardOptions, setVisibleCardOptions] = useState(false);
+
   const handleOpenShareOptions = () => {
     setVisibleUserOptions(!visibleShareOptions);
   };
@@ -45,8 +48,13 @@ export default function CardArticle() {
             <div className={cx("time")}>24/05/2023</div>
           </div>
         </div>
+
         <div className={cx("icon-option")} onClick={handleOpenCardOptions}>
-          <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+          {isCreator ? (
+            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+          ) : (
+            ""
+          )}
         </div>
         {visibleCardOptions ? <CardOptions /> : ""}
       </div>
