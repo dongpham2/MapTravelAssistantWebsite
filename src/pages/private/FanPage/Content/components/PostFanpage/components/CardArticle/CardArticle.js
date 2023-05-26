@@ -10,7 +10,7 @@ import { API_CREATEFANPAGE } from "src/config/apis";
 import { useParams } from "react-router";
 
 const cx = classNames.bind(styles);
-export default function CardArticle() {
+export default function CardArticle(data) {
   // const fanpage = useSelector((state) => state.fanpage);
   const [fanpage, setFanpage] = useState("");
   const { id } = useParams();
@@ -60,10 +60,11 @@ export default function CardArticle() {
       </div>
       <div className={cx("content")}>
         <span>
-          In my opinion, the restaurant’s service that satisfies me the most is
+          {/* In my opinion, the restaurant’s service that satisfies me the most is
           the service of Hutong. Hutong is a hotpot restaurant which belongs to
           the Golden Spoon Group. It has several branches, I’ve tried some of
-          them and the staffs are all good.
+          them and the staffs are all good. */}
+          {data.data.title}
         </span>
         {/* <span
           dangerouslySetInnerHTML={{
@@ -72,7 +73,7 @@ export default function CardArticle() {
         ></span> */}
       </div>
       <div className={cx("photos")}>
-        <img src={images.banner_default} alt="" className={cx("image")} />
+        <img src={data.data.img} alt="" className={cx("image")} />
       </div>
 
       <div className={cx("reaction")}>
