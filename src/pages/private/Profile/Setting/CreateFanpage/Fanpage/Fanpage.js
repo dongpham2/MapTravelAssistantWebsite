@@ -4,12 +4,13 @@ import classNames from "classnames/bind";
 import InputField from "src/pages/private/FanPage/Content/components/ProfileFanpage/FormEdit/InputField";
 import DropDown from "src/component/Input/DropDown/DropDown";
 import Input from "src/component/Input/Input";
-import { Col, Row } from "react-bootstrap";
+import { Col, Modal, Row } from "react-bootstrap";
 import TextEditor from "src/component/EditorText/EditorText";
 import Button from "src/component/Button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FormUploadBanner from "../../../FormUploadBanner/FormUploadBanner";
 import FormUpload from "../../../FormUpload/FormUpload";
+import { actionDeleteOwner } from "src/redux/actions/fanpage";
 
 const pricesValue = [
   {
@@ -52,6 +53,7 @@ const cx = classNames.bind(styles);
 
 export default function Fanage() {
   const auth = useSelector((state) => state.auth);
+  const userID = auth?.user?.userID;
   // const fanpage = useSelector((state) => state.fanpage);
   const fanpage = auth.user.page;
   console.log(fanpage.description);
@@ -65,7 +67,8 @@ export default function Fanage() {
   const [selectForm, setSelectForm] = useState({
     denomina: "",
   });
-
+  const [showModalDelete, setShowModalDelete] = useState(false);
+  const dispatch = useDispatch();
   const handleChangeSelect = (value, name, nameSelect) => {
     setSelectForm((prev) => {
       return { ...prev, [nameSelect]: name };
@@ -73,6 +76,19 @@ export default function Fanage() {
   };
   const handleSetFile = (file) => {
     setFile(file);
+  };
+  const handleDelete = () => {
+    dispatch(
+      actionDeleteOwner({
+        id: fanpage._id,
+        data: {
+          userID,
+        },
+        callBack(data) {
+          setShowModalDelete(false);
+        },
+      })
+    );
   };
   return (
     <div className={cx("wrapper")}>
@@ -193,9 +209,45 @@ export default function Fanage() {
         </div>
       </div>
       <div className={cx("btn-change")}>
-        <Button deleted>Delete</Button>
+        <Button deleted onClick={() => setShowModalDelete(true)}>
+          Delete
+        </Button>
         <Button primary>Save</Button>
       </div>
+      <Modal
+        className={cx("modal")}
+        show={showModalDelete}
+        onHide={() => {
+          setShowModalDelete(false);
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Continue to deleted?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            rounded
+            small
+            cancel
+            onClick={() => {
+              setShowModalDelete(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            primary
+            small
+            rounded
+            onClick={() => {
+              handleDelete();
+              // setShowModalDelete(false);
+            }}
+          >
+            Delete
+          </Button>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

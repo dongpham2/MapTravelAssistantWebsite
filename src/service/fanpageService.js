@@ -14,4 +14,7 @@ export const fanpageService = {
   editFanpage(id, data) {
     return httpClient.patch(`${API_CREATEFANPAGE}/${id}`, data);
   },
+  deleteFanpage(id, data) {
+    return httpClient.post(`${API_CREATEFANPAGE}/delete/${id}`, data);
+  },
 };

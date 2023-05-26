@@ -68,3 +68,17 @@ export const actionEditFangpage = ({ id, data, callBack }) => {
     }
   };
 };
+
+export const actionDeleteOwner = ({ id, data, callBack }) => {
+  return async (dispatch) => {
+    try {
+      const res = await fanpageService.deleteFanpage(id, data);
+      if (res.status === 202) {
+        callBack(res.data);
+        toast.success("Delete Success");
+      }
+    } catch (error) {
+      toast.error("Delete Fail");
+    }
+  };
+};
