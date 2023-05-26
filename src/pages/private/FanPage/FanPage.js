@@ -19,9 +19,9 @@ export default function FanPage() {
 
       <ChatContextProvider>
         <Content />
-        {/* <ChatIcon /> */}
+        <ChatIcon />
 
-        <ChatList />
+        {/* <ChatList /> */}
       </ChatContextProvider>
     </div>
   );
