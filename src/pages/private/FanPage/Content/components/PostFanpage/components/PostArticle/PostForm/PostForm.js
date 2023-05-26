@@ -24,6 +24,9 @@ export default function PostForm({ setModalPostOpen, label, data }) {
   //   ? JSON.parse(localStorage.getItem("user")).userID
   //   : "";
   const { id } = useParams();
+  const idUser = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")).userID
+    : "";
   const inputRef = useRef(null);
   const [visibleControls, setVisibleControls] = useState(false);
   const [content, setContent] = useState("");
@@ -41,7 +44,14 @@ export default function PostForm({ setModalPostOpen, label, data }) {
         getDownloadURL(imageRef)
           .then((file) => {
             setFile({ preview: file, data: "" });
-            toast.success("upload successfully!");
+            // toast.success("upload successfully!");
+            dispatch(
+              actionCreatePost({
+                userID: idUser,
+                title: content,
+                img: file,
+              })
+            );
           })
           .catch((error) => {
             console.log(error.message, "error getting url");
@@ -58,13 +68,6 @@ export default function PostForm({ setModalPostOpen, label, data }) {
 
   const handlePostArticle = () => {
     handleSubmitImages();
-    dispatch(
-      actionCreatePost({
-        userID: id,
-        title: content,
-        img: file.preview,
-      })
-    );
   };
   const handleSetFile = (file) => {
     setFile(file);
@@ -73,6 +76,7 @@ export default function PostForm({ setModalPostOpen, label, data }) {
     const getFanpage = async () => {
       const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
       setFanpage(res.data.data);
+      console.log(res.data.data);
     };
     getFanpage();
   }, []);
