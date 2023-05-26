@@ -28,11 +28,6 @@ export default function RegisterForm() {
   const handleSubmit = () => {
     const { fullname, email, password } = formikRef.current.values;
     dispatch(actionSignup({ fullname, email, password }));
-    if (status) {
-      toast.success("Signup successfully");
-    } else {
-      toast.error("Signup failed");
-    }
   };
   return (
     <div className={cx("wrapper")}>
