@@ -151,7 +151,7 @@ function History() {
                   <th>Address</th>
                   <th>Lat</th>
                   <th>Lon</th>
-                  <th>Status</th>
+                  {/* <th>Status</th> */}
                   <th>Action</th>
                 </tr>
               </thead>
@@ -178,13 +178,13 @@ function History() {
                             value={page.location.lon ? page.location.lon : "-"}
                           />
                         </td>
-                        {page.isPublic ? (
+                        {/* {page.isPublic ? (
                           <td style={{ color: "green" }}>
                             <ion-icon name="checkmark-outline"></ion-icon>
                           </td>
                         ) : (
                           <td style={{ color: "red" }}>x</td>
-                        )}
+                        )} */}
 
                         <td>
                           <span
@@ -285,7 +285,7 @@ function History() {
               value={name}
             />
           </CRow>
-          <CRow className={cx("form mb-3")}>
+          {/* <CRow className={cx("form mb-3")}>
             <CFormSwitch
               label="Public"
               value={isPublic}
@@ -293,7 +293,7 @@ function History() {
                 handleOnChange("isPublic", event.target.checked)
               }
             />
-          </CRow>
+          </CRow> */}
           <CRow className={cx("form mb-3")}>
             <label className={cx("form--label")}>Latitude</label>
             <CInput

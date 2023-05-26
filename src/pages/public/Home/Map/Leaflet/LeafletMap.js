@@ -124,12 +124,9 @@ export default function Maps(props) {
               key={index}
             >
               <Popup autoPan={true}>
-                <Row xs={12} key={index}>
-                  <CardMap
-                    position={locationSelection}
-                    data={fanpages[index]}
-                  />
-                </Row>
+                {/* <Row key={index}> */}
+                <CardMap position={locationSelection} data={fanpages[index]} />
+                {/* </Row> */}
               </Popup>
             </Marker>
             // </div>

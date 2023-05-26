@@ -32,7 +32,7 @@ export const actionSignup = (user) => {
         type: __ACTION_SIGNUP,
         payload: data,
       });
-      toast.success("login successful");
+      toast.success("Signup successful");
     } else {
       toast.error("Login failed");
     }
@@ -58,7 +58,7 @@ export const actionResetPass = ({ data }) => {
   return async (dispatch) => {
     const res = await AuthService.resetPassword(data);
     if (res.status === 200) {
-      toast.success("Reset password success!");
+      toast.success("Reset password successful!");
     } else {
       toast.error("Fail to reset password");
     }

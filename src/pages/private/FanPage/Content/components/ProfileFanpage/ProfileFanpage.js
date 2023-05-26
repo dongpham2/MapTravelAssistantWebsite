@@ -15,25 +15,25 @@ import Loading from "src/component/Loading/Loading";
 const cx = classNames.bind(styles);
 
 export default function ProfileFanpage() {
-  const { id } = useParams();
-  const auth = useSelector((state) => state.auth);
   const [fanpage, setFanpage] = useState("");
   const [loading, setLoading] = useState(false);
-  // console.log("check fanpage", fanpage);
+  const { id } = useParams();
+  const auth = useSelector((state) => state.auth);
   const parameters = useParams();
+  // console.log("check fanpage", fanpage);
   // state controller
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const isCreator = auth.user.page?._id === parameters.id ? true : false;
   // console.log("isCreator", isCreator);
   useEffect(() => {
-    setLoading(true);
     const getFanpage = async () => {
+      setLoading(true);
       const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
       setFanpage(res.data.data);
+      setLoading(false);
     };
     getFanpage();
-    setLoading(false);
   }, []);
   return (
     <div className={cx("wrapper")}>

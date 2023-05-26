@@ -31,7 +31,7 @@ const sidebarMenu = [
   },
 
   {
-    title: "History",
+    title: "Manane Fanpage",
     to: config.routes.history,
     role: ["admin"],
     icon: <ion-icon name="hourglass-outline"></ion-icon>,
