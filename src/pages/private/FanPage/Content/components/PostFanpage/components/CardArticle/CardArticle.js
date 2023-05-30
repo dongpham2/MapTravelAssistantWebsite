@@ -38,14 +38,14 @@ export default function CardArticle(data) {
     <div className={cx("wrapper")}>
       <div className={cx("heading")}>
         <div className={cx("header-infor")}>
-          {fanpage.avatar ? (
-            <img src={fanpage.avatar} className={cx("img")} alt="" />
+          {fanpage.img ? (
+            <img src={fanpage.img} className={cx("img")} alt="" />
           ) : (
             <img src={images.avt_default} className={cx("img")} alt="" />
           )}
           <div className={cx("name")}>
             {fanpage.name}
-            <div className={cx("time")}>24/05/2023</div>
+            {/* <div className={cx("time")}>24/05/2023</div> */}
           </div>
         </div>
 
@@ -59,12 +59,15 @@ export default function CardArticle(data) {
         {visibleCardOptions ? <CardOptions /> : ""}
       </div>
       <div className={cx("content")}>
-        <span>
+        <span
+          dangerouslySetInnerHTML={{
+            __html: data.data.title,
+          }}
+        >
           {/* In my opinion, the restaurant’s service that satisfies me the most is
           the service of Hutong. Hutong is a hotpot restaurant which belongs to
           the Golden Spoon Group. It has several branches, I’ve tried some of
           them and the staffs are all good. */}
-          {data.data.title}
         </span>
         {/* <span
           dangerouslySetInnerHTML={{

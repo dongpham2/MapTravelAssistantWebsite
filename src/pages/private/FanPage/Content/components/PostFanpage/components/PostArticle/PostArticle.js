@@ -28,8 +28,8 @@ export default function PostArticle() {
   return (
     <div className={cx("wrapper")}>
       <div className={cx("avatar")}>
-        {fanpage.avatar ? (
-          <img src={fanpage?.avatar} className={cx("img")} alt="" />
+        {fanpage.img ? (
+          <img src={fanpage.img} className={cx("img")} alt="" />
         ) : (
           <img src={images.avt_default} className={cx("img")} alt="" />
         )}

@@ -17,9 +17,9 @@ import admin from "src/pages/private/Admin";
 import SidebarLayout from "src/layout/SidebarLayout";
 import UsersManage from "src/pages/private/Admin/UsersManage";
 import Notice from "src/pages/private/Admin/Notice/Notice";
-import History from "src/pages/private/Admin/History/History";
 import Statitical from "src/pages/private/Admin/Statitical/Statitical";
 import SettingAdmin from "src/pages/private/Admin/SettingAdmin/SettingAdmin";
+import Locations from "src/pages/private/Admin/Locations/Locations";
 
 export const publicRoutes = [
   { path: config.routes.home, component: Home },
@@ -65,8 +65,8 @@ export const adminRouter = [
     layout: SidebarLayout,
   },
   {
-    path: config.routes.history,
-    component: History,
+    path: config.routes.location,
+    component: Locations,
     layout: SidebarLayout,
   },
   {

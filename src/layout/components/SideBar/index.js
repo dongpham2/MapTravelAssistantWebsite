@@ -18,6 +18,12 @@ const sidebarMenu = [
     icon: <ion-icon name="people-sharp"></ion-icon>,
   },
   {
+    title: "Manane Locations",
+    to: config.routes.location,
+    role: ["admin"],
+    icon: <ion-icon name="pricetag-outline"></ion-icon>,
+  },
+  {
     title: "Statitis",
     to: config.routes.statitic,
     role: ["admin"],
@@ -30,12 +36,6 @@ const sidebarMenu = [
     icon: <ion-icon name="notifications-outline"></ion-icon>,
   },
 
-  {
-    title: "Manane Fanpage",
-    to: config.routes.history,
-    role: ["admin"],
-    icon: <ion-icon name="hourglass-outline"></ion-icon>,
-  },
   {
     title: "Setting",
     to: config.routes.settingAdmin,

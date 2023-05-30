@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import styles from "./History.module.scss";
+import styles from "./Locations.module.scss";
 import { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { Modal, Table } from "react-bootstrap";
@@ -31,7 +31,7 @@ import { Link } from "react-router-dom";
 import Loading from "src/component/Loading/Loading";
 const cx = classNames.bind(styles);
 
-function History() {
+function Locations() {
   const fanpages = useSelector((state) => state.fanpage);
   // const [listPages, setListPages] = useState([]);
   const dispatch = useDispatch();
@@ -269,7 +269,7 @@ function History() {
               marginLeft: "180px",
             }}
           >
-            Edit Page
+            Edit Location
           </CModalTitle>
         </CModalHeader>
         <CModalBody>
@@ -325,4 +325,4 @@ function History() {
   );
 }
 
-export default History;
+export default Locations;

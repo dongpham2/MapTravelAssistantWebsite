@@ -75,8 +75,8 @@ export default function ProfileBanner() {
         alt="background-profile"
       /> */}
       <div className={cx("user-avatar")}>
-        {user.avatar ? (
-          <img className={cx("avatar-img")} src={fanpage?.avatar} alt="" />
+        {fanpage.img ? (
+          <img className={cx("avatar-img")} src={fanpage.img} alt="" />
         ) : (
           <img src={images.avt_default} className={cx("avatar-img")} alt="" />
         )}
