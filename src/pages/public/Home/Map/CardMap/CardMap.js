@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const cx = classNames.bind(styles);
 export default function CardMap(props) {
   const { position, data } = props;
-  console.log("data", data);
+  // console.log("data", data);
   return (
     <div className={cx("wrapper")}>
       <h3 className={cx("title")}>{data.name}</h3>

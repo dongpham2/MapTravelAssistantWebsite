@@ -10,7 +10,7 @@ export default function Map({ setChildClicked }) {
   // const position = [16.054407, 108.202164];
 
   const [selectPosition, setSelectPosition] = useState(null);
-  console.log(setChildClicked);
+  // console.log(setChildClicked);
   return (
     <div>
       {/* <SearchBox

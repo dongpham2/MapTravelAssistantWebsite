@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 const cx = classNames.bind(styles);
 export default function FormUploadAvatar() {
   const [img, setImg] = useState(null);
-  console.log(img);
+  // console.log(img);
   const [url, setUrl] = useState(null);
 
   const handleImageChange = (e) => {

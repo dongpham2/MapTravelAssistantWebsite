@@ -11,7 +11,7 @@ import {
 } from "react-share";
 const cx = classNames.bind(styles);
 export default function ShareOptions() {
-  const shareUrl = "https://www.facebook.com/dong.BDSDaNang";
+  const shareUrl = "https://www.facebook.com/pham.dong.71619";
   return (
     <div className={cx("wrapper")}>
       <div className={cx("form-list")}>

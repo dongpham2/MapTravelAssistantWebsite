@@ -41,7 +41,7 @@ export default function FormUpload({ label, data, file, setFile }) {
       .then(() => {
         getDownloadURL(imageRef)
           .then((file) => {
-            console.log(file);
+            // console.log(file);
             setFile({ preview: file, data: "" });
             toast.success("upload successfully!");
           })

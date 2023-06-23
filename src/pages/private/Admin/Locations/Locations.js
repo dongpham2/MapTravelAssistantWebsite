@@ -69,7 +69,7 @@ function Locations() {
     setLoading(false);
   }, []);
   const handleEdit = () => {
-    console.log(isPublic);
+    // console.log(isPublic);
     dispatch(
       actionEditFangpage({
         id,

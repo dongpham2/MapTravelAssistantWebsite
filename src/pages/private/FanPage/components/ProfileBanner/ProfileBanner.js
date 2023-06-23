@@ -32,7 +32,7 @@ export default function ProfileBanner() {
     getFanpage();
   }, []);
   const getAllReview = async () => {
-    console.log("fff", fanpage._id);
+    // console.log("fff", fanpage._id);
     try {
       const querySnapshot = await getDoc(doc(db, "reviews", id));
 

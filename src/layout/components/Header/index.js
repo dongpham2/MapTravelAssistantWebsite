@@ -44,12 +44,14 @@ export default function Header() {
       type: ACTION_GET_ALL_FANGPAGE,
       payload: result,
     });
-    console.log("result:", result);
+    // console.log("result:", result);
     // setListContent(result);
   };
+
   useEffect(() => {
     setFanpagesAvailable(fanpages);
   }, []);
+
   useEffect(() => {
     const getFanpage = async () => {
       const res = await httpClient.get(`${API_CREATEFANPAGE}/${id}`);
@@ -57,6 +59,7 @@ export default function Header() {
     };
     getFanpage();
   }, []);
+
   return (
     <header className={cx("wrapper")}>
       <div className={cx("left")}>

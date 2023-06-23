@@ -89,11 +89,13 @@ export default function DetailBar({ childClicked, isLoading }) {
     dispatch(actionGetAllFangpage());
     setLoading(false);
   }, []);
+
   useEffect(() => {
     setLoading(true);
     setFanpagesAvailable(fanpages);
     setLoading(false);
   }, []);
+
   return (
     <header className={cx("wrapper")}>
       {!loading ? (
