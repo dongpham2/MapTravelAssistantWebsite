@@ -15,7 +15,7 @@
 //     return config;
 //   });
 // }
-// export default httpClient;
+// export default httpClient
 
 import axios from "axios";
 
